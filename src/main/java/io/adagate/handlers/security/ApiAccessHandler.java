@@ -9,6 +9,7 @@ import io.vertx.ext.web.RoutingContext;
 import static io.adagate.ApiConstants.APIKEY_HEADER;
 import static io.netty.handler.codec.http.HttpResponseStatus.FORBIDDEN;
 import static io.vertx.core.buffer.Buffer.buffer;
+import static java.lang.Boolean.TRUE;
 import static java.util.Objects.isNull;
 
 public final class ApiAccessHandler extends AbstractRouteHandler {
@@ -17,7 +18,7 @@ public final class ApiAccessHandler extends AbstractRouteHandler {
 
     public ApiAccessHandler(Vertx vertx, JsonObject config) {
         super(vertx);
-        this.enableApiTokenAccess = config.getBoolean("api.tokenAccess", false);
+        this.enableApiTokenAccess = config.getBoolean("api.tokenAccess", TRUE);
     }
 
     @Override
