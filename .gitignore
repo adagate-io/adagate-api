@@ -1,3 +1,6 @@
 .idea
 target
-src/main/resources/*
+src/main/resources/public/*.html
+src/main/resources/*.json
+src/main/resources/*.yml
+src/main/resources/*.xml
