@@ -68,7 +68,7 @@ public abstract class AbstractDatabaseVerticle extends AbstractVerticle {
                                 .setHost(database.getString("host", "localhost"))
                                 .setPort(database.getInteger("port", 5432))
                                 .setDatabase(database.getString("name", "cexplorer"))
-                                .setUser(database.getString("user", "cardano"))
+                                .setUser(database.getString("user"))
                                 .setPassword(database.getString("pw"))
                                 .setCachePreparedStatements(true)
                                 .setPreparedStatementCacheSqlLimit(1000);
