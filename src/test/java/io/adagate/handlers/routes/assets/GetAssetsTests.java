@@ -59,7 +59,7 @@ public final class GetAssetsTests extends AbstractApiTest {
                 statusMessage(OK.reasonPhrase()),
                 responseHeader(CONTENT_TYPE.toString(), APPLICATION_JSON.toString()),
                 responseHeader(CONTENT_ENCODING.toString(), GZIP),
-                asAbstractDatabaseHandlersertArrayLengthEquals(3),
+                assertArrayLengthEquals(3),
                 expectFirstArrayElement(
                     JsonObjectAsserts.assertFieldEquals("asset", "e8e62d329e73190190c3e323fb5c9fb98ee55f0676332ba949f29d724649525354"),
                     JsonObjectAsserts.assertFieldEquals("quantity", "1")
