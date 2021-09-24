@@ -4,3 +4,4 @@ src/main/resources/public/*.html
 src/main/resources/*.json
 src/main/resources/*.yml
 src/main/resources/*.xml
+src/test/resources/*.json
