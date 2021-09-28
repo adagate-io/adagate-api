@@ -209,7 +209,6 @@ public class GetPoolByIdOrHash extends AbstractPoolsHandler<Object> {
             return;
         }
 
-        LOGGER.info(query());
         SqlTemplate
             .forQuery(client, query())
             .execute(emptyMap())
