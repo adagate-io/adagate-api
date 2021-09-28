@@ -32,7 +32,7 @@ public final class GetAssets extends AbstractDatabaseHandler<Message<Object>> {
             .append("FROM ma_tx_mint mtm ")
             .append("LEFT JOIN tx_metadata txm ")
                 .append("ON txm.tx_id = mtm.tx_id ")
-            .append("ORDER BY id %s ")
+            .append("ORDER BY mtm.id %s ")
             .append("LIMIT #{count} ")
             .append("OFFSET #{page} ")
             .toString();
