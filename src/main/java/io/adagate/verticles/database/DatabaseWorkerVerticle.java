@@ -1,6 +1,9 @@
 package io.adagate.verticles.database;
 
 import io.adagate.handlers.database.accounts.*;
+import io.adagate.handlers.database.addresses.GetAddress;
+import io.adagate.handlers.database.addresses.GetAddressTotal;
+import io.adagate.handlers.database.assets.GetAssetById;
 import io.adagate.handlers.database.assets.GetAssets;
 import io.adagate.handlers.database.blocks.*;
 import io.adagate.handlers.database.epochs.GetEpochById;
@@ -49,6 +52,11 @@ public final class DatabaseWorkerVerticle extends AbstractDatabaseVerticle {
 
         /* Assets */
         evBus.consumer(GetAssets.ADDRESS).handler(new GetAssets(pool));
+        evBus.consumer(GetAssetById.ADDRESS).handler(new GetAssetById(pool));
+
+        /* Addresses */
+        evBus.consumer(GetAddress.ADDRESS).handler(new GetAddress(pool));
+        evBus.consumer(GetAddressTotal.ADDRESS).handler(new GetAddressTotal(pool));
 
         /* Blocks */
         evBus.consumer(GetBlocks.ADDRESS).handler(new GetBlocks(pool));
