@@ -32,6 +32,7 @@ public final class GetAccountTests extends AbstractApiTest {
                 responseHeader(CONTENT_ENCODING.toString(), GZIP),
                 BufferAsserts.assertFieldEquals("stake_address", "stake1u9z8ecgql4mugc9r3qse4k8f0vs90rgcjrh7dpej8tzee7ghtqyxe"),
                 BufferAsserts.assertFieldEquals("active", true),
+                BufferAsserts.assertNonNullField("controlled_stake", String.class),
                 BufferAsserts.assertFieldEquals("active_epoch_no", 247),
                 BufferAsserts.assertFieldEquals("pool_id", "pool1ct59zfxfvtv74k3mmukq5faq7kc48wuxrstyxtd02pxluwf6mkh"),
                 BufferAsserts.assertFieldEquals("withdrawals_sum", "3024862183"),
