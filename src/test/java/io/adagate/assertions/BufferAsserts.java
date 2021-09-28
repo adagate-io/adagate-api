@@ -7,12 +7,15 @@ import io.vertx.ext.web.client.HttpResponse;
 import org.junit.jupiter.api.Assertions;
 
 import java.io.IOException;
+import java.util.Set;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 import static io.adagate.assertions.JsonObjectAsserts.toJsonArray;
 import static io.adagate.assertions.JsonObjectAsserts.toJsonObject;
 import static io.adagate.utils.GZipUtils.decompress;
 import static java.lang.String.format;
+import static java.util.Collections.emptySet;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public final class BufferAsserts {
@@ -237,6 +240,32 @@ public final class BufferAsserts {
     }
 
     /**
+     * Expects a given buffer encoding a {@link JsonObject}, will otherwise fail.
+     * @param jsonObjectFieldName Defines the field name where to given expect {@link JsonObject}.
+     * @param expected Defines the expected {@link JsonObject}.
+     * @return {@link Consumer} for response buffer.
+     */
+    public static Consumer<HttpResponse<Buffer>> assertFieldEquals(String jsonObjectFieldName, JsonObject expected) {
+        return (res) -> {
+            JsonObject actual = new JsonObject();
+            try {
+                actual = toJsonObject(decompress(res.body())).getJsonObject(jsonObjectFieldName);
+                final Set<String> expectedFieldNames = expected.fieldNames();
+                for (String field: expectedFieldNames) {
+                    Assertions.assertEquals(expected.getValue(field), actual.getValue(field), format("Unequal value for field: '%s'", field));
+                }
+
+                final Set<String> unexpectedFields = actual.fieldNames().stream().filter(f -> ! expectedFieldNames.contains(f)).collect(Collectors.toSet());
+                Assertions.assertEquals(emptySet(), unexpectedFields);
+            } catch (IOException e) {
+                fail(e);
+            } catch (NullPointerException e) {
+                fail(format("Could not retrieve '%s' from json object: %s", jsonObjectFieldName, actual.encodePrettily()), e);
+            }
+        };
+    }
+
+    /**
      * Tests for a <code>String</code> field to be of an expected value.
      * @param jsonStringField Defines the json field name.
      * @param expected Defines the expected {@link String} value.
@@ -251,7 +280,7 @@ public final class BufferAsserts {
                         toJsonObject(decompress(res.body())).getString(jsonStringField),
                         format("Mismatching '%s' field", jsonStringField)
                     );
-            } catch (ClassCastException | IOException e) {
+            } catch (ClassCastException | IOException | NullPointerException e) {
                 fail(e);
             }
         };
