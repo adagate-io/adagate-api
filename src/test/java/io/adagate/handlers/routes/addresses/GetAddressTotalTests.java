@@ -19,7 +19,7 @@ import static io.vertx.core.http.HttpHeaders.CONTENT_ENCODING;
 import static io.vertx.core.http.HttpHeaders.CONTENT_TYPE;
 
 @DisplayName("GET /addresses/:address/total")
-public final class GetAddressTotal extends AbstractApiTest {
+public final class GetAddressTotalTests extends AbstractApiTest {
 
     @Test
     @DisplayName("GET /addresses/addr1qxpmzwjcrrljxuahzygk2eyyfcjyykcdvxqgx0h7fxvfl8rmjtjyxjlsgkgdtlrpkpf447k4uttk7fv336002jq5ly5qg5x3jm/total")
@@ -100,10 +100,15 @@ public final class GetAddressTotal extends AbstractApiTest {
                         .add(
                             new JsonObject()
                                     .put("unit", "lovelace")
-                                    .put("quantity", "0")
+                                    .put("quantity", "2000000")
+                        )
+                        .add(
+                                new JsonObject()
+                                        .put("unit", "b77f260676e7bc0f9e3a51f5c0a575d79f2f88a1e84dba8713bcb9ff.50447a38393038")
+                                        .put("quantity", "1")
                         )
                 ),
-                assertFieldEquals("tx_count", 1)
+                assertFieldEquals("tx_count", 2)
             )
             .send(context)
             .onSuccess(response -> context.completeNow())
