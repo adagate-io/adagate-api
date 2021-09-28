@@ -60,8 +60,8 @@ public final class GetAccountAddressesTests extends AbstractApiTest {
                 assertArrayLengthEquals(2),
                 assertEquals(
                     new JsonArray()
-                            .add("addr1qynu5wlse07c78a65s8sgcdxm3r9050yhdwl96ken7q7v96y0nssplthc3s28zppntvwj7eq27x33y80u6rnywk9nnusjgvgyn")
-                            .add("addr1q9jkfsrjh2uf6nxyjg3cwx0emp6cjjs8y8xs8e99zzeuh22y0nssplthc3s28zppntvwj7eq27x33y80u6rnywk9nnusqnkdqv")
+                        .add("addr1qynu5wlse07c78a65s8sgcdxm3r9050yhdwl96ken7q7v96y0nssplthc3s28zppntvwj7eq27x33y80u6rnywk9nnusjgvgyn")
+                        .add("addr1q9jkfsrjh2uf6nxyjg3cwx0emp6cjjs8y8xs8e99zzeuh22y0nssplthc3s28zppntvwj7eq27x33y80u6rnywk9nnusqnkdqv")
                 )
             )
             .send(context)
