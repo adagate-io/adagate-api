@@ -2,6 +2,9 @@ package io.adagate.verticles.webserver;
 
 import io.adagate.handlers.routes.FailureHandler;
 import io.adagate.handlers.routes.accounts.*;
+import io.adagate.handlers.routes.addresses.GetAddress;
+import io.adagate.handlers.routes.addresses.GetAddressTotal;
+import io.adagate.handlers.routes.assets.GetAssetById;
 import io.adagate.handlers.routes.assets.GetAssets;
 import io.adagate.handlers.routes.blocks.*;
 import io.adagate.handlers.routes.epochs.GetEpochById;
@@ -62,15 +65,15 @@ public final class ApiRouter extends RouterImpl {
 //        get("/accounts/:stakeAddress/addresses/assets").handler();
 
         /* Addresses */
-//        get("/addresses/:address").handler();
-//        get("/addresses/:address/total").handler();
+        get("/addresses/:address").handler(new GetAddress(vertx));
+        get("/addresses/:address/total").handler(new GetAddressTotal(vertx));
 //        get("/addresses/:address/utxos").handler();
 //        get("/addresses/:address/transactions").handler();
 
         /* Assets */
         get("/assets").handler(new GetAssets(vertx));
-//        get("/assets/:assetId").handler();
-//        get("/assets/:assetId/history")+.handler();
+        get("/assets/:assetId").handler(new GetAssetById(vertx));
+//        get("/assets/:assetId/history").handler();
 //        get("/assets/:assetId/transactions").handler();
 //        get("/assets/:assetId/addresses").handler();
 //        get("/assets/policy/:policyId").handler();
