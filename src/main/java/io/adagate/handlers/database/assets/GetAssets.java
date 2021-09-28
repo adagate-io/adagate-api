@@ -23,12 +23,15 @@ import static java.lang.String.format;
 
 public final class GetAssets extends AbstractDatabaseHandler<Message<Object>> {
 
-    public static final String ADDRESS = "io.adagate.assets.get";
+    public static final String ADDRESS = "io.adagate.assets.list";
     public static final String QUERY = new StringBuilder()
             .append("SELECT ")
-                .append("CONCAT(encode(\"policy\", 'hex'), encode(\"name\", 'hex')) AS asset, ")
-                .append("quantity::text ")
-            .append("FROM ma_tx_mint ")
+                .append("CONCAT(encode(\"policy\", 'hex'), '.', encode(\"name\", 'hex')) AS asset, ")
+                .append("quantity::text, ")
+                .append("txm.json AS metadata ")
+            .append("FROM ma_tx_mint mtm ")
+            .append("LEFT JOIN tx_metadata txm ")
+                .append("ON txm.tx_id = mtm.tx_id ")
             .append("ORDER BY id %s ")
             .append("LIMIT #{count} ")
             .append("OFFSET #{page} ")
