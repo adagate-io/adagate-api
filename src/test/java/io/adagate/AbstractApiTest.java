@@ -56,6 +56,7 @@ public abstract class AbstractApiTest extends AbstractVerticleTest {
      * Logs a given {@link Buffer}
      * @return
      */
+
     protected final Consumer<HttpResponse<Buffer>> logResult() {
         return (res) -> {
             try {
