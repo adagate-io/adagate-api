@@ -4,6 +4,7 @@ import io.adagate.handlers.routes.FailureHandler;
 import io.adagate.handlers.routes.accounts.*;
 import io.adagate.handlers.routes.addresses.GetAddress;
 import io.adagate.handlers.routes.addresses.GetAddressTotal;
+import io.adagate.handlers.routes.addresses.GetAddressTransactions;
 import io.adagate.handlers.routes.addresses.GetAddressUTXOs;
 import io.adagate.handlers.routes.assets.GetAssetById;
 import io.adagate.handlers.routes.assets.GetAssets;
@@ -69,7 +70,7 @@ public final class ApiRouter extends RouterImpl {
         get("/addresses/:address").handler(new GetAddress(vertx));
         get("/addresses/:address/total").handler(new GetAddressTotal(vertx));
         get("/addresses/:address/utxos").handler(new GetAddressUTXOs(vertx));
-//        get("/addresses/:address/transactions").handler();
+        get("/addresses/:address/transactions").handler(new GetAddressTransactions(vertx));
 
         /* Assets */
         get("/assets").handler(new GetAssets(vertx));
