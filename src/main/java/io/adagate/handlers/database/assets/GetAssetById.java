@@ -30,9 +30,9 @@ public final class GetAssetById extends AbstractDatabaseHandler<Message<Object>>
                 .append("mtm.quantity::text, ")
                 .append("encode(tx.hash, 'hex') AS initial_mint_tx_hash, ")
                 .append("txm.json AS onchain_metadata ")
-                // TODO: Add asset fingerprint
+                // TODO: Add asset fingerprint - see https://cips.cardano.org/cips/cip14/#specification
                 // TODO: Add mint_or_burn_count metadata
-                // TODO: Add offchain metadata
+                // TODO: Add offchain metadata: see https://github.com/cardano-foundation/cardano-token-registry
             .append("FROM ma_tx_mint mtm ")
             .append("JOIN ma_tx_out mto ")
                 .append("ON mto.\"policy\" = mtm.\"policy\" AND mto.\"name\" = mtm.\"name\" ")

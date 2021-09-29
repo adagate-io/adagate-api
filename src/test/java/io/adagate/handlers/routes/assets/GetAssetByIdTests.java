@@ -1,7 +1,6 @@
 package io.adagate.handlers.routes.assets;
 
 import io.adagate.AbstractApiTest;
-import io.adagate.assertions.BufferAsserts;
 import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.core.json.JsonArray;
@@ -11,7 +10,8 @@ import io.vertx.junit5.VertxTestContext;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static io.adagate.assertions.BufferAsserts.*;
+import static io.adagate.assertions.BufferAsserts.assertFieldEquals;
+import static io.adagate.assertions.BufferAsserts.assertNullField;
 import static io.adagate.handlers.routes.AbstractRouteHandler.APPLICATION_JSON;
 import static io.adagate.handlers.routes.AbstractRouteHandler.GZIP;
 import static io.adagate.handlers.routes.assets.AssetTestConstants.DEFAULT_ASSET_ID;
@@ -79,4 +79,13 @@ public final class GetAssetByIdTests extends AbstractApiTest {
             .onSuccess(response -> context.completeNow())
             .onFailure(context::failNow);
     }
+
+//    @Test
+//    @DisplayName("GET /assets/00000002df633853f6a47465c9496721d2d5b1291b8398016c0e87ae6e7574636f696e")
+//    void testGetAssetByIdWithOffchainMetadata(Vertx vertx, VertxTestContext context, WebClient client) {
+        // TODO: Check if token registry can fetch data for example asset:
+        // "asset": "00000002df633853f6a47465c9496721d2d5b1291b8398016c0e87ae6e7574636f696e",
+        // "policy_id": "00000002df633853f6a47465c9496721d2d5b1291b8398016c0e87ae",
+        // "asset_name": 6e7574636f696e
+//    }
 }
