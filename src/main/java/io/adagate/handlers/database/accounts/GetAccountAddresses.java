@@ -1,6 +1,5 @@
 package io.adagate.handlers.database.accounts;
 
-import io.adagate.handlers.database.AbstractDatabaseHandler;
 import io.vertx.core.eventbus.Message;
 import io.vertx.core.json.JsonObject;
 import io.vertx.pgclient.PgPool;
@@ -8,13 +7,11 @@ import io.vertx.sqlclient.templates.SqlTemplate;
 
 import java.util.HashMap;
 
-import static io.adagate.ApiConstants.*;
 import static io.adagate.exceptions.CardanoApiModuleException.BAD_REQUEST_400_ERROR;
 import static io.adagate.utils.ExceptionHandler.handleError;
-import static java.lang.Math.max;
 import static java.lang.String.format;
 
-public final class GetAccountAddresses extends AbstractDatabaseHandler<Message<Object>> {
+public final class GetAccountAddresses extends AbstractAccountHandler {
 
     public static final String ADDRESS = "io.adagate.accounts.addresses.get";
 
@@ -29,11 +26,6 @@ public final class GetAccountAddresses extends AbstractDatabaseHandler<Message<O
             .append("LIMIT #{count} ")
             .append("OFFSET #{page} ")
             .toString();
-
-    private int count = MAX_QUERY_LIMIT;
-    private int page = DEFAULT_QUERY_OFFSET;
-    private String order = DEFAULT_QUERY_ORDER;
-    private String stakeAddress;
 
     public GetAccountAddresses(PgPool client) {
         super(client);
@@ -51,19 +43,13 @@ public final class GetAccountAddresses extends AbstractDatabaseHandler<Message<O
             return;
         }
 
-        final JsonObject parameters = (JsonObject) message.body();
-        stakeAddress = parameters.getString("id");
-        page = max(0, parameters.getInteger("page", page));
-        count = parameters.getInteger("count", count);
-        if (count <= 0) { count = MAX_QUERY_LIMIT; }
-        order = parameters.getString("order").toUpperCase();
-
+        super.handle(message);
         SqlTemplate
             .forQuery(client, query())
             .execute(new HashMap<String, Object>() {{
                 put("stakeAddress", stakeAddress);
                 put("count", count);
-                put("page", max(0, page - 1) * count);
+                put("page", page);
                 put("order", order);
             }})
             .compose(rs -> mapToJsonArray(rs, row -> row.toJson().getString("address")))

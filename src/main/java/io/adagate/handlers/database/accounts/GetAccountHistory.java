@@ -1,6 +1,5 @@
 package io.adagate.handlers.database.accounts;
 
-import io.adagate.handlers.database.AbstractDatabaseHandler;
 import io.vertx.core.eventbus.Message;
 import io.vertx.core.json.JsonObject;
 import io.vertx.pgclient.PgPool;
@@ -8,13 +7,12 @@ import io.vertx.sqlclient.templates.SqlTemplate;
 
 import java.util.HashMap;
 
-import static io.adagate.ApiConstants.*;
 import static io.adagate.exceptions.CardanoApiModuleException.BAD_REQUEST_400_ERROR;
 import static io.adagate.utils.ExceptionHandler.handleError;
 import static java.lang.Math.max;
 import static java.lang.String.format;
 
-public final class GetAccountHistory extends AbstractDatabaseHandler<Message<Object>> {
+public final class GetAccountHistory extends AbstractAccountHandler {
 
     public static final String ADDRESS = "io.adagate.accounts.history.get";
     public static final String QUERY = new StringBuilder()
@@ -35,11 +33,6 @@ public final class GetAccountHistory extends AbstractDatabaseHandler<Message<Obj
             .append("OFFSET #{page} ")
             .toString();
 
-    private int count = MAX_QUERY_LIMIT;
-    private int page = DEFAULT_QUERY_OFFSET;
-    private String order = DEFAULT_QUERY_ORDER;
-    private String stakeAddress;
-
     public GetAccountHistory(PgPool client) { super(client); }
 
     @Override
@@ -54,17 +47,12 @@ public final class GetAccountHistory extends AbstractDatabaseHandler<Message<Obj
             return;
         }
 
-        final JsonObject parameters = (JsonObject) message.body();
-        stakeAddress = parameters.getString("stakeAddress");
-        page = max(0, parameters.getInteger("page", page));
-        count = parameters.getInteger("count", count);
-        order = parameters.getString("order").toUpperCase();
-
+        super.handle(message);
         SqlTemplate
             .forQuery(client, query())
             .execute(new HashMap<String, Object>() {{
                 put("stakeAddress", stakeAddress);
-                put("page", max(0, page - 1) * count);
+                put("page", page);
                 put("count", count);
             }})
             .compose(this::mapToJsonArray)

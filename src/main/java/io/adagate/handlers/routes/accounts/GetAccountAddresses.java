@@ -16,14 +16,13 @@ public final class GetAccountAddresses extends AbstractAccountHandler {
     public void handle(RoutingContext context) {
         super.handle(context);
 
-        // if no error occurred for initializing parameters continue
         if ( ! context.response().ended()) {
             vertx
                 .eventBus()
                 .request(
                     ADDRESS,
                     new JsonObject()
-                        .put("id", stakeAddress)
+                        .put("stakeAddress", stakeAddress)
                         .put("order", order)
                         .put("page", page)
                         .put("count", count)

@@ -19,13 +19,13 @@ public final class GetAccountRewards extends AbstractAccountHandler {
         if ( ! context.response().ended()) {
             vertx
                 .eventBus()
-                    .request(
-                       ADDRESS,
-                        new JsonObject()
-                            .put("stakeAddress", stakeAddress)
-                            .put("order", order)
-                            .put("page", page)
-                            .put("count", count)
+                .request(
+                    ADDRESS,
+                    new JsonObject()
+                        .put("stakeAddress", stakeAddress)
+                        .put("order", order)
+                        .put("page", page)
+                        .put("count", count)
                 )
                 .onSuccess(msg -> addResponseHeaders(OK, context)
                                     .end(buffer(compress(encode(msg.body()), context))))

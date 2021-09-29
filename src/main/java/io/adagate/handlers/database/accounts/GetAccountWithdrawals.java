@@ -9,7 +9,6 @@ import java.util.HashMap;
 
 import static io.adagate.exceptions.CardanoApiModuleException.BAD_REQUEST_400_ERROR;
 import static io.adagate.utils.ExceptionHandler.handleError;
-import static java.lang.Math.max;
 import static java.lang.String.format;
 
 public final class GetAccountWithdrawals extends AbstractAccountHandler {
@@ -45,12 +44,11 @@ public final class GetAccountWithdrawals extends AbstractAccountHandler {
         }
 
         super.handle(message);
-
         SqlTemplate
             .forQuery(client, query())
             .execute(new HashMap<String, Object>() {{
                 put("stakeAddress", stakeAddress);
-                put("page", max(0, page - 1) * count);
+                put("page", page);
                 put("count", count);
             }})
             .compose(this::mapToJsonArray)

@@ -50,7 +50,7 @@ public final class GetAccountRewards extends AbstractAccountHandler {
             .forQuery(client, query())
             .execute(new HashMap<String, Object>() {{
                 put("stakeAddress", stakeAddress);
-                put("page", max(0, page - 1) * count);
+                put("page", page);
                 put("count", count);
             }})
             .compose(this::mapToJsonArray)

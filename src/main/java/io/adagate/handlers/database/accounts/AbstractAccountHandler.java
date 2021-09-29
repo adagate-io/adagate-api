@@ -26,8 +26,9 @@ abstract class AbstractAccountHandler extends AbstractDatabaseHandler<Message<Ob
     public void handle(Message<Object> message) {
         final JsonObject parameters = (JsonObject) message.body();
         stakeAddress = parameters.getString("stakeAddress");
-        page = max(0, parameters.getInteger("page", page));
         count = parameters.getInteger("count", count);
+        page = max(0, parameters.getInteger("page", page) - 1) * count;
+        if (count <= 0) { count = MAX_QUERY_LIMIT; }
         order = parameters.getString("order").toUpperCase();
     }
 }
