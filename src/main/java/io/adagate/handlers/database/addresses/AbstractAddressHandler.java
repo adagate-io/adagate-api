@@ -24,8 +24,8 @@ abstract class AbstractAddressHandler extends AbstractDatabaseHandler<Message<Ob
     public void handle(Message<Object> message) {
         final JsonObject parameters = (JsonObject) message.body();
         address = parameters.getString("address");
-        page = max(0, parameters.getInteger("page", page) - 1) * count;
         count = parameters.getInteger("count", count);
+        page = max(0, parameters.getInteger("page", page) - 1) * count;
         if (count <= 0) { count = MAX_QUERY_LIMIT; }
         order = parameters.getString("order").toUpperCase();
     }
