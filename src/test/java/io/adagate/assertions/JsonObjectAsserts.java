@@ -4,6 +4,7 @@ import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import org.junit.jupiter.api.Assertions;
 
+import java.io.IOException;
 import java.util.function.Consumer;
 
 import static io.vertx.core.buffer.Buffer.buffer;
@@ -67,6 +68,18 @@ public final class JsonObjectAsserts {
             } catch (ClassCastException e) {
                 fail(e);
             }
+        };
+    }
+
+    /**
+     * Expects a given buffer encoding a {@link JsonArray}, will otherwise fail.
+     * @param arrayFieldName Defines the field name where to given expect {@link JsonArray}.
+     * @param expected Defines the expected {@link JsonArray}.
+     * @return {@link Consumer} for response buffer.
+     */
+    public static Consumer<JsonObject> assertFieldEquals(String arrayFieldName, JsonArray expected) {
+        return (res) -> {
+            Assertions.assertEquals(expected.encodePrettily(), res.getJsonArray(arrayFieldName).encodePrettily());
         };
     }
 
