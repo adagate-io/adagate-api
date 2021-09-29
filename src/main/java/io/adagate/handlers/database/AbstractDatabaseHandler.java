@@ -58,6 +58,11 @@ public abstract class AbstractDatabaseHandler<T> implements Handler<T> {
         return succeededFuture(result);
     }
 
+    protected final Future<JsonArray> logResult(JsonArray result) {
+        LOGGER.info(format("Fetched: %s", result.encodePrettily()));
+        return succeededFuture(result);
+    }
+
     protected final Future<Object> mapToJsonArray(RowSet<Row> rs, Function<Row, Object> mapper) {
         final List<Object> rows = new ArrayList<>();
         for (Row row: rs) {
@@ -66,15 +71,11 @@ public abstract class AbstractDatabaseHandler<T> implements Handler<T> {
         return succeededFuture(new JsonArray(rows));
     }
 
-    protected final Future<Object> mapToJsonArray(RowSet<Row> rs) {
+    protected final Future<JsonArray> mapToJsonArray(RowSet<Row> rs) {
         final List<Object> rows = new ArrayList<>();
         for (Row row: rs) {
             rows.add(row.toJson());
         }
         return succeededFuture(new JsonArray(rows));
-    }
-
-    protected final Future<JsonArray> logResult(JsonArray result) {
-        return succeededFuture(result);
     }
 }
