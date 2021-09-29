@@ -1,7 +1,6 @@
 package io.adagate.functions.database.triggers;
 
 import io.vertx.core.Future;
-import io.vertx.core.Promise;
 import io.vertx.pgclient.PgPool;
 import io.vertx.sqlclient.SqlConnection;
 
@@ -19,14 +18,9 @@ public final class BlockInsertedTrigger extends AbstractTrigger {
 
     @Override
     public Future<Void> apply(SqlConnection connection) {
-        Promise<Void> promise = Promise.promise();
-        createFunction()
-            .compose(this::dropTrigger)
-            .compose(this::createTrigger)
-            .onSuccess(promise::complete)
-            .onFailure(promise::fail)
-            .onComplete(r -> pool.close());
-        return promise.future();
+        return createFunction()
+                .compose(this::dropTrigger)
+                .compose(this::createTrigger);
     }
 
     /* Private */
