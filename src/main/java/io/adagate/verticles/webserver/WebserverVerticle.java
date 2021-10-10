@@ -42,7 +42,7 @@ public class WebserverVerticle extends AbstractVerticle {
             .requestHandler(new ApiRouter(vertx, config())::handle)
             .listen()
             .onSuccess(server -> {
-                LOGGER.debug(format("Server listening on: http://localhost:%d", server.actualPort()));
+                LOGGER.info(format("Server listening on: http://localhost:%d", server.actualPort()));
                 startHttpServer.complete();
             })
             .onFailure(startHttpServer::fail);
@@ -53,11 +53,11 @@ public class WebserverVerticle extends AbstractVerticle {
         final JsonObject http = config.getJsonObject("http");
         return succeededFuture(
             new HttpServerOptions()
-                    .setHost(http.getString("host", "localhost"))
-                    .setPort(http.getInteger("port", 8080))
-                    .setCompressionSupported(true)
-                    .setLogActivity(true)
-                    // TODO: Add SSL certificate config
+                .setHost(http.getString("host", "localhost"))
+                .setPort(http.getInteger("port", 8080))
+                .setCompressionSupported(true)
+                .setLogActivity(true)
+                // TODO: Add SSL certificate config
         );
     }
 }
