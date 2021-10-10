@@ -12,15 +12,15 @@ import io.vertx.pgclient.PgConnectOptions;
 import io.vertx.pgclient.PgPool;
 import io.vertx.sqlclient.PoolOptions;
 
-import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 import static io.vertx.core.Future.succeededFuture;
+import static java.time.Duration.ofSeconds;
 import static java.util.Objects.isNull;
 
 public abstract class AbstractDatabaseVerticle extends AbstractVerticle {
-    protected final String INSTANCE_ID = UUID.randomUUID().toString();
-    private static final int MAX_POOL_SIZE = 5;
-    private static final int MAX_POOL_QUEUE_SIZE = 500;
+    private static final int MAX_POOL_SIZE = 10;
+    private static final int MAX_POOL_QUEUE_SIZE = 50;
 
     protected PgPool pool;
     protected PgConnectOptions connectionOps;
@@ -59,11 +59,15 @@ public abstract class AbstractDatabaseVerticle extends AbstractVerticle {
 
     /* Protected */
 
+    protected boolean canBecomeIdle() {
+        return true;
+    }
+
     protected final Future<PgConnectOptions> createDatabaseConnectionOptions(JsonObject config) {
         final JsonObject database = config.getJsonObject("database");
         connectionOps = new PgConnectOptions()
-                                .setReconnectAttempts(2)
-                                .setReconnectInterval(1000)
+                                .setReconnectAttempts(Integer.MAX_VALUE)
+                                .setReconnectInterval(ofSeconds(3).toMillis())
                                 .setTracingPolicy(TracingPolicy.ALWAYS)
                                 .setHost(database.getString("host", "localhost"))
                                 .setPort(database.getInteger("port", 5432))
@@ -72,6 +76,12 @@ public abstract class AbstractDatabaseVerticle extends AbstractVerticle {
                                 .setPassword(database.getString("pw"))
                                 .setCachePreparedStatements(true)
                                 .setPreparedStatementCacheSqlLimit(1000);
+
+        if (canBecomeIdle()) {
+            connectionOps
+                .setIdleTimeout(30)
+                .setIdleTimeoutUnit(TimeUnit.SECONDS);
+        }
         return succeededFuture(connectionOps);
     }
 
