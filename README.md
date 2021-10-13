@@ -30,7 +30,7 @@ It will also allow you to define how many worker verticles will be deployed to s
 ```
 
 # Run
-Generally, you can execute the `run.sh` script in the root directory to start application. 
+Generally, you can execute the `run.sh` script in the root directory to start the application. 
 But a system service is the recommended way.
 
 ## Run Locally
