@@ -1,5 +1,6 @@
 package io.adagate.handlers.routes.assets;
 
+import io.adagate.ApiConstants;
 import io.adagate.handlers.routes.AbstractRouteHandler;
 import io.vertx.core.Vertx;
 import io.vertx.ext.web.RoutingContext;
@@ -14,7 +15,12 @@ public final class GetAssetById extends AbstractRouteHandler {
 
     @Override
     public void handle(RoutingContext context) {
-        final String assetId = context.request().getParam("assetId");
+        final String rawAssetId = context.request().getParam("assetId");
+        final String assetId = new StringBuilder()
+                .append(rawAssetId, 0, ApiConstants.DEFAULT_POLICY_LENGTH)
+                .append(".")
+                .append(rawAssetId.substring(ApiConstants.DEFAULT_POLICY_LENGTH))
+                .toString();
 
         vertx
             .eventBus()

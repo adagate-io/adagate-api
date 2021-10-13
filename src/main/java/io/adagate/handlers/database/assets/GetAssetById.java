@@ -1,6 +1,5 @@
 package io.adagate.handlers.database.assets;
 
-import io.adagate.handlers.database.AbstractDatabaseHandler;
 import io.vertx.core.Future;
 import io.vertx.core.eventbus.Message;
 import io.vertx.core.json.JsonObject;
@@ -15,7 +14,7 @@ import static java.lang.String.format;
 import static java.util.Collections.emptyMap;
 import static java.util.Objects.isNull;
 
-public final class GetAssetById extends AbstractDatabaseHandler<Message<Object>> {
+public final class GetAssetById extends AbstractAssetHandler {
 
     public static final String ADDRESS = "io.adagate.assets.get.id";
     public static final String QUERY = new StringBuilder()
@@ -40,9 +39,6 @@ public final class GetAssetById extends AbstractDatabaseHandler<Message<Object>>
                 .append("AND mtm.\"name\" = '%s' ")
             .toString();
 
-    private String policyId;
-    private String assetName;
-
     public GetAssetById(PgPool client) { super(client); }
 
     @Override
@@ -63,15 +59,7 @@ public final class GetAssetById extends AbstractDatabaseHandler<Message<Object>>
             return;
         }
 
-        final String[] idParts = assetId.split("\\.");
-        policyId = idParts[0];
-        if (idParts.length == 2) {
-            assetName = idParts[1];
-        } else {
-            // only policy is requested - no asset
-            assetName = "";
-        }
-
+        initialize(assetId);
         SqlTemplate
             .forQuery(client, query())
             .execute(emptyMap())
