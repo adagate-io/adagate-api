@@ -5,11 +5,7 @@ import io.vertx.core.Future;
 import io.vertx.core.eventbus.Message;
 import io.vertx.core.json.JsonObject;
 import io.vertx.pgclient.PgPool;
-import io.vertx.sqlclient.Row;
-import io.vertx.sqlclient.RowSet;
 import io.vertx.sqlclient.templates.SqlTemplate;
-
-import java.util.Objects;
 
 import static io.adagate.ApiConstants.DEFAULT_POLICY_LENGTH;
 import static io.adagate.exceptions.CardanoApiModuleException.BAD_REQUEST_400_ERROR;
@@ -40,8 +36,7 @@ public final class GetAssetById extends AbstractDatabaseHandler<Message<Object>>
                 .append("ON tx.id = mtm.tx_id ")
             .append("LEFT JOIN tx_metadata txm ")
                 .append("ON tx.id = txm.tx_id ")
-            .append("WHERE ")
-                .append("mtm.\"policy\" = '%s' ")
+            .append("WHERE mtm.\"policy\" = '%s' ")
                 .append("AND mtm.\"name\" = '%s' ")
             .toString();
 
@@ -68,12 +63,14 @@ public final class GetAssetById extends AbstractDatabaseHandler<Message<Object>>
             return;
         }
 
-        policyId = assetId.substring(0, DEFAULT_POLICY_LENGTH);
-        assetName = assetId.substring(DEFAULT_POLICY_LENGTH);
-
-        LOGGER.info("Policy: " + policyId);
-        LOGGER.info("AssetName: " + assetName);
-        LOGGER.info(query());
+        final String[] idParts = assetId.split("\\.");
+        policyId = idParts[0];
+        if (idParts.length == 2) {
+            assetName = idParts[1];
+        } else {
+            // only policy is requested - no asset
+            assetName = "";
+        }
 
         SqlTemplate
             .forQuery(client, query())
@@ -90,6 +87,10 @@ public final class GetAssetById extends AbstractDatabaseHandler<Message<Object>>
         }
 
         final JsonObject nested = object.getJsonObject("onchain_metadata").getJsonObject(policyId);
+        if (isNull(nested)) {
+            return succeededFuture(object);
+        }
+
         final String key = nested.fieldNames().stream().findFirst().get();
         return succeededFuture(
             object.put("onchain_metadata", nested.getJsonObject(key))
