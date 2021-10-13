@@ -3,11 +3,14 @@ package io.adagate;
 import io.adagate.verticles.database.DatabaseSubscriberVerticle;
 import io.adagate.verticles.database.DatabaseWorkerVerticle;
 import io.adagate.verticles.webserver.WebserverVerticle;
-import io.vertx.core.AbstractVerticle;
-import io.vertx.core.DeploymentOptions;
-import io.vertx.core.Promise;
+import io.vertx.core.*;
+import io.vertx.core.impl.logging.Logger;
+import io.vertx.core.impl.logging.LoggerFactory;
+
+import static java.lang.String.format;
 
 public class CardanoApiModule extends AbstractVerticle {
+    final static Logger LOGGER = LoggerFactory.getLogger(CardanoApiModule.class);
 
     @Override
     public void start(Promise<Void> startPromise) {
@@ -15,13 +18,32 @@ public class CardanoApiModule extends AbstractVerticle {
         final DeploymentOptions workerOpts = new DeploymentOptions()
                 .setConfig(config())
                 .setWorker(true)
-                .setInstances(4);
+                .setInstances(2);
 
-        vertx
-            .deployVerticle(DatabaseSubscriberVerticle.class, defaultOps)
-            .compose((vd) -> vertx.deployVerticle(DatabaseWorkerVerticle.class, workerOpts))
-            .compose((vd) -> vertx.deployVerticle(WebserverVerticle.class, defaultOps))
+        deploy(DatabaseWorkerVerticle.class, workerOpts)
+            .compose(r -> deploy(DatabaseSubscriberVerticle.class, defaultOps))
+            .compose(r -> deploy(WebserverVerticle.class, defaultOps))
             .onSuccess(r -> startPromise.complete())
-            .onFailure(startPromise::fail);
+            .onFailure(err -> {
+                LOGGER.error("Failed deployment", err);
+                startPromise.fail(err);
+            })
+            .onComplete(unused -> LOGGER.info("Completed CardanoApiModule deployment"));
+    }
+
+    private Future<Void> deploy(Class<? extends Verticle> verticleType, DeploymentOptions opts) {
+        LOGGER.info("Deploying " + verticleType.getSimpleName());
+        Promise<Void> promise = Promise.promise();
+        vertx
+            .deployVerticle(verticleType, opts)
+            .onSuccess(result -> {
+                LOGGER.info(format("Successfully deployed: %s", verticleType.getSimpleName()));
+                promise.complete();
+            })
+            .onFailure(err -> {
+                LOGGER.error(format("Failed deploying: %s", verticleType.getSimpleName()), err);
+                promise.fail(err);
+            });
+        return promise.future();
     }
 }
