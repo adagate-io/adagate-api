@@ -20,7 +20,7 @@ public final class GetAssetById extends AbstractRouteHandler {
             .eventBus()
             .request(ADDRESS, assetId)
             .onSuccess(msg -> addResponseHeaders(OK, context)
-                    .end(buffer(compress(encode(msg.body()), context))))
+                                .end(buffer(compress(encode(msg.body()), context))))
             .onFailure(err -> handleError(err, context));
     }
 }
