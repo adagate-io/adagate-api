@@ -3,6 +3,7 @@ package io.adagate.handlers.routes.genesis;
 import io.adagate.exceptions.CardanoApiModuleException;
 import io.adagate.handlers.routes.AbstractRouteHandler;
 import io.vertx.core.Vertx;
+import io.vertx.core.file.FileSystemException;
 import io.vertx.ext.web.RoutingContext;
 
 import static io.netty.handler.codec.http.HttpResponseStatus.OK;
@@ -20,22 +21,20 @@ public final class GetGenesis extends AbstractRouteHandler {
 
     @Override
     public void handle(RoutingContext context) {
-        LOGGER.info("Genesis " + network);
         final String genesisFilePath = format("public/genesis-%s.json", network);
 
-        try {
-            vertx.fileSystem().readFile(genesisFilePath, aR -> {
-                if (aR.failed()) {
+        vertx.fileSystem().readFile(genesisFilePath, aR -> {
+            if (aR.failed()) {
+                if (aR.cause() instanceof FileSystemException) {
+                    handleError(CardanoApiModuleException.BAD_REQUEST_400_ERROR, "network should be testnet or mainnet", context);
+                } else {
                     LOGGER.error(aR.cause());
                     handleError(aR.cause(), context);
-                    return;
                 }
-
+            } else {
                 addResponseHeaders(OK, context)
                     .end(buffer(compress(aR.result().toString(), context)));
-            });
-        } catch (IllegalArgumentException iae) {
-            handleError(CardanoApiModuleException.BAD_REQUEST_400_ERROR, "network should be testnet or mainnet", context);
-        }
+            }
+        });
     }
 }
