@@ -39,7 +39,7 @@ public final class GetAccountByStakeAddress extends AbstractDatabaseHandler<Mess
                         .append("sa.id, ")
                         .append("sa.view as stake_address ")
                     .append("FROM stake_address sa ")
-                    .append("WHERE sa.view = 'stake1u9z8ecgql4mugc9r3qse4k8f0vs90rgcjrh7dpej8tzee7ghtqyxe' ")
+                    .append("WHERE sa.view = #{stakeAddress} ")
                 .append("), ")
                 .append("withdrawals AS ( ")
                     .append("SELECT ")
