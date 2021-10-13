@@ -68,7 +68,6 @@ public abstract class AbstractRouteHandler implements Handler<RoutingContext> {
     }
 
     protected final HttpServerResponse addResponseHeaders(HttpResponseStatus status, RoutingContext context) {
-        LOGGER.info(context.request().headers());
         return context
                 .response()
                 .setStatusCode(status.code())
