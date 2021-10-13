@@ -9,7 +9,7 @@ import static io.adagate.utils.ExceptionHandler.handleError;
 import static java.lang.String.format;
 import static java.util.Collections.emptyMap;
 
-public final class GetPoolMetadata extends AbstractPoolsHandler<Object> {
+public final class GetPoolMetadata extends AbstractPoolsHandler {
 
     public static final String ADDRESS = "io.adagate.pools.metadata.get";
     private static final String QUERY = new StringBuilder()
@@ -26,8 +26,10 @@ public final class GetPoolMetadata extends AbstractPoolsHandler<Object> {
             .append("LEFT JOIN pool_offline_data pod ")
                 .append("ON ph.id = pod.pool_id ")
             .append("LEFT JOIN pool_metadata_ref pmr ")
-                .append("ON pod.pool_id = ph.id ")
+                .append("ON pmr.pool_id = ph.id ")
             .append("WHERE ph.%s = '%s' ")
+            .append("ORDER BY pmr.registered_tx_id DESC ")
+            .append("LIMIT 1;")
             .toString();
 
     public GetPoolMetadata(PgPool pool) { super(pool); }
@@ -47,13 +49,7 @@ public final class GetPoolMetadata extends AbstractPoolsHandler<Object> {
             return;
         }
 
-        this.id = (String) message.body();
-        if (id.toLowerCase().startsWith("pool")) {
-            column = POOL_VIEW_COLUMN;
-        } else {
-            column = POOL_HASH_COLUMN;
-        }
-
+        initProperties((String) message.body());
         SqlTemplate
             .forQuery(client, query())
             .execute(emptyMap())

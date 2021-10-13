@@ -9,7 +9,7 @@ import static io.adagate.utils.ExceptionHandler.handleError;
 import static java.lang.String.format;
 import static java.util.Collections.emptyMap;
 
-public class GetPoolByIdOrHash extends AbstractPoolsHandler<Object> {
+public class GetPoolByIdOrHash extends AbstractPoolsHandler {
 
     public static final String ADDRESS = "io.adagate.pools.get";
     private static final String QUERY = new StringBuilder()
@@ -34,7 +34,7 @@ public class GetPoolByIdOrHash extends AbstractPoolsHandler<Object> {
                         .append("es.amount ")
                     .append("FROM epoch_stake es ")
                     .append("JOIN latest_epoch le ")
-                        .append("ON es.epoch_no = le.e_max ")
+                        .append("ON es.epoch_no = le.e_max - 1")
                     .append("JOIN latest_pool_update lpu ")
                         .append("ON es.pool_id = lpu.pool_id ")
                     .append("LEFT JOIN stake_address sa ")
@@ -197,18 +197,13 @@ public class GetPoolByIdOrHash extends AbstractPoolsHandler<Object> {
 
     @Override
     public void handle(Message<Object> message) {
-        if (message.body() instanceof String) {
-            this.id = (String) message.body();
-            if (id.toLowerCase().startsWith("pool")) {
-                column = POOL_VIEW_COLUMN;
-            } else {
-                column = POOL_HASH_COLUMN;
-            }
-        } else {
+        if ( ! (message.body() instanceof String)) {
             message.fail(BAD_REQUEST_400_ERROR.getStatusCode(), BAD_REQUEST_400_ERROR.getStatusMessage());
             return;
         }
 
+        initProperties((String) message.body());
+        LOGGER.info(query());
         SqlTemplate
             .forQuery(client, query())
             .execute(emptyMap())

@@ -23,9 +23,9 @@ import static java.lang.String.format;
 public final class GetPoolMetadataTests extends AbstractApiTest {
 
     @Test
-    @DisplayName("GET /pools/pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy/metadata")
+    @DisplayName("GET /pools/pool1ct59zfxfvtv74k3mmukq5faq7kc48wuxrstyxtd02pxluwf6mkh/metadata")
     void testGetPoolByPoolId(Vertx vertx, VertxTestContext context, WebClient client) {
-        testRequest(client, HttpMethod.GET, format("/pools/%s/metadata", TEST_POOL_ID))
+        testRequest(client, HttpMethod.GET, "/pools/pool1ct59zfxfvtv74k3mmukq5faq7kc48wuxrstyxtd02pxluwf6mkh/metadata")
             .expect(
                 statusCode(200),
                 statusMessage(OK.reasonPhrase()),
@@ -48,7 +48,7 @@ public final class GetPoolMetadataTests extends AbstractApiTest {
     @Test
     @DisplayName("GET /pools/c2e85124c962d9eada3bdf2c0a27a0f5b153bb861c16432daf504dfe/metadata")
     void testGetPoolByPoolHash(Vertx vertx, VertxTestContext context, WebClient client) {
-        testRequest(client, HttpMethod.GET, format("/pools/%s/metadata", TEST_POOL_ID))
+        testRequest(client, HttpMethod.GET, "/pools/c2e85124c962d9eada3bdf2c0a27a0f5b153bb861c16432daf504dfe/metadata")
             .expect(
                 statusCode(200),
                 statusMessage(OK.reasonPhrase()),
