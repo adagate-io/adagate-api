@@ -38,7 +38,7 @@ A simple local port forwarding can be used to create a connection to your remote
 
 `ssh -L 5555:127.0.0.1:5432 <username>@<server_ip>`
 
-Thereby the port `5555` should be macthing the `<db_port>` defined in the configuration.
+Thereby the port `5555` should be matching the `<db_port>` defined in the configuration.
 
 # Endpoints
 The following REST endpoints are available (swagger Api is under development):
