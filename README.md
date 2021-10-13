@@ -23,3 +23,95 @@ You also need to provide a configuration file with the following format in order
   }
 }
 ```
+
+# Endpoints
+The following REST endpoints are available (swagger Api is under development).
+
+## Accounts
+
+GET Account by Stake Address:
+```/accounts/:stakeAddress```
+
+GET Account Rewards:
+```/accounts/:stakeAddress/rewards```
+
+GET Account History:
+```/accounts/:stakeAddress/history```
+
+GET Account Delegations:
+```/accounts/:stakeAddress/delegations```
+
+GET Account Withdrawals:
+```/accounts/:stakeAddress/withdrawals```
+
+GET Account Addresses:
+```/accounts/:stakeAddress/addresses```
+
+## Addresses
+
+GET Address Information:
+```/addresses/:address```
+
+GET Address Total:
+```/addresses/:address/total```
+
+GET Address UTxOs:
+```/addresses/:address/utxos```
+
+GET Address Transactions:
+```/addresses/:address/transactions```
+
+## Assets
+
+GET Asset Information:
+```/assets```
+
+GET Specific Asset by id:
+```/assets/:assetId```
+
+## Blocks
+
+GET latest Block:
+```/blocks/latest```
+
+GET latest Block's Transactions:
+```/blocks/latest/transactions```
+
+GET Block by id:
+```/blocks/:id```
+
+GET Block by Slot Number:
+```/blocks/slot/:slotNumber```
+
+GET Block by Epoch and Epoch Slot Number:
+```/blocks/epoch/:epochNumber/slot/:slotNumber```
+
+GET next Block:
+```/blocks/:id/next```
+
+Get previous Block:
+```/blocks/:id/previous```
+
+Get Block Transactions:
+```/blocks/:id/transactions```
+
+## Epochs
+
+GET latest Epoch:
+```/epochs/latest```
+
+GET Epoch by id:
+```/epochs/:epochNumber```
+
+## Genesis
+
+GET Genesis of network:
+```/genesis```
+
+## Pools
+
+GET Pool by id:
+```/pools/:poolId```
+
+GET Pool Metadata:
+```/pools/:poolId/metadata```
