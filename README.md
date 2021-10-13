@@ -1,12 +1,17 @@
 # ₳dagate-io
 Cardano API for real-time blockchain data either via REST Api or websockets.
 
-# Run
-There is a execution script included named `run.sh` in root directory of the project. You must have access to a postgres database where cardano-db-sync
-is continously updating. Hence, you must adjust the script to point to your server in order to run the API.
+# Setup & Requirements
+You require running [cardano-db-sync](https://github.com/input-output-hk/cardano-db-sync) for the API to be able to retrieve data
+live from the blockchain. If you do not want to set up or maintain your own infrastructure, you will soon be able to use [adagate.io](https://adagate.io) services.
 
-# Config
-You also need to provide a configuration file with the following format in order to define the database connection parameters.
+# Dependencies
+- Maven
+- Java >= 8
+
+# Configuration
+You may provide a configuration file in the following format in order to define the database connection parameters.
+It will also allow you to define how many worker verticles will be deployed to scale the API in regards to your needs. 
 
 ```
 {
@@ -24,8 +29,19 @@ You also need to provide a configuration file with the following format in order
 }
 ```
 
+# Run
+Generally, you can execute the `run.sh` script in the root directory to start application. 
+But a system service is the recommended way.
+
+## Run Locally
+A simple local port forwarding can be used to create a connection to your remote machine hosting the blockchain database.
+
+`ssh -L 5555:127.0.0.1:5432 <username>@<server_ip>`
+
+Thereby the port `5555` should be macthing the `<db_port>` defined in the configuration.
+
 # Endpoints
-The following REST endpoints are available (swagger Api is under development).
+The following REST endpoints are available (swagger Api is under development):
 
 ## Accounts
 
