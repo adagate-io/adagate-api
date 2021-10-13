@@ -6,7 +6,7 @@ import io.vertx.core.impl.logging.Logger;
 import io.vertx.core.impl.logging.LoggerFactory;
 import io.vertx.pgclient.PgPool;
 
-abstract class AbstractPoolsHandler<T> extends AbstractDatabaseHandler<Message<T>> {
+abstract class AbstractPoolsHandler extends AbstractDatabaseHandler<Message<Object>> {
     protected final static Logger LOGGER = LoggerFactory.getLogger(AbstractPoolsHandler.class);
 
     protected static final String POOL_VIEW_COLUMN = "view";
@@ -17,5 +17,14 @@ abstract class AbstractPoolsHandler<T> extends AbstractDatabaseHandler<Message<T
 
     AbstractPoolsHandler(PgPool client) {
         super(client);
+    }
+
+    protected final void initProperties(String id) {
+        this.id = id;
+        if (id.toLowerCase().startsWith("pool")) {
+            column = POOL_VIEW_COLUMN;
+        } else {
+            column = POOL_HASH_COLUMN;
+        }
     }
 }
