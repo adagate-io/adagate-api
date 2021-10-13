@@ -1,0 +1,13 @@
+{
+  "network": "mainnet",
+  "http": {
+    "port": 8080
+  },
+  "database": {
+    "host": "localhost",
+    "port": 5555,
+    "name": "cexplorer",
+    "user": "cardano",
+    "pw": "password"
+  }
+}
