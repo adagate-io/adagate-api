@@ -11,17 +11,27 @@ import io.adagate.handlers.database.blocks.*;
 import io.adagate.handlers.database.epochs.GetEpochById;
 import io.adagate.handlers.database.epochs.GetLatestEpochNumber;
 import io.adagate.handlers.database.pools.GetPoolByIdOrHash;
+import io.adagate.handlers.database.pools.GetPoolMetadata;
+import io.vertx.core.CompositeFuture;
 import io.vertx.core.Future;
+import io.vertx.core.Handler;
 import io.vertx.core.Promise;
 import io.vertx.core.eventbus.EventBus;
+import io.vertx.core.eventbus.Message;
+import io.vertx.core.eventbus.MessageConsumer;
 import io.vertx.core.impl.logging.Logger;
 import io.vertx.core.impl.logging.LoggerFactory;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static io.vertx.core.Future.succeededFuture;
 
 public final class DatabaseWorkerVerticle extends AbstractDatabaseVerticle {
     final static Logger LOGGER = LoggerFactory.getLogger(DatabaseWorkerVerticle.class);
 
+    private List<MessageConsumer<?>> eventBusConsumers = new ArrayList<>();
+    
     @Override
     public void start(Promise<Void> startPromise) {
         try {
@@ -39,46 +49,60 @@ public final class DatabaseWorkerVerticle extends AbstractDatabaseVerticle {
         }
     }
 
+    @Override
+    public void stop(Promise<Void> stopPromise) throws Exception {
+        final List<Future> futures = new ArrayList<>();
+        eventBusConsumers.forEach(c -> futures.add(c.unregister()));
+        CompositeFuture
+            .all(futures)
+            .onSuccess(r -> stopPromise.complete())
+            .onFailure(stopPromise::fail);
+    }
+
     /* Private */
 
     protected Future<Void> configureEventBusConsumers(Void unused) {
         final EventBus evBus = vertx.eventBus();
 
         /* Accounts */
-        evBus.consumer(GetAccountByStakeAddress.ADDRESS).handler(new GetAccountByStakeAddress(pool));
-        evBus.consumer(GetAccountHistory.ADDRESS).handler(new GetAccountHistory(pool));
-        evBus.consumer(GetAccountRewards.ADDRESS).handler(new GetAccountRewards(pool));
-        evBus.consumer(GetAccountAddresses.ADDRESS).handler(new GetAccountAddresses(pool));
-        evBus.consumer(GetAccountDelegations.ADDRESS).handler(new GetAccountDelegations(pool));
-        evBus.consumer(GetAccountWithdrawals.ADDRESS).handler(new GetAccountWithdrawals(pool));
+        register(GetAccountByStakeAddress.ADDRESS, new GetAccountByStakeAddress(pool));
+        register(GetAccountHistory.ADDRESS, new GetAccountHistory(pool));
+        register(GetAccountRewards.ADDRESS, new GetAccountRewards(pool));
+        register(GetAccountAddresses.ADDRESS, new GetAccountAddresses(pool));
+        register(GetAccountDelegations.ADDRESS, new GetAccountDelegations(pool));
+        register(GetAccountWithdrawals.ADDRESS, new GetAccountWithdrawals(pool));
 
         /* Assets */
-        evBus.consumer(GetAssets.ADDRESS).handler(new GetAssets(pool));
-        evBus.consumer(GetAssetById.ADDRESS).handler(new GetAssetById(pool));
+        register(GetAssets.ADDRESS, new GetAssets(pool));
+        register(GetAssetById.ADDRESS, new GetAssetById(pool));
 
         /* Addresses */
-        evBus.consumer(GetAddress.ADDRESS).handler(new GetAddress(pool));
-        evBus.consumer(GetAddressTotal.ADDRESS).handler(new GetAddressTotal(pool));
-        evBus.consumer(GetAddressUTXOs.ADDRESS).handler(new GetAddressUTXOs(pool));
-        evBus.consumer(GetAddressTransactions.ADDRESS).handler(new GetAddressTransactions(pool));
+        register(GetAddress.ADDRESS, new GetAddress(pool));
+        register(GetAddressTotal.ADDRESS, new GetAddressTotal(pool));
+        register(GetAddressUTXOs.ADDRESS, new GetAddressUTXOs(pool));
+        register(GetAddressTransactions.ADDRESS, new GetAddressTransactions(pool));
 
         /* Blocks */
-        evBus.consumer(GetBlocks.ADDRESS).handler(new GetBlocks(pool));
-        evBus.consumer(GetBlockByNumberOrHash.ADDRESS).handler(new GetBlockByNumberOrHash(pool));
-        evBus.consumer(GetBlockBySlotNumber.ADDRESS).handler(new GetBlockBySlotNumber(pool));
-        evBus.consumer(GetBlockByEpochSlotNumber.ADDRESS).handler(new GetBlockByEpochSlotNumber(pool));
-        evBus.consumer(GetLatestBlockNumber.ADDRESS).handler(new GetLatestBlockNumber(pool));
-        evBus.consumer(GetBlockNumberByHash.ADDRESS).handler(new GetBlockNumberByHash(pool));
-        evBus.consumer(GetBlockTransactions.ADDRESS).handler(new GetBlockTransactions(pool));
+        register(GetBlocks.ADDRESS, new GetBlocks(pool));
+        register(GetBlockByNumberOrHash.ADDRESS, new GetBlockByNumberOrHash(pool));
+        register(GetBlockBySlotNumber.ADDRESS, new GetBlockBySlotNumber(pool));
+        register(GetBlockByEpochSlotNumber.ADDRESS, new GetBlockByEpochSlotNumber(pool));
+        register(GetLatestBlockNumber.ADDRESS, new GetLatestBlockNumber(pool));
+        register(GetBlockNumberByHash.ADDRESS, new GetBlockNumberByHash(pool));
+        register(GetBlockTransactions.ADDRESS, new GetBlockTransactions(pool));
 
         /* Epochs */
-        evBus.consumer(GetEpochById.ADDRESS).handler(new GetEpochById(pool));
-        evBus.consumer(GetLatestEpochNumber.ADDRESS).handler(new GetLatestEpochNumber(pool));
+        register(GetEpochById.ADDRESS, new GetEpochById(pool));
+        register(GetLatestEpochNumber.ADDRESS, new GetLatestEpochNumber(pool));
 
         /* Pools */
-        evBus.consumer(GetPoolByIdOrHash.ADDRESS).handler(new GetPoolByIdOrHash(pool));
-
+        register(GetPoolByIdOrHash.ADDRESS, new GetPoolByIdOrHash(pool));
+        register(GetPoolMetadata.ADDRESS, new GetPoolMetadata(pool));
 
         return succeededFuture();
+    }
+    
+    private void register(String address, Handler<Message<Object>> handler) {
+        eventBusConsumers.add(vertx.eventBus().consumer(address, handler));
     }
 }
