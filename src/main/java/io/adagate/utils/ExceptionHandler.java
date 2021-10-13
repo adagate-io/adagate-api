@@ -12,8 +12,10 @@ public final class ExceptionHandler {
         int code = CardanoApiModuleException.INTERNAL_SERVER_500_ERROR.getStatusCode();
         String statusMessage = CardanoApiModuleException.INTERNAL_SERVER_500_ERROR.getStatusMessage();
         if (cause instanceof CardanoApiModuleException) {
-            code = ((CardanoApiModuleException) cause).getStatusCode();
-            statusMessage = ((CardanoApiModuleException) cause).getStatusMessage();
+            final CardanoApiModuleException e = (CardanoApiModuleException) cause;
+            LOGGER.warn(e);
+            code = e.getStatusCode();
+            statusMessage = e.getStatusMessage();
         } else {
             LOGGER.error("Unknown Error: ", cause);
         }
