@@ -1,6 +1,6 @@
 package io.adagate.handlers.routes;
 
-import io.adagate.exceptions.CardanoApiModuleException;
+import io.adagate.exceptions.AdaGateModuleException;
 import io.adagate.handlers.database.AbstractDatabaseHandler;
 import io.adagate.models.QueryOrder;
 import io.netty.handler.codec.http.HttpResponseStatus;
@@ -22,8 +22,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.zip.GZIPOutputStream;
 
-import static io.adagate.exceptions.CardanoApiModuleException.BAD_REQUEST_400_ERROR;
-import static io.adagate.exceptions.CardanoApiModuleException.NOT_FOUND_404_ERROR;
+import static io.adagate.exceptions.AdaGateModuleException.BAD_REQUEST_400_ERROR;
+import static io.adagate.exceptions.AdaGateModuleException.NOT_FOUND_404_ERROR;
 import static io.vertx.core.http.HttpHeaders.createOptimized;
 import static io.vertx.core.json.Json.encodePrettily;
 import static java.lang.Integer.parseInt;
@@ -86,7 +86,7 @@ public abstract class AbstractRouteHandler implements Handler<RoutingContext> {
         );
     }
 
-    protected final void handleError(CardanoApiModuleException error, String message, RoutingContext context) {
+    protected final void handleError(AdaGateModuleException error, String message, RoutingContext context) {
         context
             .response()
             .putHeader(HttpHeaders.CONTENT_TYPE, APPLICATION_JSON)
@@ -96,14 +96,14 @@ public abstract class AbstractRouteHandler implements Handler<RoutingContext> {
     }
 
 
-    protected final JsonObject getErrorResponse(CardanoApiModuleException exception, String message) {
+    protected final JsonObject getErrorResponse(AdaGateModuleException exception, String message) {
         return new JsonObject()
                     .put("status_code", exception.getStatusCode())
                     .put("error", exception.getStatusMessage())
                     .put("message", message);
     }
 
-    protected final <T> T getParameter(String parameter, Class<T> type, T defaultValue) throws CardanoApiModuleException {
+    protected final <T> T getParameter(String parameter, Class<T> type, T defaultValue) throws AdaGateModuleException {
         if (isNull(parameter)) { return defaultValue; } // fallback to default value
 
         if (type.equals(Integer.class)) {

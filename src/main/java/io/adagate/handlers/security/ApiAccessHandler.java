@@ -1,6 +1,6 @@
 package io.adagate.handlers.security;
 
-import io.adagate.exceptions.CardanoApiModuleException;
+import io.adagate.exceptions.AdaGateModuleException;
 import io.adagate.handlers.routes.AbstractRouteHandler;
 import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonObject;
@@ -33,7 +33,7 @@ public final class ApiAccessHandler extends AbstractRouteHandler {
                         buffer(
                             compress(
                                 getErrorResponse(
-                                    CardanoApiModuleException.FORBIDDEN_403_ERROR,
+                                    AdaGateModuleException.FORBIDDEN_403_ERROR,
                                     "Missing project token. Please include adagate_id in your request."
                                 ).encodePrettily(), context)
                         )

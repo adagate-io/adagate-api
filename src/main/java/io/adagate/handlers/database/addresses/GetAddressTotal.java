@@ -7,7 +7,7 @@ import io.vertx.core.json.JsonObject;
 import io.vertx.pgclient.PgPool;
 import io.vertx.sqlclient.templates.SqlTemplate;
 
-import static io.adagate.exceptions.CardanoApiModuleException.BAD_REQUEST_400_ERROR;
+import static io.adagate.exceptions.AdaGateModuleException.BAD_REQUEST_400_ERROR;
 import static io.adagate.utils.ExceptionHandler.handleError;
 import static io.vertx.core.Future.succeededFuture;
 import static java.lang.String.format;

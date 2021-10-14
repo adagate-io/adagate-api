@@ -1,6 +1,6 @@
 package io.adagate.handlers.routes.genesis;
 
-import io.adagate.exceptions.CardanoApiModuleException;
+import io.adagate.exceptions.AdaGateModuleException;
 import io.adagate.handlers.routes.AbstractRouteHandler;
 import io.vertx.core.Vertx;
 import io.vertx.core.file.FileSystemException;
@@ -26,7 +26,7 @@ public final class GetGenesis extends AbstractRouteHandler {
         vertx.fileSystem().readFile(genesisFilePath, aR -> {
             if (aR.failed()) {
                 if (aR.cause() instanceof FileSystemException) {
-                    handleError(CardanoApiModuleException.BAD_REQUEST_400_ERROR, "network should be testnet or mainnet", context);
+                    handleError(AdaGateModuleException.BAD_REQUEST_400_ERROR, "network should be testnet or mainnet", context);
                 } else {
                     LOGGER.error(aR.cause());
                     handleError(aR.cause(), context);

@@ -8,7 +8,7 @@ import io.vertx.sqlclient.templates.SqlTemplate;
 import java.util.HashMap;
 
 import static io.adagate.ApiConstants.DEFAULT_HASH_LENGTH;
-import static io.adagate.exceptions.CardanoApiModuleException.BAD_REQUEST_400_ERROR;
+import static io.adagate.exceptions.AdaGateModuleException.BAD_REQUEST_400_ERROR;
 import static io.adagate.utils.ExceptionHandler.handleError;
 import static java.lang.String.format;
 

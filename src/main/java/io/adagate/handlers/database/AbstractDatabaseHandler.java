@@ -1,6 +1,6 @@
 package io.adagate.handlers.database;
 
-import io.adagate.exceptions.CardanoApiModuleException;
+import io.adagate.exceptions.AdaGateModuleException;
 import io.vertx.core.Future;
 import io.vertx.core.Handler;
 import io.vertx.core.impl.logging.Logger;
@@ -42,7 +42,7 @@ public abstract class AbstractDatabaseHandler<T> implements Handler<T> {
             return succeededFuture(rs.iterator().next().toJson());
         }
         LOGGER.debug("Empty result");
-        return failedFuture(CardanoApiModuleException.NOT_FOUND_404_ERROR);
+        return failedFuture(AdaGateModuleException.NOT_FOUND_404_ERROR);
     }
 
     protected final <T> Future<T> mapToFirst(RowSet<T> rs) {
@@ -50,7 +50,7 @@ public abstract class AbstractDatabaseHandler<T> implements Handler<T> {
             return succeededFuture(rs.iterator().next());
         }
         LOGGER.debug("Empty result");
-        return failedFuture(CardanoApiModuleException.NOT_FOUND_404_ERROR);
+        return failedFuture(AdaGateModuleException.NOT_FOUND_404_ERROR);
     }
 
     protected final Future<JsonObject> logResult(JsonObject result) {

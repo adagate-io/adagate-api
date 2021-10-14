@@ -3,7 +3,7 @@ package io.adagate.handlers.routes;
 import io.vertx.core.Vertx;
 import io.vertx.ext.web.RoutingContext;
 
-import static io.adagate.exceptions.CardanoApiModuleException.NOT_FOUND_404_ERROR;
+import static io.adagate.exceptions.AdaGateModuleException.NOT_FOUND_404_ERROR;
 
 public class FailureHandler extends AbstractRouteHandler {
 

@@ -1,6 +1,6 @@
 package io.adagate.handlers.database.blocks;
 
-import io.adagate.exceptions.CardanoApiModuleException;
+import io.adagate.exceptions.AdaGateModuleException;
 import io.vertx.core.eventbus.Message;
 import io.vertx.core.json.JsonObject;
 import io.vertx.pgclient.PgPool;
@@ -9,7 +9,7 @@ import io.vertx.sqlclient.templates.SqlTemplate;
 import java.util.HashMap;
 
 import static io.adagate.ApiConstants.*;
-import static io.adagate.exceptions.CardanoApiModuleException.BAD_REQUEST_400_ERROR;
+import static io.adagate.exceptions.AdaGateModuleException.BAD_REQUEST_400_ERROR;
 import static io.adagate.utils.ExceptionHandler.handleError;
 import static java.lang.Math.max;
 import static java.lang.String.format;
@@ -57,7 +57,7 @@ public final class GetBlockTransactions extends AbstractBlockHandler {
             count = parameters.getInteger("count", count);
             if (count <= 0) { count = MAX_QUERY_LIMIT; }
             order = parameters.getString("order").toUpperCase();
-        } catch (CardanoApiModuleException e) {
+        } catch (AdaGateModuleException e) {
             message.fail(BAD_REQUEST_400_ERROR.getStatusCode(), BAD_REQUEST_400_ERROR.getMessage());
             return;
         }

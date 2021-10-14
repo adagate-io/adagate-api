@@ -9,8 +9,8 @@ import io.vertx.core.impl.logging.LoggerFactory;
 
 import static java.lang.String.format;
 
-public class CardanoApiModule extends AbstractVerticle {
-    final static Logger LOGGER = LoggerFactory.getLogger(CardanoApiModule.class);
+public class AdaGateModule extends AbstractVerticle {
+    final static Logger LOGGER = LoggerFactory.getLogger(AdaGateModule.class);
 
     @Override
     public void start(Promise<Void> startPromise) {
@@ -28,7 +28,7 @@ public class CardanoApiModule extends AbstractVerticle {
                 LOGGER.error("Failed deployment", err);
                 startPromise.fail(err);
             })
-            .onComplete(unused -> LOGGER.info("Completed CardanoApiModule deployment"));
+            .onComplete(unused -> LOGGER.info("Completed AdaGateModule deployment"));
     }
 
     private Future<Void> deploy(Class<? extends Verticle> verticleType, DeploymentOptions opts) {

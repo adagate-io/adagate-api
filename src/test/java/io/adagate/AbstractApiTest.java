@@ -42,7 +42,7 @@ public abstract class AbstractApiTest extends AbstractVerticleTest {
         config.put("api.tokenAccess", FALSE); // prevents required API token check while testing
         vertx
             .deployVerticle(
-                    CardanoApiModule.class,
+                    AdaGateModule.class,
                     new DeploymentOptions().setConfig(config),
                     result -> context.completeNow()
             );

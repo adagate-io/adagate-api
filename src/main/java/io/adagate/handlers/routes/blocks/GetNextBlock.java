@@ -1,6 +1,6 @@
 package io.adagate.handlers.routes.blocks;
 
-import io.adagate.exceptions.CardanoApiModuleException;
+import io.adagate.exceptions.AdaGateModuleException;
 import io.adagate.handlers.database.blocks.GetBlocks;
 import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpServerRequest;
@@ -8,7 +8,7 @@ import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.RoutingContext;
 
 import static io.adagate.ApiConstants.*;
-import static io.adagate.exceptions.CardanoApiModuleException.BAD_REQUEST_400_ERROR;
+import static io.adagate.exceptions.AdaGateModuleException.BAD_REQUEST_400_ERROR;
 import static io.netty.handler.codec.http.HttpResponseStatus.OK;
 import static io.vertx.core.buffer.Buffer.buffer;
 import static java.lang.Integer.parseInt;
@@ -42,7 +42,7 @@ public final class GetNextBlock extends AbstractBlockRouteHandler {
         try {
             page = max(0, getParameter(req.getParam("page"), Integer.class, DEFAULT_QUERY_OFFSET));
             if (page <= 0) { page = DEFAULT_QUERY_OFFSET; }
-        } catch (CardanoApiModuleException e) {
+        } catch (AdaGateModuleException e) {
             handleError(BAD_REQUEST_400_ERROR, "querystring.page should be integer", context);
             return;
         }
@@ -55,7 +55,7 @@ public final class GetNextBlock extends AbstractBlockRouteHandler {
                 handleError(BAD_REQUEST_400_ERROR, "querystring.count should be <= 100", context);
                 return;
             }
-        } catch (CardanoApiModuleException e) {
+        } catch (AdaGateModuleException e) {
             handleError(BAD_REQUEST_400_ERROR, "querystring.count should be integer", context);
             return;
         }

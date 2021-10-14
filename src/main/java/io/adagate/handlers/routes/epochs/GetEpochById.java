@@ -4,7 +4,7 @@ import io.adagate.handlers.routes.AbstractRouteHandler;
 import io.vertx.core.Vertx;
 import io.vertx.ext.web.RoutingContext;
 
-import static io.adagate.exceptions.CardanoApiModuleException.BAD_REQUEST_400_ERROR;
+import static io.adagate.exceptions.AdaGateModuleException.BAD_REQUEST_400_ERROR;
 import static io.adagate.handlers.database.epochs.GetEpochById.ADDRESS;
 import static io.netty.handler.codec.http.HttpResponseStatus.OK;
 import static io.vertx.core.buffer.Buffer.buffer;

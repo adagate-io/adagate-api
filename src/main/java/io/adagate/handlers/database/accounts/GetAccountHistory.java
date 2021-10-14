@@ -7,9 +7,8 @@ import io.vertx.sqlclient.templates.SqlTemplate;
 
 import java.util.HashMap;
 
-import static io.adagate.exceptions.CardanoApiModuleException.BAD_REQUEST_400_ERROR;
+import static io.adagate.exceptions.AdaGateModuleException.BAD_REQUEST_400_ERROR;
 import static io.adagate.utils.ExceptionHandler.handleError;
-import static java.lang.Math.max;
 import static java.lang.String.format;
 
 public final class GetAccountHistory extends AbstractAccountHandler {

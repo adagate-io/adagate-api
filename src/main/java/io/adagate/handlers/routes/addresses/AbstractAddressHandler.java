@@ -1,6 +1,6 @@
 package io.adagate.handlers.routes.addresses;
 
-import io.adagate.exceptions.CardanoApiModuleException;
+import io.adagate.exceptions.AdaGateModuleException;
 import io.adagate.handlers.routes.AbstractRouteHandler;
 import io.adagate.models.QueryOrder;
 import io.vertx.core.Vertx;
@@ -9,7 +9,7 @@ import io.vertx.ext.web.RoutingContext;
 
 import static io.adagate.ApiConstants.DEFAULT_QUERY_OFFSET;
 import static io.adagate.ApiConstants.MAX_QUERY_LIMIT;
-import static io.adagate.exceptions.CardanoApiModuleException.BAD_REQUEST_400_ERROR;
+import static io.adagate.exceptions.AdaGateModuleException.BAD_REQUEST_400_ERROR;
 import static java.util.Objects.isNull;
 
 class AbstractAddressHandler extends AbstractRouteHandler {
@@ -33,14 +33,14 @@ class AbstractAddressHandler extends AbstractRouteHandler {
 
         try {
             order = getParameter(req.getParam("order"), QueryOrder.class, QueryOrder.ASC).toString();
-        } catch (CardanoApiModuleException e) {
+        } catch (AdaGateModuleException e) {
             handleError(BAD_REQUEST_400_ERROR, "querystring.order should be equal to one of the allowed values", context);
             return;
         }
 
         try {
             page = getParameter(req.getParam("page"), Integer.class, DEFAULT_QUERY_OFFSET);
-        } catch (CardanoApiModuleException e) {
+        } catch (AdaGateModuleException e) {
             handleError(BAD_REQUEST_400_ERROR, "querystring.page should be integer", context);
             return;
         }
@@ -52,7 +52,7 @@ class AbstractAddressHandler extends AbstractRouteHandler {
                 handleError(BAD_REQUEST_400_ERROR, "querystring.count should be <= 100", context);
                 return;
             }
-        } catch (CardanoApiModuleException e) {
+        } catch (AdaGateModuleException e) {
             handleError(BAD_REQUEST_400_ERROR, "querystring.count should be integer", context);
             return;
         }

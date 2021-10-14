@@ -1,21 +1,15 @@
 package io.adagate.handlers.database.assets;
 
 import io.adagate.handlers.database.AbstractDatabaseHandler;
-import io.vertx.core.Future;
 import io.vertx.core.eventbus.Message;
-import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import io.vertx.pgclient.PgPool;
-import io.vertx.sqlclient.Row;
-import io.vertx.sqlclient.RowSet;
 import io.vertx.sqlclient.templates.SqlTemplate;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import static io.adagate.ApiConstants.*;
-import static io.adagate.exceptions.CardanoApiModuleException.BAD_REQUEST_400_ERROR;
+import static io.adagate.exceptions.AdaGateModuleException.BAD_REQUEST_400_ERROR;
 import static io.adagate.utils.ExceptionHandler.handleError;
 import static io.vertx.core.Future.succeededFuture;
 import static java.lang.Math.max;
