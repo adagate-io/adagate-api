@@ -1,0 +1,70 @@
+<configuration>
+
+    <!-- for production please use /var/log/xyz directory instead of /tmp/log/xyz -->
+    <property name="LOG_FILE" value="/server.log"/>
+    <property name="REQUEST_LOG_FILE" value="/request.log"/>
+
+    <!-- console output -->
+    <appender class="ch.qos.logback.core.ConsoleAppender" name="STDOUT">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- server log file output -->
+    <appender name="SERVER_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_FILE}</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_FILE}.%d{yyyy-MM-dd}.%i.gz</fileNamePattern>
+            <maxFileSize>200MB</maxFileSize>
+            <maxHistory>24</maxHistory>
+            <totalSizeCap>5GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%-4relative [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+    <appender name="SERVER_LOG_ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="SERVER_LOG" />
+        <discardingThreshold>0</discardingThreshold>
+        <queueSize>512</queueSize>
+        <maxFlushTime>5000</maxFlushTime>
+        <neverBlock>true</neverBlock>
+    </appender>
+
+    <!-- request log output -->
+    <appender name="REQUEST_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${REQUEST_LOG_FILE}</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${REQUEST_LOG_FILE}.%d{yyyy-MM-dd}.%i.gz</fileNamePattern>
+            <maxFileSize>50MB</maxFileSize>
+            <maxHistory>14</maxHistory>
+            <totalSizeCap>5GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%msg%n</pattern>
+        </encoder>
+    </appender>
+    <appender name="REQUEST_LOG_ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="REQUEST_LOG" />
+        <discardingThreshold>0</discardingThreshold>
+        <queueSize>5000</queueSize>
+        <neverBlock>true</neverBlock>
+    </appender>
+
+    <!-- logger for application package -->
+    <logger level="INFO" name="io.adagate.*" additivity="false">
+        <appender-ref ref="SERVER_LOG_ASYNC"/>
+    </logger>
+
+    <!-- logger for RAPS request log -->
+    <logger level="INFO" name="io.adagate.*" additivity="false">
+        <appender-ref ref="REQUEST_LOG_ASYNC"/>
+    </logger>
+
+    <!-- root logger -->
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+    </root>
+
+</configuration>
