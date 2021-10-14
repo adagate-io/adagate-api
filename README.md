@@ -1,4 +1,4 @@
-# ₳dagate-io
+# ₳dagate-API
 Cardano API for real-time blockchain data either via REST Api or websockets.
 
 # Setup & Requirements
