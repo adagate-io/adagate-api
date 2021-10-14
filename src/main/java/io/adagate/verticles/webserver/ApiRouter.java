@@ -1,6 +1,6 @@
 package io.adagate.verticles.webserver;
 
-import io.adagate.CardanoApiModule;
+import io.adagate.AdaGateModule;
 import io.adagate.handlers.routes.FailureHandler;
 import io.adagate.handlers.routes.accounts.*;
 import io.adagate.handlers.routes.addresses.GetAddress;
@@ -17,26 +17,18 @@ import io.adagate.handlers.routes.pools.GetPoolByIdOrHash;
 import io.adagate.handlers.routes.pools.GetPoolMetadata;
 import io.adagate.verticles.database.DatabaseEventbusAddress;
 import io.vertx.core.Vertx;
-import io.vertx.core.buffer.Buffer;
 import io.vertx.core.impl.logging.Logger;
 import io.vertx.core.impl.logging.LoggerFactory;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.bridge.PermittedOptions;
-import io.vertx.ext.web.Route;
 import io.vertx.ext.web.handler.LoggerFormat;
 import io.vertx.ext.web.handler.LoggerHandler;
 import io.vertx.ext.web.handler.sockjs.SockJSBridgeOptions;
 import io.vertx.ext.web.handler.sockjs.SockJSHandler;
 import io.vertx.ext.web.impl.RouterImpl;
-import org.apache.commons.lang3.StringUtils;
-
-import java.util.HashSet;
-import java.util.Set;
-
-import static java.lang.System.lineSeparator;
 
 public final class ApiRouter extends RouterImpl {
-    final static Logger LOGGER = LoggerFactory.getLogger(CardanoApiModule.class);
+    final static Logger LOGGER = LoggerFactory.getLogger(AdaGateModule.class);
 
     private final Vertx vertx;
 
@@ -66,7 +58,6 @@ public final class ApiRouter extends RouterImpl {
 //                    .allowCredentials(false)
 //                    .addOrigin(config.getString("origin", "*"))
 //            )
-//            .handler(new ApiAccessHandler(vertx, config))
             .failureHandler(new FailureHandler(vertx));
 
         /* Accounts */
