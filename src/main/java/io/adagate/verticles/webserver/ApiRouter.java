@@ -13,6 +13,7 @@ import io.adagate.handlers.routes.blocks.*;
 import io.adagate.handlers.routes.epochs.GetEpochById;
 import io.adagate.handlers.routes.epochs.GetLatestEpoch;
 import io.adagate.handlers.routes.epochs.GetNextEpochs;
+import io.adagate.handlers.routes.epochs.GetPreviousEpochs;
 import io.adagate.handlers.routes.genesis.GetGenesis;
 import io.adagate.handlers.routes.pools.GetPoolByIdOrHash;
 import io.adagate.handlers.routes.pools.GetPoolMetadata;
@@ -124,7 +125,7 @@ public class ApiRouter extends RouterImpl {
         get("/epochs/:epochNumber").handler(new GetEpochById(vertx))
                 .setName("GET Epoch by id");
         get("/epochs/:epochNumber/next").handler(new GetNextEpochs(vertx));
-// TODO: get("/epochs/:epochNumber/previous").handler(new GetEpochById(vertx, e -> e - 1));
+        get("/epochs/:epochNumber/previous").handler(new GetPreviousEpochs(vertx));
 // TODO: get("/epochs/:epochNumber/stakes").handler();
 // TODO: get("/epochs/:epochNumber/stakes/:poolId").handler();
 // TODO: get("/epochs/:epochNumber/blocks").handler();
