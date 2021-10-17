@@ -119,6 +119,15 @@ GET latest Epoch:
 GET Epoch by id:
 ```/epochs/:epochNumber```
 
+GET Next Epochs
+```/epochs/:epochNumber/next```
+
+GET Previous Epochs
+```/epochs/:epochNumber/previous```
+
+GET Epochs Stakes
+```/epochs/:epochNumber/stakes```
+
 ## Genesis
 
 GET Genesis of network:
