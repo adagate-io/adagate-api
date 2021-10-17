@@ -22,9 +22,9 @@ import static io.vertx.core.http.HttpHeaders.CONTENT_TYPE;
 public final class GetNextEpochsTests extends AbstractApiTest {
 
     @Test
-    @DisplayName("GET /epochs/294/next?count=2")
+    @DisplayName("GET /epochs/291/next?count=2")
     void testGetNextEpochsParameterized_1(Vertx vertx, VertxTestContext context, WebClient client) {
-        testRequest(client, HttpMethod.GET, "/epochs/294/next")
+        testRequest(client, HttpMethod.GET, "/epochs/291/next")
             .with(
                 queryParam("count", "2")
             )
@@ -35,33 +35,33 @@ public final class GetNextEpochsTests extends AbstractApiTest {
                 responseHeader(CONTENT_ENCODING.toString(), GZIP),
                 assertArrayLengthEquals(2),
                 expectFirstArrayElement(
-                    JsonObjectAsserts.assertFieldEquals("epoch", 295),
+                    JsonObjectAsserts.assertFieldEquals("epoch", 292),
                     /*
                      *  NOTE: start_time and end_time might slightly differ from node to node
                      *      - hence they are ignored during testing
                      */
 //                    JsonObjectAsserts.assertFieldEquals("start_time", 1633643099),
 //                    JsonObjectAsserts.assertFieldEquals("end_time", 1634075084),
-                    JsonObjectAsserts.assertFieldEquals("first_block_time", 1633643099),
-                    JsonObjectAsserts.assertFieldEquals("last_block_time", 1634075084),
-                    JsonObjectAsserts.assertFieldEquals("block_count", 21081),
-                    JsonObjectAsserts.assertFieldEquals("tx_count", 366276),
-                    JsonObjectAsserts.assertFieldEquals("output", "17543807969318279"),
-                    JsonObjectAsserts.assertFieldEquals("fees", "78295367024"),
-                    JsonObjectAsserts.assertFieldEquals("active_stake", "23411124422164299")
+                    JsonObjectAsserts.assertFieldEquals("first_block_time", 1632347163),
+                    JsonObjectAsserts.assertFieldEquals("last_block_time", 1632779076),
+                    JsonObjectAsserts.assertFieldEquals("block_count", 21264),
+                    JsonObjectAsserts.assertFieldEquals("tx_count", 448774),
+                    JsonObjectAsserts.assertFieldEquals("output", "19991338650818976"),
+                    JsonObjectAsserts.assertFieldEquals("fees", "94575307119"),
+                    JsonObjectAsserts.assertFieldEquals("active_stake", "23325839206372436")
                 ),
                 expectNthArrayElement(
                     1,
-                    JsonObjectAsserts.assertFieldEquals("epoch", 296),
-                    JsonObjectAsserts.assertFieldEquals("start_time", 1634075099),
-                    JsonObjectAsserts.assertFieldEquals("end_time", 1634406271),
-//                    JsonObjectAsserts.assertFieldEquals("first_block_time", 1634075099),
-//                    JsonObjectAsserts.assertFieldEquals("last_block_time", 1634406271),
-                    JsonObjectAsserts.assertFieldEquals("block_count", 16003),
-                    JsonObjectAsserts.assertFieldEquals("tx_count", 278673),
-                    JsonObjectAsserts.assertFieldEquals("output", "12902922173577049"),
-                    JsonObjectAsserts.assertFieldEquals("fees", "60205293278"),
-                    JsonObjectAsserts.assertFieldEquals("active_stake", "9908818826088")
+                    JsonObjectAsserts.assertFieldEquals("epoch", 293),
+//                    JsonObjectAsserts.assertFieldEquals("start_time", 1632779091),
+//                    JsonObjectAsserts.assertFieldEquals("end_time", 1633211091),
+                    JsonObjectAsserts.assertFieldEquals("first_block_time", 1632779213),
+                    JsonObjectAsserts.assertFieldEquals("last_block_time", 1633211077),
+                    JsonObjectAsserts.assertFieldEquals("block_count", 21243),
+                    JsonObjectAsserts.assertFieldEquals("tx_count", 449404),
+                    JsonObjectAsserts.assertFieldEquals("output", "22488409375435060"),
+                    JsonObjectAsserts.assertFieldEquals("fees", "92010214941"),
+                    JsonObjectAsserts.assertFieldEquals("active_stake", "23395112387185878")
                 )
             )
             .send(context)
