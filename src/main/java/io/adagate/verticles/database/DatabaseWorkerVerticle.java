@@ -9,6 +9,7 @@ import io.adagate.handlers.database.assets.GetAssetById;
 import io.adagate.handlers.database.assets.GetAssets;
 import io.adagate.handlers.database.blocks.*;
 import io.adagate.handlers.database.epochs.GetEpochById;
+import io.adagate.handlers.database.epochs.GetEpochStakes;
 import io.adagate.handlers.database.epochs.GetEpochs;
 import io.adagate.handlers.database.epochs.GetLatestEpochNumber;
 import io.adagate.handlers.database.pools.GetPoolByIdOrHash;
@@ -96,6 +97,7 @@ public final class DatabaseWorkerVerticle extends AbstractDatabaseVerticle {
         register(GetEpochById.ADDRESS, new GetEpochById(pool));
         register(GetLatestEpochNumber.ADDRESS, new GetLatestEpochNumber(pool));
         register(GetEpochs.ADDRESS, new GetEpochs(pool));
+        register(GetEpochStakes.ADDRESS, new GetEpochStakes(pool));
 
         /* Pools */
         register(GetPoolByIdOrHash.ADDRESS, new GetPoolByIdOrHash(pool));
