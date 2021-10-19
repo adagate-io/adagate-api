@@ -7,6 +7,7 @@ import io.vertx.sqlclient.templates.SqlTemplate;
 
 import java.util.HashMap;
 
+import static io.adagate.exceptions.AdaGateModuleException.BAD_REQUEST_400_ERROR;
 import static io.adagate.utils.ExceptionHandler.handleError;
 import static java.util.Collections.singletonMap;
 
@@ -75,6 +76,7 @@ public final class GetBlockByEpochSlotNumber extends AbstractBlockHandler {
     @Override
     public void handle(Message<Object> message) {
         if ( ! (message.body() instanceof JsonObject)) {
+            message.fail(BAD_REQUEST_400_ERROR.getStatusCode(), BAD_REQUEST_400_ERROR.getMessage());
             return;
         }
 

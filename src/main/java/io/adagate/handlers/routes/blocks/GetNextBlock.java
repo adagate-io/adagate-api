@@ -68,8 +68,6 @@ public final class GetNextBlock extends AbstractBlockRouteHandler {
                 new JsonObject()
                         .put("min", min)
                         .put("max", min + count)
-                        .put("count", count)
-                        .put("page", page)
             )
             .onSuccess(resultMsg -> addResponseHeaders(OK, context)
                                         .end(buffer(compress(encode(resultMsg.body()), context)))

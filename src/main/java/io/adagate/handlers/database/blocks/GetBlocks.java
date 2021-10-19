@@ -40,10 +40,10 @@ public final class GetBlocks extends AbstractBlockHandler {
                 .append("ON nb.previous_id = b.id ")
             .append("WHERE ")
                 .append("b.block_no >= #{min} AND b.block_no < #{max} ")
-            .append("LIMIT #{count} ")
             .toString();
 
-    private int minNum, maxNum, page, count;
+    private int minNum;
+    private int maxNum;
 
     public GetBlocks(PgPool pool) {
         super(pool);
@@ -62,13 +62,10 @@ public final class GetBlocks extends AbstractBlockHandler {
         final JsonObject body = (JsonObject) message.body();
         minNum = body.getInteger("min");
         maxNum = body.getInteger("max");
-        count = body.getInteger("count");
-        page = body.getInteger("page");
 
         SqlTemplate
             .forQuery(client, query())
             .execute(new HashMap<String, Object>() {{
-                put("count", count);
                 put("min", minNum);
                 put("max", maxNum);
             }})
