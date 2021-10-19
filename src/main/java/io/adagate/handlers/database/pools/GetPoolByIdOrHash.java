@@ -34,7 +34,7 @@ public class GetPoolByIdOrHash extends AbstractPoolsHandler {
                         .append("es.amount ")
                     .append("FROM epoch_stake es ")
                     .append("JOIN latest_epoch le ")
-                        .append("ON es.epoch_no = le.e_max - 1")
+                        .append("ON es.epoch_no = le.e_max ")
                     .append("JOIN latest_pool_update lpu ")
                         .append("ON es.pool_id = lpu.pool_id ")
                     .append("LEFT JOIN stake_address sa ")
