@@ -8,7 +8,7 @@ import static io.adagate.handlers.database.assets.GetAssetAddresses.ADDRESS;
 import static io.netty.handler.codec.http.HttpResponseStatus.OK;
 import static io.vertx.core.buffer.Buffer.buffer;
 
-public final class GetAssetAddresses extends AbstractAssetAddresses {
+public final class GetAssetAddresses extends AbstractGetAssets {
 
     public GetAssetAddresses(Vertx vertx) { super(vertx); }
 
@@ -22,9 +22,6 @@ public final class GetAssetAddresses extends AbstractAssetAddresses {
                 ADDRESS,
                 new JsonObject()
                     .put("assetId", assetId)
-                    .put("page", page)
-                    .put("count", count)
-                    .put("order", order)
             )
             .onSuccess(msg -> addResponseHeaders(OK, context)
                                 .end(buffer(compress(encode(msg.body()), context))))
