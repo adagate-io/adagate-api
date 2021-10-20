@@ -85,6 +85,12 @@ GET Asset Information:
 GET Specific Asset by id:
 ```/assets/:assetId```
 
+GET Specific Asset addresses:
+```/assets/:assetId/addresses```
+
+GET Specific Asset by policy id:
+```/assets/policy/:policyId```
+
 ## Blocks
 
 GET latest Block:
