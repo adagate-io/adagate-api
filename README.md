@@ -140,3 +140,13 @@ GET Pool by id:
 
 GET Pool Metadata:
 ```/pools/:poolId/metadata```
+
+# Donate
+
+If you like to support the idea with a donation, the address is:
+
+```
+addr1qykpnhatcgyuh7kvz7k4k3k2cqllmzqskkzdp5qe22y88gtwkusnp8r253ca68jjpgdl67yckkv47tjqnrg56nyq0pzsl0x8tf
+```
+
+Thank you.
