@@ -85,6 +85,9 @@ GET Asset Information:
 GET Specific Asset by id:
 ```/assets/:assetId```
 
+GET Specific Asset Transactions by id:
+```/assets/:assetId/transactions```
+
 GET Specific Asset addresses:
 ```/assets/:assetId/addresses```
 
