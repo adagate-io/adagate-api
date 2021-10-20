@@ -7,7 +7,9 @@ import io.adagate.handlers.routes.addresses.GetAddress;
 import io.adagate.handlers.routes.addresses.GetAddressTotal;
 import io.adagate.handlers.routes.addresses.GetAddressTransactions;
 import io.adagate.handlers.routes.addresses.GetAddressUTXOs;
+import io.adagate.handlers.routes.assets.GetAssetAddresses;
 import io.adagate.handlers.routes.assets.GetAssetById;
+import io.adagate.handlers.routes.assets.GetAssetByPolicyId;
 import io.adagate.handlers.routes.assets.GetAssets;
 import io.adagate.handlers.routes.blocks.*;
 import io.adagate.handlers.routes.epochs.*;
@@ -92,8 +94,8 @@ public class ApiRouter extends RouterImpl {
                 .setName("GET Specific Asset by id");
 // TODO: get("/assets/:assetId/history").handler();
 // TODO: get("/assets/:assetId/transactions").handler();
-// TODO: get("/assets/:assetId/addresses").handler();
-// TODO: get("/assets/policy/:policyId").handler();
+        get("/assets/:assetId/addresses").handler(new GetAssetAddresses(vertx));
+        get("/assets/policy/:policyId").handler(new GetAssetByPolicyId(vertx));
 
         /* Blocks */
         get("/blocks/latest").handler(new GetLatestBlock(vertx))

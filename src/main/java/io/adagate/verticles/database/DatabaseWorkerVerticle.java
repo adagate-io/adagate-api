@@ -5,7 +5,9 @@ import io.adagate.handlers.database.addresses.GetAddress;
 import io.adagate.handlers.database.addresses.GetAddressTotal;
 import io.adagate.handlers.database.addresses.GetAddressTransactions;
 import io.adagate.handlers.database.addresses.GetAddressUTXOs;
+import io.adagate.handlers.database.assets.GetAssetAddresses;
 import io.adagate.handlers.database.assets.GetAssetById;
+import io.adagate.handlers.database.assets.GetAssetByPolicyId;
 import io.adagate.handlers.database.assets.GetAssets;
 import io.adagate.handlers.database.blocks.*;
 import io.adagate.handlers.database.epochs.GetEpochById;
@@ -77,6 +79,8 @@ public final class DatabaseWorkerVerticle extends AbstractDatabaseVerticle {
         /* Assets */
         register(GetAssets.ADDRESS, new GetAssets(pool));
         register(GetAssetById.ADDRESS, new GetAssetById(pool));
+        register(GetAssetByPolicyId.ADDRESS, new GetAssetByPolicyId(pool));
+        register(GetAssetAddresses.ADDRESS, new GetAssetAddresses(pool));
 
         /* Addresses */
         register(GetAddress.ADDRESS, new GetAddress(pool));
