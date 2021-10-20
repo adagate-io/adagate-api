@@ -114,10 +114,10 @@ GET Block by Epoch and Epoch Slot Number:
 GET next Block:
 ```/blocks/:id/next```
 
-Get previous Block:
+GET previous Block:
 ```/blocks/:id/previous```
 
-Get Block Transactions:
+GET Block Transactions:
 ```/blocks/:id/transactions```
 
 ## Epochs
