@@ -13,7 +13,6 @@
     <a href="https://github.com/anuraghazra/github-readme-stats/issues">
       <img alt="Issues" src="https://img.shields.io/badge/Issues-1-blue" />
     </a>
-    <br />
   </p>
 <p align="center">
     <a href="https://twitter.com/stakingberlin" target="_blank" style="padding: 0 20px">
