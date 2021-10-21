@@ -1,6 +1,5 @@
 package io.adagate;
 
-import io.adagate.handlers.database.AbstractDatabaseHandler;
 import io.vertx.core.impl.logging.Logger;
 import io.vertx.core.impl.logging.LoggerFactory;
 
