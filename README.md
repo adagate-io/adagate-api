@@ -1,8 +1,8 @@
-<p align="center">
+<div align="center">
  <img width="100px" src="https://i.ibb.co/QCb7vCk/logo-01-small.png" align="center" />
  <h2 align="center">₳dagate<br />Cardano Blockchain API</h2>
  <h5 align="center">Get real-time blockchain data via REST and websockets!</h5>
-</p>
+</div>
 <p align="center">
     <a href="https://github.com/anuraghazra/github-readme-stats/actions">
       <img alt="Tests Passing" src="https://img.shields.io/badge/Test-passing-brightgreen" />
