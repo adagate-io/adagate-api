@@ -7,7 +7,7 @@ import static io.adagate.handlers.database.assets.GetAssetById.ADDRESS;
 import static io.netty.handler.codec.http.HttpResponseStatus.OK;
 import static io.vertx.core.buffer.Buffer.buffer;
 
-public final class GetAssetById extends AbstractAssetAddresses {
+public final class GetAssetById extends AbstractGetAssets {
 
     public GetAssetById(Vertx vertx) { super(vertx); }
 
