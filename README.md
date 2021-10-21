@@ -1,5 +1,36 @@
-# ₳dagate-API
-Cardano API for real-time blockchain data either via REST Api or websockets.
+<p align="center">
+ <img width="100px" src="https://i.ibb.co/QCb7vCk/logo-01-small.png" align="center" alt="GitHub Readme Stats" />
+ <h2 align="center">₳dagate<br />Cardano Blockchain API</h2>
+ <h5 align="center">Get real-time blockchain data via REST and websockets!</h5>
+</p>
+<p align="center">
+    <a href="https://github.com/anuraghazra/github-readme-stats/actions">
+      <img alt="Tests Passing" src="https://img.shields.io/badge/Test-passing-brightgreen" />
+    </a>
+    <a href="https://codecov.io/gh/anuraghazra/github-readme-stats">
+      <img src="https://img.shields.io/badge/Coverage-97%25-brightgreen" />
+    </a>
+    <a href="https://github.com/anuraghazra/github-readme-stats/issues">
+      <img alt="Issues" src="https://img.shields.io/badge/Issues-1-blue" />
+    </a>
+    <br />
+  </p>
+<p align="center">
+    <a href="https://twitter.com/stakingberlin" target="_blank" style="padding: 0 20px">
+        <img width="30px" align="center" src="https://static.cdnlogo.com/logos/t/96/twitter-icon.svg" />
+        Twitter - stakingberlin BRLN 
+    </a>
+    <a href="https://twitter.com/stakingberlin" target="_blank">
+        <img width="30px" align="center" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Telegram_alternative_logo.svg/2048px-Telegram_alternative_logo.svg.png" />
+        Telegram - Berlin Pool
+    </a>
+<p/>
+
+<p align="center">Love the project? Please consider donating to help it improve!</p>
+
+```
+addr1qykpnhatcgyuh7kvz7k4k3k2cqllmzqskkzdp5qe22y88gtwkusnp8r253ca68jjpgdl67yckkv47tjqnrg56nyq0pzsl0x8tf
+```
 
 # Setup & Requirements
 You require running [cardano-db-sync](https://github.com/input-output-hk/cardano-db-sync) for the API to be able to retrieve data
