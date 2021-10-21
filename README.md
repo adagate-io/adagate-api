@@ -1,5 +1,5 @@
 <p align="center">
- <img width="100px" src="https://i.ibb.co/QCb7vCk/logo-01-small.png" align="center" alt="GitHub Readme Stats" />
+ <img width="100px" src="https://i.ibb.co/QCb7vCk/logo-01-small.png" align="center" />
  <h2 align="center">₳dagate<br />Cardano Blockchain API</h2>
  <h5 align="center">Get real-time blockchain data via REST and websockets!</h5>
 </p>
@@ -20,7 +20,7 @@
         <img width="30px" align="center" src="https://static.cdnlogo.com/logos/t/96/twitter-icon.svg" />
         Twitter - stakingberlin BRLN 
     </a>
-    <a href="https://twitter.com/stakingberlin" target="_blank">
+    <a href="https://t.me/BRLNStakePool" target="_blank">
         <img width="30px" align="center" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Telegram_alternative_logo.svg/2048px-Telegram_alternative_logo.svg.png" />
         Telegram - Berlin Pool
     </a>
