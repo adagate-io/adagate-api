@@ -35,10 +35,6 @@ addr1qykpnhatcgyuh7kvz7k4k3k2cqllmzqskkzdp5qe22y88gtwkusnp8r253ca68jjpgdl67yckkv
 You require running [cardano-db-sync](https://github.com/input-output-hk/cardano-db-sync) for the API to be able to retrieve data
 live from the blockchain. If you do not want to set up or maintain your own infrastructure, you will soon be able to use [adagate.io](https://adagate.io) services.
 
-# Dependencies
-- Maven
-- Java >= 8
-
 # Configuration
 You may provide a configuration file in the following format in order to define the database connection parameters.
 It will also allow you to define how many worker verticles will be deployed to scale the API in regards to your needs. 
