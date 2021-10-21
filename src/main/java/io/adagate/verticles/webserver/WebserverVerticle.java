@@ -28,11 +28,11 @@ public class WebserverVerticle extends AbstractVerticle {
                 .addStore(defaultOpts);
         ConfigRetriever cfgRetriever = ConfigRetriever.create(vertx, opts);
         cfgRetriever
-                .getConfig()
-                .compose(this::createHttpServerOptions)
-                .compose(this::createHttpServer)
-                .onSuccess(startPromise::complete)
-                .onFailure(startPromise::fail);
+            .getConfig()
+            .compose(this::createHttpServerOptions)
+            .compose(this::createHttpServer)
+            .onSuccess(startPromise::complete)
+            .onFailure(startPromise::fail);
     }
 
     private Future<Void> createHttpServer(HttpServerOptions opts) {
