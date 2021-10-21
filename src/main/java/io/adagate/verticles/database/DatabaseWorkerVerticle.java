@@ -7,10 +7,7 @@ import io.adagate.handlers.database.addresses.GetAddressTransactions;
 import io.adagate.handlers.database.addresses.GetAddressUTXOs;
 import io.adagate.handlers.database.assets.*;
 import io.adagate.handlers.database.blocks.*;
-import io.adagate.handlers.database.epochs.GetEpochById;
-import io.adagate.handlers.database.epochs.GetEpochStakes;
-import io.adagate.handlers.database.epochs.GetEpochs;
-import io.adagate.handlers.database.epochs.GetLatestEpochNumber;
+import io.adagate.handlers.database.epochs.*;
 import io.adagate.handlers.database.pools.GetPoolByIdOrHash;
 import io.adagate.handlers.database.pools.GetPoolMetadata;
 import io.vertx.core.CompositeFuture;
@@ -100,6 +97,7 @@ public final class DatabaseWorkerVerticle extends AbstractDatabaseVerticle {
         register(GetLatestEpochNumber.ADDRESS, new GetLatestEpochNumber(pool));
         register(GetEpochs.ADDRESS, new GetEpochs(pool));
         register(GetEpochStakes.ADDRESS, new GetEpochStakes(pool));
+        register(GetLatestEpochParameters.ADDRESS, new GetLatestEpochParameters(pool));
 
         /* Pools */
         register(GetPoolByIdOrHash.ADDRESS, new GetPoolByIdOrHash(pool));

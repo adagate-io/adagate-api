@@ -119,8 +119,9 @@ public class ApiRouter extends RouterImpl {
 
         /* Epochs */
         get("/epochs/latest").handler(new GetLatestEpoch(vertx))
-                .setName("GET latest Epoch");
-// TODO: get("/epochs/latest/parameters").handler();
+                .setName("GET Latest Epoch");
+        get("/epochs/latest/parameters").handler(new GetLatestEpochParameters(vertx))
+                .setName("GET Latest Epoch Parameters");
         get("/epochs/:epochNumber").handler(new GetEpochById(vertx))
                 .setName("GET Epoch by id");
         get("/epochs/:epochNumber/next").handler(new GetNextEpochs(vertx))
