@@ -40,6 +40,7 @@ abstract class AbstractAccountHandler extends AbstractRouteHandler {
 
         try {
             page = getParameter(req.getParam("page"), Integer.class, DEFAULT_QUERY_OFFSET);
+            if (page <= 0) { page = DEFAULT_QUERY_OFFSET; }
         } catch (AdaGateModuleException e) {
             handleError(BAD_REQUEST_400_ERROR, "querystring.page should be integer", context);
             return;
