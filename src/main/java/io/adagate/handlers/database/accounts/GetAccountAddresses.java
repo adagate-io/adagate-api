@@ -50,7 +50,6 @@ public final class GetAccountAddresses extends AbstractAccountHandler {
                 put("stakeAddress", stakeAddress);
                 put("count", count);
                 put("page", page);
-                put("order", order);
             }})
             .compose(rs -> mapToJsonArray(rs, row -> row.toJson().getString("address")))
             .onSuccess(message::reply)
