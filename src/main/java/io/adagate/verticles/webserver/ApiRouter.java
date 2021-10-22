@@ -72,7 +72,7 @@ public class ApiRouter extends RouterImpl {
 // TODO: get("/accounts/:stakeAddress/mirs").handler();
         get("/accounts/:stakeAddress/addresses").handler(new GetAccountAddresses(vertx))
                 .setName("GET Account Addresses");
-// TODO: get("/accounts/:stakeAddress/addresses/assets").handler();
+        get("/accounts/:stakeAddress/addresses/assets").handler(new GetAccountAssets(vertx));
 
         /* Addresses */
         get("/addresses/:address").handler(new GetAddress(vertx))

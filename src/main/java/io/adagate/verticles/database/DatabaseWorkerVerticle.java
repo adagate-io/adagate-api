@@ -69,6 +69,7 @@ public final class DatabaseWorkerVerticle extends AbstractDatabaseVerticle {
         register(GetAccountAddresses.ADDRESS, new GetAccountAddresses(pool));
         register(GetAccountDelegations.ADDRESS, new GetAccountDelegations(pool));
         register(GetAccountWithdrawals.ADDRESS, new GetAccountWithdrawals(pool));
+        register(GetAccountAssets.ADDRESS, new GetAccountAssets(pool));
 
         /* Assets */
         register(GetAssets.ADDRESS, new GetAssets(pool));
