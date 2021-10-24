@@ -61,18 +61,18 @@ public final class GetAssetsTests extends AbstractApiTest {
                 responseHeader(CONTENT_ENCODING.toString(), GZIP),
                 assertArrayLengthEquals(3),
                 expectFirstArrayElement(
-                    JsonObjectAsserts.assertFieldEquals("asset", "e8e62d329e73190190c3e323fb5c9fb98ee55f0676332ba949f29d72.4649525354"),
-                    JsonObjectAsserts.assertFieldEquals("quantity", "1")
+                    JsonObjectAsserts.assertFieldEquals("asset", "e12ab5cf12f95cd57b739282d06af9dd61e1b1dde1e06f0c31f02511.67696d62616c"),
+                    JsonObjectAsserts.assertFieldEquals("quantity", "42")
                 ),
                 expectNthArrayElement(
                     1,
-                    JsonObjectAsserts.assertFieldEquals("asset", "ac3f4224723e2ed9d166478662f6e48bae9ddf0fc5ee58f54f6c3229.43454e54"),
-                    JsonObjectAsserts.assertFieldEquals("quantity", "10000000")
+                    JsonObjectAsserts.assertFieldEquals("asset", "da8c30857834c6ae7203935b89278c532b3995245295456f993e1d24.4c51"),
+                    JsonObjectAsserts.assertFieldEquals("quantity", "21000000000000")
                 ),
                 expectNthArrayElement(
                     2,
-                    JsonObjectAsserts.assertFieldEquals("asset", "12e65fa3585d80cba39dcf4f59363bb68b77f9d3c0784734427b1517.54534c41"),
-                    JsonObjectAsserts.assertFieldEquals("quantity", "425839369")
+                    JsonObjectAsserts.assertFieldEquals("asset", "b863bc7369f46136ac1048adb2fa7dae3af944c3bbb2be2f216a8d4f.4265727279416c6261"),
+                    JsonObjectAsserts.assertFieldEquals("quantity", "1")
                 )
             )
             .send(context)

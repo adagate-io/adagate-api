@@ -89,7 +89,7 @@ public class ApiRouter extends RouterImpl {
                 .setName("GET Asset Information");
         get("/assets/:assetId").handler(new GetAssetById(vertx))
                 .setName("GET Specific Asset by id");
-// TODO: get("/assets/:assetId/history").handler();
+        get("/assets/:assetId/history").handler(new GetAssetHistory(vertx));
         get("/assets/:assetId/transactions").handler(new GetAssetTransactions(vertx))
                 .setName("GET Specific Asset Transactions by id");
         get("/assets/:assetId/addresses").handler(new GetAssetAddresses(vertx))

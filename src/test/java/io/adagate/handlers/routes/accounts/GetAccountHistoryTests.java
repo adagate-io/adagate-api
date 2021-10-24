@@ -28,21 +28,21 @@ public final class GetAccountHistoryTests extends AbstractApiTest {
     void testGetAccountHistory(Vertx vertx, VertxTestContext context, WebClient client) {
         testRequest(client, HttpMethod.GET, format("/accounts/%s/history", TEST_STAKE_ADDRESS))
                 .expect(
-                    statusCode(OK.code()),
-                    statusMessage(OK.reasonPhrase()),
-                    responseHeader(CONTENT_TYPE.toString(), APPLICATION_JSON.toString()),
-                    responseHeader(CONTENT_ENCODING.toString(), GZIP),
-                    expectFirstArrayElement(
-                        JsonObjectAsserts.assertFieldEquals("active_epoch", 247),
-                        JsonObjectAsserts.assertFieldEquals("amount", "100007109091"),
-                        JsonObjectAsserts.assertFieldEquals("pool_id", "pool1ct59zfxfvtv74k3mmukq5faq7kc48wuxrstyxtd02pxluwf6mkh")
-                    ),
-                    expectNthArrayElement(
-                        2,
-                        JsonObjectAsserts.assertFieldEquals("active_epoch", 249),
-                        JsonObjectAsserts.assertFieldEquals("amount", "250096920666"),
-                        JsonObjectAsserts.assertFieldEquals("pool_id", "pool1ct59zfxfvtv74k3mmukq5faq7kc48wuxrstyxtd02pxluwf6mkh")
-                    )
+                        statusCode(OK.code()),
+                        statusMessage(OK.reasonPhrase()),
+                        responseHeader(CONTENT_TYPE.toString(), APPLICATION_JSON.toString()),
+                        responseHeader(CONTENT_ENCODING.toString(), GZIP),
+                        expectFirstArrayElement(
+                                JsonObjectAsserts.assertFieldEquals("active_epoch", 247),
+                                JsonObjectAsserts.assertFieldEquals("amount", "100007109091"),
+                                JsonObjectAsserts.assertFieldEquals("pool_id", "pool1ct59zfxfvtv74k3mmukq5faq7kc48wuxrstyxtd02pxluwf6mkh")
+                        ),
+                        expectNthArrayElement(
+                                2,
+                                JsonObjectAsserts.assertFieldEquals("active_epoch", 249),
+                                JsonObjectAsserts.assertFieldEquals("amount", "250096920666"),
+                                JsonObjectAsserts.assertFieldEquals("pool_id", "pool1ct59zfxfvtv74k3mmukq5faq7kc48wuxrstyxtd02pxluwf6mkh")
+                        )
                 )
                 .send(context)
                 .onSuccess(response -> context.completeNow())
