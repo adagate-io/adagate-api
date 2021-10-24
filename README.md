@@ -36,12 +36,15 @@ You require running [cardano-db-sync](https://github.com/input-output-hk/cardano
 live from the blockchain. If you do not want to set up or maintain your own infrastructure, you will soon be able to use [adagate.io](https://adagate.io) services.
 
 # Configuration
-You may provide a configuration file in the following format in order to define the database connection parameters.
-It will also allow you to define how many worker verticles will be deployed to scale the API in regards to your needs. 
+You must provide a configuration file in the following format in order to define the database connection parameters.
+It will also allow you to define how many worker verticles will be deployed interacting with the database (for parallel execution).
+The default location is defined in the <a href="https://github.com/adagate-io/adagate-api/blob/main/pom.xml#L110"><code>pom.xml</code> file</a>.
 
 ```
 {
   "network": "mainnet|testnet",
+  "workers": 3,
+  "workerPoolSize": 20,
   "http": {
     "port": <api_port>
   },
