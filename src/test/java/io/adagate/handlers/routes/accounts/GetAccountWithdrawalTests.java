@@ -31,21 +31,21 @@ public final class GetAccountWithdrawalTests extends AbstractApiTest {
                 statusMessage(OK.reasonPhrase()),
                 responseHeader(CONTENT_TYPE.toString(), APPLICATION_JSON.toString()),
                 responseHeader(CONTENT_ENCODING.toString(), GZIP),
-                expectFirstArrayElement(
+                expectFirstJsonObjectArrayElement(
                     JsonObjectAsserts.assertFieldEquals("tx_hash", "67730e390eb1cbbd6f7cab0e1acfc258ca309964252b4050edf73eb27da8581b"),
                     JsonObjectAsserts.assertFieldEquals("amount", "2472329515")
                 ),
-                expectNthArrayElement(
+                expectNthJsonObjectArrayElement(
                     1,
                     JsonObjectAsserts.assertFieldEquals("tx_hash", "70ada9158d909c96c598f0a0466f81ed775c9a2a378788c44eb189dbc7666c87"),
                     JsonObjectAsserts.assertFieldEquals("amount", "4868215838")
                 ),
-                expectNthArrayElement(
+                expectNthJsonObjectArrayElement(
                     2,
                     JsonObjectAsserts.assertFieldEquals("tx_hash", "491edd917231b4daa54f34c71a5f4eea8182a1c164e55ca5b7db0c96abe30ee7"),
                     JsonObjectAsserts.assertFieldEquals("amount", "11172078988")
                 ),
-                expectNthArrayElement(
+                expectNthJsonObjectArrayElement(
                     3,
                     JsonObjectAsserts.assertFieldEquals("tx_hash", "1bb1744938e1c75b3dfde551d473a1a43b84a48968ae6de0a1fb8abb4bbc1c84"),
                     JsonObjectAsserts.assertFieldEquals("amount", "658768041")
@@ -69,16 +69,16 @@ public final class GetAccountWithdrawalTests extends AbstractApiTest {
                 responseHeader(CONTENT_TYPE.toString(), APPLICATION_JSON.toString()),
                 responseHeader(CONTENT_ENCODING.toString(), GZIP),
                 assertArrayLengthEquals(3),
-                expectFirstArrayElement(
+                expectFirstJsonObjectArrayElement(
                         JsonObjectAsserts.assertFieldEquals("tx_hash", "67730e390eb1cbbd6f7cab0e1acfc258ca309964252b4050edf73eb27da8581b"),
                         JsonObjectAsserts.assertFieldEquals("amount", "2472329515")
                 ),
-                expectNthArrayElement(
+                expectNthJsonObjectArrayElement(
                         1,
                         JsonObjectAsserts.assertFieldEquals("tx_hash", "70ada9158d909c96c598f0a0466f81ed775c9a2a378788c44eb189dbc7666c87"),
                         JsonObjectAsserts.assertFieldEquals("amount", "4868215838")
                 ),
-                expectNthArrayElement(
+                expectNthJsonObjectArrayElement(
                         2,
                         JsonObjectAsserts.assertFieldEquals("tx_hash", "491edd917231b4daa54f34c71a5f4eea8182a1c164e55ca5b7db0c96abe30ee7"),
                         JsonObjectAsserts.assertFieldEquals("amount", "11172078988")
@@ -103,16 +103,16 @@ public final class GetAccountWithdrawalTests extends AbstractApiTest {
                 responseHeader(CONTENT_TYPE.toString(), APPLICATION_JSON.toString()),
                 responseHeader(CONTENT_ENCODING.toString(), GZIP),
                 assertArrayLengthEquals(3),
-                expectFirstArrayElement(
+                expectFirstJsonObjectArrayElement(
                     JsonObjectAsserts.assertFieldEquals("tx_hash", "1bb1744938e1c75b3dfde551d473a1a43b84a48968ae6de0a1fb8abb4bbc1c84"),
                     JsonObjectAsserts.assertFieldEquals("amount", "658768041")
                 ),
-                expectNthArrayElement(
+                expectNthJsonObjectArrayElement(
                     1,
                     JsonObjectAsserts.assertFieldEquals("tx_hash", "d595009383b766d45c641fc9374319cb4cb2c1eb9a74ee64abcf175024d94b42"),
                     JsonObjectAsserts.assertFieldEquals("amount", "656834597")
                 ),
-                expectNthArrayElement(
+                expectNthJsonObjectArrayElement(
                     2,
                     JsonObjectAsserts.assertFieldEquals("tx_hash", "3a5fd46506ac68337b72b0f4fcacc10d172014e4ef66e97726be36f44da8861f"),
                     JsonObjectAsserts.assertFieldEquals("amount", "1301242820")
@@ -137,17 +137,17 @@ public final class GetAccountWithdrawalTests extends AbstractApiTest {
                 responseHeader(CONTENT_TYPE.toString(), APPLICATION_JSON.toString()),
                 responseHeader(CONTENT_ENCODING.toString(), GZIP),
                 assertArrayLengthEquals(3),
-                expectNthArrayElement(
+                expectNthJsonObjectArrayElement(
                     0,
                     JsonObjectAsserts.assertFieldEquals("tx_hash", "7c115730d08a78dfa58a6e8261f4bcb5bf4e244fe903c8b0767f475166aef1e4"),
                     JsonObjectAsserts.assertFieldEquals("amount", "207144587")
                 ),
-                expectNthArrayElement(
+                expectNthJsonObjectArrayElement(
                     1,
                     JsonObjectAsserts.assertFieldEquals("tx_hash", "8635beed573baf625b8e41a27af628dc28165ef3ef5cc9343054b16589ea30c0"),
                     JsonObjectAsserts.assertFieldEquals("amount", "172908813")
                 ),
-                expectNthArrayElement(
+                expectNthJsonObjectArrayElement(
                     2,
                     JsonObjectAsserts.assertFieldEquals("tx_hash", "6a6526d7c0f31e664d3c7f838cc007c06c189da950a0f144ce36a788d8cf72fd"),
                     JsonObjectAsserts.assertFieldEquals("amount", "1045864841")

@@ -30,7 +30,7 @@ public final class GetAssetHistoryTests extends AbstractApiTest {
                 responseHeader(CONTENT_TYPE.toString(), APPLICATION_JSON.toString()),
                 responseHeader(CONTENT_ENCODING.toString(), GZIP),
                 BufferAsserts.assertArrayLengthEquals(1),
-                BufferAsserts.expectFirstArrayElement(
+                BufferAsserts.expectFirstJsonObjectArrayElement(
                     assertFieldEquals("tx_hash", "bd581cee8882b4f5a6b47af74441d9bf53e842ce60646213988cab92060b04bd"),
                     assertFieldEquals("action", "minted"),
                     assertFieldEquals("quantity", "1")
@@ -51,7 +51,7 @@ public final class GetAssetHistoryTests extends AbstractApiTest {
                 responseHeader(CONTENT_TYPE.toString(), APPLICATION_JSON.toString()),
                 responseHeader(CONTENT_ENCODING.toString(), GZIP),
                 BufferAsserts.assertArrayLengthEquals(1),
-                BufferAsserts.expectFirstArrayElement(
+                BufferAsserts.expectFirstJsonObjectArrayElement(
                     assertFieldEquals("tx_hash", "96c5884cd1cee82aee302edb53dfce91876bbda2c2c2c0a3438ff562c02cd54a"),
                     assertFieldEquals("action", "minted"),
                     assertFieldEquals("quantity", "1")
@@ -75,30 +75,30 @@ public final class GetAssetHistoryTests extends AbstractApiTest {
                 responseHeader(CONTENT_TYPE.toString(), APPLICATION_JSON.toString()),
                 responseHeader(CONTENT_ENCODING.toString(), GZIP),
                 BufferAsserts.assertArrayLengthEquals(5),
-                BufferAsserts.expectFirstArrayElement(
+                BufferAsserts.expectFirstJsonObjectArrayElement(
                     assertFieldEquals("tx_hash", "5ee93e4c1261b7aeb012d662710d5adc2acc9e7400733c53de63ba2511aee454"),
                     assertFieldEquals("action", "minted"),
                     assertFieldEquals("quantity", "1000")
                 ),
-                BufferAsserts.expectNthArrayElement(
+                BufferAsserts.expectNthJsonObjectArrayElement(
                     1,
                     assertFieldEquals("tx_hash", "e3bfa42610305eefbd923f7699c466d4e2c9c31c41da534fcc08cf924ddb4f33"),
                     assertFieldEquals("action", "burned"),
                     assertFieldEquals("quantity", "-1000")
                 ),
-                BufferAsserts.expectNthArrayElement(
+                BufferAsserts.expectNthJsonObjectArrayElement(
                     2,
                     assertFieldEquals("tx_hash", "7bb6e9fffd006f6d3feeed6332ebfdc5e677063571b0da586d164fea1f3544b8"),
                     assertFieldEquals("action", "minted"),
                     assertFieldEquals("quantity", "1000")
                 ),
-                BufferAsserts.expectNthArrayElement(
+                BufferAsserts.expectNthJsonObjectArrayElement(
                     3,
                     assertFieldEquals("tx_hash", "7a244311ef760ee8515bb4c49e4b11c5069c6b44565f34d34d0a724312337fa5"),
                     assertFieldEquals("action", "burned"),
                     assertFieldEquals("quantity", "-1000")
                 ),
-                BufferAsserts.expectNthArrayElement(
+                BufferAsserts.expectNthJsonObjectArrayElement(
                     4,
                     assertFieldEquals("tx_hash", "b40f0c9e98e27a76018c8a5fa084b277ada052c72ec4d2bff42b8778055b8895"),
                     assertFieldEquals("action", "minted"),

@@ -10,7 +10,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static io.adagate.assertions.BufferAsserts.assertArrayLengthEquals;
-import static io.adagate.assertions.BufferAsserts.expectNthArrayElement;
+import static io.adagate.assertions.BufferAsserts.expectNthJsonObjectArrayElement;
 import static io.adagate.handlers.routes.AbstractRouteHandler.APPLICATION_JSON;
 import static io.adagate.handlers.routes.AbstractRouteHandler.GZIP;
 import static io.netty.handler.codec.http.HttpResponseStatus.OK;
@@ -31,19 +31,19 @@ public final class GetAssetTransactionsTests extends AbstractApiTest {
                 responseHeader(CONTENT_TYPE.toString(), APPLICATION_JSON.toString()),
                 responseHeader(CONTENT_ENCODING.toString(), GZIP),
                 assertArrayLengthEquals(6),
-                expectNthArrayElement(
+                expectNthJsonObjectArrayElement(
                     0,
                     JsonObjectAsserts.assertFieldEquals("tx_hash", "e252be4c7e40d35919f741c9649ff207c3e49d53bb819e5c1cb458055fd363ed"),
                     JsonObjectAsserts.assertFieldEquals("tx_index", 8),
                     JsonObjectAsserts.assertFieldEquals("height", 5406748)
                 ),
-                expectNthArrayElement(
+                expectNthJsonObjectArrayElement(
                     1,
                     JsonObjectAsserts.assertFieldEquals("tx_hash", "c38a0892729d071242b89ddd0069eb7c3b6cb0eb7170f040c4b59020b2081a0f"),
                     JsonObjectAsserts.assertFieldEquals("tx_index", 12),
                     JsonObjectAsserts.assertFieldEquals("height", 5602653)
                 ),
-                expectNthArrayElement(
+                expectNthJsonObjectArrayElement(
                     2,
                     JsonObjectAsserts.assertFieldEquals("tx_hash", "09869a301892df7020e0b54a838e53821e304d2fcf64c9aa00902d8bce92a4c3"),
                     JsonObjectAsserts.assertFieldEquals("tx_index", 3),
@@ -70,13 +70,13 @@ public final class GetAssetTransactionsTests extends AbstractApiTest {
                 responseHeader(CONTENT_TYPE.toString(), APPLICATION_JSON.toString()),
                 responseHeader(CONTENT_ENCODING.toString(), GZIP),
                 assertArrayLengthEquals(2),
-                expectNthArrayElement(
+                expectNthJsonObjectArrayElement(
                         0,
                         JsonObjectAsserts.assertFieldEquals("tx_hash", "09869a301892df7020e0b54a838e53821e304d2fcf64c9aa00902d8bce92a4c3"),
                         JsonObjectAsserts.assertFieldEquals("tx_index", 3),
                         JsonObjectAsserts.assertFieldEquals("height", 5616031)
                 ),
-                expectNthArrayElement(
+                expectNthJsonObjectArrayElement(
                         1,
                         JsonObjectAsserts.assertFieldEquals("tx_hash", "d02d83d6e327f558cd8fef770900065d904f8cf5f61f9eef3e06ad98f0ecb2ef"),
                         JsonObjectAsserts.assertFieldEquals("tx_index", 3),

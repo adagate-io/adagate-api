@@ -30,7 +30,7 @@ public final class GetAccountAssetsTests extends AbstractApiTest {
                 responseHeader(CONTENT_TYPE.toString(), APPLICATION_JSON.toString()),
                 responseHeader(CONTENT_ENCODING.toString(), GZIP),
                 assertArrayLengthEquals(1),
-                expectFirstArrayElement(
+                expectFirstJsonObjectArrayElement(
                     JsonObjectAsserts.assertFieldEquals("unit", "d894897411707efa755a76deb66d26dfd50593f2e70863e1661e98a0.7370616365636f696e73"),
                     JsonObjectAsserts.assertFieldEquals("quantity", "50")
                 )
@@ -50,7 +50,7 @@ public final class GetAccountAssetsTests extends AbstractApiTest {
                 responseHeader(CONTENT_TYPE.toString(), APPLICATION_JSON.toString()),
                 responseHeader(CONTENT_ENCODING.toString(), GZIP),
                 assertArrayLengthEquals(1),
-                expectFirstArrayElement(
+                expectFirstJsonObjectArrayElement(
                     JsonObjectAsserts.assertFieldEquals("unit", "e2bdb31c13a57d94934d01a4ca17cf3b2cac61d055637261b089c8f6.6265726c696e"),
                     JsonObjectAsserts.assertFieldEquals("quantity", "1")
                 )

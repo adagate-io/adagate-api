@@ -34,7 +34,7 @@ public final class GetNextEpochsTests extends AbstractApiTest {
                 responseHeader(CONTENT_TYPE.toString(), APPLICATION_JSON.toString()),
                 responseHeader(CONTENT_ENCODING.toString(), GZIP),
                 assertArrayLengthEquals(2),
-                expectFirstArrayElement(
+                expectFirstJsonObjectArrayElement(
                     JsonObjectAsserts.assertFieldEquals("epoch", 292),
                     /*
                      *  NOTE: start_time and end_time might slightly differ from node to node
@@ -50,7 +50,7 @@ public final class GetNextEpochsTests extends AbstractApiTest {
                     JsonObjectAsserts.assertFieldEquals("fees", "94575307119"),
                     JsonObjectAsserts.assertFieldEquals("active_stake", "23325839206372436")
                 ),
-                expectNthArrayElement(
+                expectNthJsonObjectArrayElement(
                     1,
                     JsonObjectAsserts.assertFieldEquals("epoch", 293),
 //                    JsonObjectAsserts.assertFieldEquals("start_time", 1632779091),
@@ -83,7 +83,7 @@ public final class GetNextEpochsTests extends AbstractApiTest {
                 responseHeader(CONTENT_TYPE.toString(), APPLICATION_JSON.toString()),
                 responseHeader(CONTENT_ENCODING.toString(), GZIP),
                 assertArrayLengthEquals(2),
-                expectFirstArrayElement(
+                expectFirstJsonObjectArrayElement(
                     JsonObjectAsserts.assertFieldEquals("epoch", 283),
                     JsonObjectAsserts.assertFieldEquals("first_block_time", 1628459168),
                     JsonObjectAsserts.assertFieldEquals("last_block_time", 1628891055),
@@ -93,7 +93,7 @@ public final class GetNextEpochsTests extends AbstractApiTest {
                     JsonObjectAsserts.assertFieldEquals("fees", "48375612297"),
                     JsonObjectAsserts.assertFieldEquals("active_stake", "23277148789435534")
                 ),
-                expectNthArrayElement(
+                expectNthJsonObjectArrayElement(
                     1,
                     JsonObjectAsserts.assertFieldEquals("epoch", 284),
                     JsonObjectAsserts.assertFieldEquals("first_block_time", 1628891161),

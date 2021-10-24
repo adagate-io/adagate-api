@@ -36,12 +36,12 @@ public final class GetEpochStakesTests extends AbstractApiTest {
                 responseHeader(CONTENT_TYPE.toString(), APPLICATION_JSON.toString()),
                 responseHeader(CONTENT_ENCODING.toString(), GZIP),
                 assertArrayLengthEquals(2),
-                expectFirstArrayElement(
+                expectFirstJsonObjectArrayElement(
                     JsonObjectAsserts.assertFieldEquals("pool_id", "pool14enw2643rn9nn6yzv60jyz3hj4kxs0jvap87lkgsqykh508jxm6"),
                     JsonObjectAsserts.assertFieldEquals("stake_address", "stake1uyqqqqs35ewmrv2tcclwlj0w7gfv7jv22asjn60upcdgnscd3l6v0"),
                     JsonObjectAsserts.assertFieldEquals("amount", "1019992638")
                 ),
-                expectNthArrayElement(
+                expectNthJsonObjectArrayElement(
                     1,
                     JsonObjectAsserts.assertFieldEquals("pool_id", "pool1qqqqqdk4zhsjuxxd8jyvwncf5eucfskz0xjjj64fdmlgj735lr9"),
                     JsonObjectAsserts.assertFieldEquals("stake_address", "stake1uyqqqj9kvqnnc4t6qt39nj5sdr5tpae906cejuyjvrhpuvssqn32g"),

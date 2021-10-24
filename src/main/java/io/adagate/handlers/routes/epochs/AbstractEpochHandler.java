@@ -2,6 +2,7 @@ package io.adagate.handlers.routes.epochs;
 
 import io.adagate.exceptions.AdaGateModuleException;
 import io.adagate.handlers.routes.AbstractRouteHandler;
+import io.adagate.models.QueryOrder;
 import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpServerRequest;
 import io.vertx.ext.web.RoutingContext;
@@ -14,6 +15,7 @@ import static java.lang.Math.max;
 abstract class AbstractEpochHandler extends AbstractRouteHandler {
 
     protected int epochNumber, page, count;
+    protected String order;
 
     AbstractEpochHandler(Vertx vertx) { super(vertx); }
 
@@ -30,6 +32,13 @@ abstract class AbstractEpochHandler extends AbstractRouteHandler {
 
         if (epochNumber < 0) {
             handleError(BAD_REQUEST_400_ERROR, "params.epochNumber should be a positive integer", context);
+            return;
+        }
+
+        try {
+            order = getParameter(req.getParam("order"), QueryOrder.class, QueryOrder.ASC).toString();
+        } catch (AdaGateModuleException e) {
+            handleError(BAD_REQUEST_400_ERROR, "querystring.order should be equal to one of the allowed values", context);
             return;
         }
 

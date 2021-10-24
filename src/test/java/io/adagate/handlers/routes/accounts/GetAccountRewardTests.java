@@ -33,12 +33,12 @@ public final class GetAccountRewardTests extends AbstractApiTest {
                 statusMessage(OK.reasonPhrase()),
                 responseHeader(CONTENT_TYPE.toString(), APPLICATION_JSON.toString()),
                 responseHeader(CONTENT_ENCODING.toString(), GZIP),
-                expectFirstArrayElement(
+                expectFirstJsonObjectArrayElement(
                     JsonObjectAsserts.assertFieldEquals("epoch", 250),
                     JsonObjectAsserts.assertFieldEquals("amount", "493058110"),
                     JsonObjectAsserts.assertFieldEquals("pool_id", "pool1ct59zfxfvtv74k3mmukq5faq7kc48wuxrstyxtd02pxluwf6mkh")
                 ),
-                expectNthArrayElement(
+                expectNthJsonObjectArrayElement(
                     2,
                     JsonObjectAsserts.assertFieldEquals("epoch", 256),
                     JsonObjectAsserts.assertFieldEquals("amount", "438128899"),
@@ -64,7 +64,7 @@ public final class GetAccountRewardTests extends AbstractApiTest {
                 responseHeader(CONTENT_TYPE.toString(), APPLICATION_JSON.toString()),
                 responseHeader(CONTENT_ENCODING.toString(), GZIP),
                 assertArrayLengthEquals(1),
-                expectFirstArrayElement(
+                expectFirstJsonObjectArrayElement(
                     JsonObjectAsserts.assertFieldEquals("epoch", 250),
                     JsonObjectAsserts.assertFieldEquals("amount", "493058110"),
                     JsonObjectAsserts.assertFieldEquals("pool_id", "pool1ct59zfxfvtv74k3mmukq5faq7kc48wuxrstyxtd02pxluwf6mkh")
@@ -89,14 +89,14 @@ public final class GetAccountRewardTests extends AbstractApiTest {
                 responseHeader(CONTENT_TYPE.toString(), APPLICATION_JSON.toString()),
                 responseHeader(CONTENT_ENCODING.toString(), GZIP),
                 assertArrayLengthEquals(3),
-                expectFirstArrayElement(
+                expectFirstJsonObjectArrayElement(
                     JsonObjectAsserts.assertFieldEquals("epoch", 258)
                 ),
-                expectNthArrayElement(
+                expectNthJsonObjectArrayElement(
                     1,
                     JsonObjectAsserts.assertFieldEquals("epoch", 260)
                 ),
-                expectNthArrayElement(
+                expectNthJsonObjectArrayElement(
                     2,
                     JsonObjectAsserts.assertFieldEquals("epoch", 262)
                 )
@@ -121,10 +121,10 @@ public final class GetAccountRewardTests extends AbstractApiTest {
                 responseHeader(CONTENT_TYPE.toString(), APPLICATION_JSON.toString()),
                 responseHeader(CONTENT_ENCODING.toString(), GZIP),
                 assertArrayLengthEquals(2),
-                expectFirstArrayElement(
+                expectFirstJsonObjectArrayElement(
                     JsonObjectAsserts.assertFieldEquals("epoch", 260)
                 ),
-                expectNthArrayElement(
+                expectNthJsonObjectArrayElement(
                     1,
                     JsonObjectAsserts.assertFieldEquals("epoch", 262)
                 )

@@ -39,7 +39,7 @@ public final class GetPreviousBlocksTests extends AbstractApiTest {
                 responseHeader(CONTENT_TYPE.toString(), APPLICATION_JSON.toString()),
                 responseHeader(CONTENT_ENCODING.toString(), GZIP),
                 BufferAsserts.assertArrayLengthEquals(1),
-                BufferAsserts.expectFirstArrayElement(
+                BufferAsserts.expectFirstJsonObjectArrayElement(
                     JsonObjectAsserts.assertFieldEquals("height", 6055554),
                     JsonObjectAsserts.assertFieldEquals("hash", "04883a1cca591277ac7d24408c4623d75e853b99fd220db0a9698f0cd5662321")
                 )
@@ -61,7 +61,7 @@ public final class GetPreviousBlocksTests extends AbstractApiTest {
                 responseHeader(CONTENT_TYPE.toString(), APPLICATION_JSON.toString()),
                 responseHeader(CONTENT_ENCODING.toString(), GZIP),
                 BufferAsserts.assertArrayLengthEquals(1),
-                BufferAsserts.expectFirstArrayElement(
+                BufferAsserts.expectFirstJsonObjectArrayElement(
                     JsonObjectAsserts.assertFieldEquals("height", 6055554)
                 )
             )
@@ -96,10 +96,10 @@ public final class GetPreviousBlocksTests extends AbstractApiTest {
                 responseHeader(CONTENT_TYPE.toString(), APPLICATION_JSON.toString()),
                 responseHeader(CONTENT_ENCODING.toString(), GZIP),
                 BufferAsserts.assertArrayLengthEquals(2),
-                BufferAsserts.expectFirstArrayElement(
+                BufferAsserts.expectFirstJsonObjectArrayElement(
                     JsonObjectAsserts.assertFieldEquals("height", 6055549)
                 ),
-                BufferAsserts.expectNthArrayElement(
+                BufferAsserts.expectNthJsonObjectArrayElement(
                     1,
                     JsonObjectAsserts.assertFieldEquals("height", 6055550)
                 )
@@ -121,10 +121,10 @@ public final class GetPreviousBlocksTests extends AbstractApiTest {
                 responseHeader(CONTENT_TYPE.toString(), APPLICATION_JSON.toString()),
                 responseHeader(CONTENT_ENCODING.toString(), GZIP),
                 BufferAsserts.assertArrayLengthEquals(2),
-                BufferAsserts.expectFirstArrayElement(
+                BufferAsserts.expectFirstJsonObjectArrayElement(
                     JsonObjectAsserts.assertFieldEquals("height", 6055549)
                 ),
-                BufferAsserts.expectNthArrayElement(
+                BufferAsserts.expectNthJsonObjectArrayElement(
                     1,
                     JsonObjectAsserts.assertFieldEquals("height", 6055550)
                 )
@@ -145,10 +145,10 @@ public final class GetPreviousBlocksTests extends AbstractApiTest {
                 responseHeader(CONTENT_TYPE.toString(), APPLICATION_JSON.toString()),
                 responseHeader(CONTENT_ENCODING.toString(), GZIP),
                 BufferAsserts.assertArrayLengthEquals(MAX_QUERY_LIMIT),
-                BufferAsserts.expectFirstArrayElement(
+                BufferAsserts.expectFirstJsonObjectArrayElement(
                     JsonObjectAsserts.assertFieldEquals("height", 6055455)
                 ),
-                BufferAsserts.expectNthArrayElement(
+                BufferAsserts.expectNthJsonObjectArrayElement(
                     MAX_QUERY_LIMIT - 1,
                     JsonObjectAsserts.assertFieldEquals("height", 6055554)
                 )
@@ -170,10 +170,10 @@ public final class GetPreviousBlocksTests extends AbstractApiTest {
                 responseHeader(CONTENT_TYPE.toString(), APPLICATION_JSON.toString()),
                 responseHeader(CONTENT_ENCODING.toString(), GZIP),
                 BufferAsserts.assertArrayLengthEquals(35),
-                BufferAsserts.expectFirstArrayElement(
+                BufferAsserts.expectFirstJsonObjectArrayElement(
                     JsonObjectAsserts.assertFieldEquals("height", 6055520)
                 ),
-                BufferAsserts.expectNthArrayElement(
+                BufferAsserts.expectNthJsonObjectArrayElement(
                     35 - 1,
                     JsonObjectAsserts.assertFieldEquals("height", 6055554)
                 )
@@ -195,10 +195,10 @@ public final class GetPreviousBlocksTests extends AbstractApiTest {
                 responseHeader(CONTENT_TYPE.toString(), APPLICATION_JSON.toString()),
                 responseHeader(CONTENT_ENCODING.toString(), GZIP),
                 BufferAsserts.assertArrayLengthEquals(35),
-                BufferAsserts.expectFirstArrayElement(
+                BufferAsserts.expectFirstJsonObjectArrayElement(
                     JsonObjectAsserts.assertFieldEquals("height", 6055485)
                 ),
-                BufferAsserts.expectNthArrayElement(
+                BufferAsserts.expectNthJsonObjectArrayElement(
                     35 - 1,
                     JsonObjectAsserts.assertFieldEquals("height", 6055519)
                 )

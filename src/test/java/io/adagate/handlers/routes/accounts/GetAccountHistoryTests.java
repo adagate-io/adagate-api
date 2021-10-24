@@ -32,12 +32,12 @@ public final class GetAccountHistoryTests extends AbstractApiTest {
                         statusMessage(OK.reasonPhrase()),
                         responseHeader(CONTENT_TYPE.toString(), APPLICATION_JSON.toString()),
                         responseHeader(CONTENT_ENCODING.toString(), GZIP),
-                        expectFirstArrayElement(
+                        expectFirstJsonObjectArrayElement(
                                 JsonObjectAsserts.assertFieldEquals("active_epoch", 247),
                                 JsonObjectAsserts.assertFieldEquals("amount", "100007109091"),
                                 JsonObjectAsserts.assertFieldEquals("pool_id", "pool1ct59zfxfvtv74k3mmukq5faq7kc48wuxrstyxtd02pxluwf6mkh")
                         ),
-                        expectNthArrayElement(
+                        expectNthJsonObjectArrayElement(
                                 2,
                                 JsonObjectAsserts.assertFieldEquals("active_epoch", 249),
                                 JsonObjectAsserts.assertFieldEquals("amount", "250096920666"),
@@ -62,7 +62,7 @@ public final class GetAccountHistoryTests extends AbstractApiTest {
                     responseHeader(CONTENT_TYPE.toString(), APPLICATION_JSON.toString()),
                     responseHeader(CONTENT_ENCODING.toString(), GZIP),
                     assertArrayLengthEquals(3),
-                    expectFirstArrayElement(
+                    expectFirstJsonObjectArrayElement(
                         JsonObjectAsserts.assertFieldEquals("active_epoch", 247),
                         JsonObjectAsserts.assertFieldEquals("amount", "100007109091"),
                         JsonObjectAsserts.assertFieldEquals("pool_id", "pool1ct59zfxfvtv74k3mmukq5faq7kc48wuxrstyxtd02pxluwf6mkh")
@@ -87,7 +87,7 @@ public final class GetAccountHistoryTests extends AbstractApiTest {
                 responseHeader(CONTENT_TYPE.toString(), APPLICATION_JSON.toString()),
                 responseHeader(CONTENT_ENCODING.toString(), GZIP),
                 assertArrayLengthEquals(3),
-                expectFirstArrayElement(
+                expectFirstJsonObjectArrayElement(
                     JsonObjectAsserts.assertFieldEquals("active_epoch", 250),
                     JsonObjectAsserts.assertFieldEquals("amount", "250096731053"),
                     JsonObjectAsserts.assertFieldEquals("pool_id", "pool1ct59zfxfvtv74k3mmukq5faq7kc48wuxrstyxtd02pxluwf6mkh")

@@ -1,7 +1,6 @@
 package io.adagate.handlers.routes.addresses;
 
 import io.adagate.AbstractApiTest;
-import io.adagate.assertions.BufferAsserts;
 import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.core.json.JsonArray;
@@ -38,7 +37,7 @@ public final class GetAddressUTXOsTests extends AbstractApiTest {
             responseHeader(CONTENT_TYPE.toString(), APPLICATION_JSON.toString()),
             responseHeader(CONTENT_ENCODING.toString(), GZIP),
             assertArrayLengthEquals(4),
-            expectFirstArrayElement(
+            expectFirstJsonObjectArrayElement(
                 assertFieldEquals("tx_hash", "020cc614de2b5c6dc6a7708ed72bed824171424f138971a982786d7f3b86406d"),
                 assertFieldEquals("tx_index", 1),
                 assertFieldEquals("output_index", 1),
@@ -57,7 +56,7 @@ public final class GetAddressUTXOsTests extends AbstractApiTest {
                 ),
                 assertNullField("data_hash")
             ),
-            expectNthArrayElement(
+            expectNthJsonObjectArrayElement(
                     1,
                     assertFieldEquals("tx_hash", "054c4282d1d1b59ca65cf441ec9d9524eb577b5f12332e237880f6a4f7457a01"),
                     assertFieldEquals("tx_index", 0),
@@ -101,7 +100,7 @@ public final class GetAddressUTXOsTests extends AbstractApiTest {
                 responseHeader(CONTENT_TYPE.toString(), APPLICATION_JSON.toString()),
                 responseHeader(CONTENT_ENCODING.toString(), GZIP),
                 assertArrayLengthEquals(2),
-                expectFirstArrayElement(
+                expectFirstJsonObjectArrayElement(
                     assertFieldEquals("tx_hash", "1e612b9a8bb9bbc6055d6493a9ab58d63eee63df6560c4e922b422c905579547"),
                     assertFieldEquals("tx_index", 1),
                     assertFieldEquals("output_index", 1),
@@ -120,7 +119,7 @@ public final class GetAddressUTXOsTests extends AbstractApiTest {
                     ),
                     assertNullField("data_hash")
                 ),
-                expectNthArrayElement(
+                expectNthJsonObjectArrayElement(
                     1,
                     assertFieldEquals("tx_hash", "4a7c58388ab673c0a8a62e5ab50d96fd696f451f5c4d943f7e0ed578b5a4c5b9"),
                     assertFieldEquals("tx_index", 0),

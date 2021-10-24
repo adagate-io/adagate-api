@@ -31,11 +31,11 @@ public final class GetAssetsTests extends AbstractApiTest {
                 responseHeader(CONTENT_TYPE.toString(), APPLICATION_JSON.toString()),
                 responseHeader(CONTENT_ENCODING.toString(), GZIP),
                 assertArrayLengthEquals(MAX_QUERY_LIMIT),
-                expectFirstArrayElement(
+                expectFirstJsonObjectArrayElement(
                     JsonObjectAsserts.assertFieldEquals("asset", "00000002df633853f6a47465c9496721d2d5b1291b8398016c0e87ae.6e7574636f696e"),
                     JsonObjectAsserts.assertFieldEquals("quantity", "1")
                 ),
-                expectNthArrayElement(
+                expectNthJsonObjectArrayElement(
                     1,
                     JsonObjectAsserts.assertFieldEquals("asset", "3a9241cd79895e3a8d65261b40077d4437ce71e9d7c8c6c00e3f658e.4669727374636f696e"),
                     JsonObjectAsserts.assertFieldEquals("quantity", "1")
@@ -60,16 +60,16 @@ public final class GetAssetsTests extends AbstractApiTest {
                 responseHeader(CONTENT_TYPE.toString(), APPLICATION_JSON.toString()),
                 responseHeader(CONTENT_ENCODING.toString(), GZIP),
                 assertArrayLengthEquals(3),
-                expectFirstArrayElement(
+                expectFirstJsonObjectArrayElement(
                     JsonObjectAsserts.assertFieldEquals("asset", "e12ab5cf12f95cd57b739282d06af9dd61e1b1dde1e06f0c31f02511.67696d62616c"),
                     JsonObjectAsserts.assertFieldEquals("quantity", "42")
                 ),
-                expectNthArrayElement(
+                expectNthJsonObjectArrayElement(
                     1,
                     JsonObjectAsserts.assertFieldEquals("asset", "da8c30857834c6ae7203935b89278c532b3995245295456f993e1d24.4c51"),
                     JsonObjectAsserts.assertFieldEquals("quantity", "21000000000000")
                 ),
-                expectNthArrayElement(
+                expectNthJsonObjectArrayElement(
                     2,
                     JsonObjectAsserts.assertFieldEquals("asset", "b863bc7369f46136ac1048adb2fa7dae3af944c3bbb2be2f216a8d4f.4265727279416c6261"),
                     JsonObjectAsserts.assertFieldEquals("quantity", "1")

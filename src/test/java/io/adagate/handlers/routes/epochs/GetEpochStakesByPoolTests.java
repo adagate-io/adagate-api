@@ -35,16 +35,16 @@ public final class GetEpochStakesByPoolTests extends AbstractApiTest {
                 responseHeader(CONTENT_TYPE.toString(), APPLICATION_JSON.toString()),
                 responseHeader(CONTENT_ENCODING.toString(), GZIP),
                 assertArrayLengthEquals(3),
-                expectFirstArrayElement(
+                expectFirstJsonObjectArrayElement(
                     JsonObjectAsserts.assertFieldEquals("stake_address", "stake1uyyvychk5a6ru0zm8m6xzdzt7n8f5ayja5lt4t778p5hnnspurajm"),
                     JsonObjectAsserts.assertFieldEquals("amount", "1621281503")
                 ),
-                expectNthArrayElement(
+                expectNthJsonObjectArrayElement(
                     1,
                     JsonObjectAsserts.assertFieldEquals("stake_address", "stake1uy2g02mr9j3lly2sj3gjn0rj3dxn22tj0xyuuzanx68xjug3h3yvp"),
                     JsonObjectAsserts.assertFieldEquals("amount", "108057326")
                 ),
-                expectNthArrayElement(
+                expectNthJsonObjectArrayElement(
                     2,
                     JsonObjectAsserts.assertFieldEquals("stake_address", "stake1uye0vlg9cn4ekdl6stqeg03f8yw75yfmx3dfynsf4dlh7vgu2lsj0"),
                     JsonObjectAsserts.assertFieldEquals("amount", "6310153")
@@ -69,11 +69,11 @@ public final class GetEpochStakesByPoolTests extends AbstractApiTest {
                 responseHeader(CONTENT_TYPE.toString(), APPLICATION_JSON.toString()),
                 responseHeader(CONTENT_ENCODING.toString(), GZIP),
                 assertArrayLengthEquals(2),
-                expectFirstArrayElement(
+                expectFirstJsonObjectArrayElement(
                     JsonObjectAsserts.assertFieldEquals("stake_address", "stake1u9fnelnz5qalzlrxhp0r40gz3k4qplk9k86qu962ush88ugmrr9jz"),
                     JsonObjectAsserts.assertFieldEquals("amount", "1929124863")
                 ),
-                expectNthArrayElement(
+                expectNthJsonObjectArrayElement(
                     1,
                     JsonObjectAsserts.assertFieldEquals("stake_address", "stake1u9kf3pqgf2xjryfu5zpx527tuu9t0pkyzunv8cm0g9hf6asty3cnr"),
                     JsonObjectAsserts.assertFieldEquals("amount", "41747377")
@@ -98,16 +98,16 @@ public final class GetEpochStakesByPoolTests extends AbstractApiTest {
                 responseHeader(CONTENT_TYPE.toString(), APPLICATION_JSON.toString()),
                 responseHeader(CONTENT_ENCODING.toString(), GZIP),
                 assertArrayLengthEquals(3),
-                expectFirstArrayElement(
+                expectFirstJsonObjectArrayElement(
                     JsonObjectAsserts.assertFieldEquals("stake_address", "stake1uyyvychk5a6ru0zm8m6xzdzt7n8f5ayja5lt4t778p5hnnspurajm"),
                     JsonObjectAsserts.assertFieldEquals("amount", "1621281503")
                 ),
-                expectNthArrayElement(
+                expectNthJsonObjectArrayElement(
                     1,
                     JsonObjectAsserts.assertFieldEquals("stake_address", "stake1uy2g02mr9j3lly2sj3gjn0rj3dxn22tj0xyuuzanx68xjug3h3yvp"),
                     JsonObjectAsserts.assertFieldEquals("amount", "108057326")
                 ),
-                expectNthArrayElement(
+                expectNthJsonObjectArrayElement(
                     2,
                     JsonObjectAsserts.assertFieldEquals("stake_address", "stake1uye0vlg9cn4ekdl6stqeg03f8yw75yfmx3dfynsf4dlh7vgu2lsj0"),
                     JsonObjectAsserts.assertFieldEquals("amount", "6310153")
@@ -132,11 +132,11 @@ public final class GetEpochStakesByPoolTests extends AbstractApiTest {
                 responseHeader(CONTENT_TYPE.toString(), APPLICATION_JSON.toString()),
                 responseHeader(CONTENT_ENCODING.toString(), GZIP),
                 assertArrayLengthEquals(2),
-                expectFirstArrayElement(
+                expectFirstJsonObjectArrayElement(
                     JsonObjectAsserts.assertFieldEquals("stake_address", "stake1u9fnelnz5qalzlrxhp0r40gz3k4qplk9k86qu962ush88ugmrr9jz"),
                     JsonObjectAsserts.assertFieldEquals("amount", "1929124863")
                 ),
-                expectNthArrayElement(
+                expectNthJsonObjectArrayElement(
                     1,
                     JsonObjectAsserts.assertFieldEquals("stake_address", "stake1u9kf3pqgf2xjryfu5zpx527tuu9t0pkyzunv8cm0g9hf6asty3cnr"),
                     JsonObjectAsserts.assertFieldEquals("amount", "41747377")

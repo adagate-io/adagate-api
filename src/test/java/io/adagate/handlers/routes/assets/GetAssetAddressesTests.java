@@ -10,7 +10,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static io.adagate.assertions.BufferAsserts.assertFieldEquals;
-import static io.adagate.assertions.BufferAsserts.expectFirstArrayElement;
+import static io.adagate.assertions.BufferAsserts.expectFirstJsonObjectArrayElement;
 import static io.adagate.handlers.routes.AbstractRouteHandler.APPLICATION_JSON;
 import static io.adagate.handlers.routes.AbstractRouteHandler.GZIP;
 import static io.netty.handler.codec.http.HttpResponseStatus.NOT_FOUND;
@@ -31,7 +31,7 @@ public final class GetAssetAddressesTests extends AbstractApiTest {
                 statusMessage(OK.reasonPhrase()),
                 responseHeader(CONTENT_TYPE.toString(), APPLICATION_JSON.toString()),
                 responseHeader(CONTENT_ENCODING.toString(), GZIP),
-                expectFirstArrayElement(
+                expectFirstJsonObjectArrayElement(
                     JsonObjectAsserts.assertFieldEquals("address", "addr1wyzynye0nksztrfzpsulsq7whr3vgh7uvp0gm4p0x42ckkqqq6kxq"),
                     JsonObjectAsserts.assertFieldEquals("quantity", "1")
                 )
@@ -50,7 +50,7 @@ public final class GetAssetAddressesTests extends AbstractApiTest {
                 statusMessage(OK.reasonPhrase()),
                 responseHeader(CONTENT_TYPE.toString(), APPLICATION_JSON.toString()),
                 responseHeader(CONTENT_ENCODING.toString(), GZIP),
-                expectFirstArrayElement(
+                expectFirstJsonObjectArrayElement(
                     JsonObjectAsserts.assertFieldEquals("address", "addr1qxxfwz7n3lnduxxgff6smhwlxkcw3gcax3q39363cpq4axnntgjccmteyrsldd67rxv2yq6ew2a7t48q34p9j7nf0kjq4rdx3w"),
                     JsonObjectAsserts.assertFieldEquals("quantity", "1")
                 )

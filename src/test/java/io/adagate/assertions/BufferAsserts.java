@@ -137,7 +137,7 @@ public final class BufferAsserts {
      * @return {@link Consumer} for response buffer.
      */
     @SafeVarargs
-    public static Consumer<HttpResponse<Buffer>> expectFirstArrayElement(Consumer<JsonObject>... asserts) {
+    public static Consumer<HttpResponse<Buffer>> expectFirstJsonObjectArrayElement(Consumer<JsonObject>... asserts) {
         return (res) -> {
             try {
                 final JsonArray jsonArray = toJsonArray(decompress(res.body()));
@@ -154,12 +154,37 @@ public final class BufferAsserts {
 
     /**
      * Expects a given buffer encoding a {@link JsonArray}, will otherwise fail.
+     * @param asserts Defines the list of assertions to be run against the first array element.
+     * @return {@link Consumer} for response buffer.
+     */
+    @SafeVarargs
+    public static Consumer<HttpResponse<Buffer>> expectFirstStringArrayElement(Consumer<String>... asserts) {
+        return (res) -> {
+            try {
+                final JsonArray jsonArray = toJsonArray(decompress(res.body()));
+                Assertions.assertFalse(jsonArray.isEmpty());
+
+                for (Consumer<String> jsonAssert : asserts) {
+                    jsonAssert.accept(jsonArray.getString(0));
+                }
+            } catch (IOException e) {
+                fail(e);
+            }
+        };
+    }
+
+    public static Consumer<String> expectString(String expected) {
+        return (actual) -> Assertions.assertEquals(expected, actual, format("Actual '%s' not equal expected '%s'", actual, expected));
+    }
+
+    /**
+     * Expects a given buffer encoding a {@link JsonArray}, will otherwise fail.
      * @param pos Defines the position of the element to run the assertions against.
      * @param asserts Defines the list of assertions to be run against the nth array element.
      * @return {@link Consumer} for response buffer.
      */
     @SafeVarargs
-    public static Consumer<HttpResponse<Buffer>> expectNthArrayElement(int pos, Consumer<JsonObject>... asserts) {
+    public static Consumer<HttpResponse<Buffer>> expectNthJsonObjectArrayElement(int pos, Consumer<JsonObject>... asserts) {
         return (res) -> {
             try {
                 final JsonArray jsonArray = toJsonArray(decompress(res.body()));
@@ -167,6 +192,28 @@ public final class BufferAsserts {
 
                 for (Consumer<JsonObject> jsonAssert : asserts) {
                     jsonAssert.accept(jsonArray.getJsonObject(pos));
+                }
+            } catch (IOException e) {
+                fail(e);
+            }
+        };
+    }
+
+    /**
+     * Expects a given buffer encoding a {@link JsonArray}, will otherwise fail.
+     * @param pos Defines the position of the element to run the assertions against.
+     * @param asserts Defines the list of assertions to be run against the nth array element.
+     * @return {@link Consumer} for response buffer.
+     */
+    @SafeVarargs
+    public static Consumer<HttpResponse<Buffer>> expectNthStringArrayElement(int pos, Consumer<String>... asserts) {
+        return (res) -> {
+            try {
+                final JsonArray jsonArray = toJsonArray(decompress(res.body()));
+                Assertions.assertFalse(jsonArray.isEmpty());
+
+                for (Consumer<String> jsonAssert : asserts) {
+                    jsonAssert.accept(jsonArray.getString(pos));
                 }
             } catch (IOException e) {
                 fail(e);

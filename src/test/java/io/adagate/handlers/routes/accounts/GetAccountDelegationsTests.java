@@ -14,7 +14,6 @@ import static io.adagate.handlers.routes.AbstractRouteHandler.APPLICATION_JSON;
 import static io.adagate.handlers.routes.AbstractRouteHandler.GZIP;
 import static io.adagate.handlers.routes.accounts.AccountTestConstants.TEST_STAKE_ADDRESS;
 import static io.adagate.models.QueryOrder.ASC;
-import static io.adagate.models.QueryOrder.DESC;
 import static io.netty.handler.codec.http.HttpResponseStatus.BAD_REQUEST;
 import static io.netty.handler.codec.http.HttpResponseStatus.OK;
 import static io.reactiverse.junit5.web.TestRequest.*;
@@ -38,11 +37,11 @@ public final class GetAccountDelegationsTests extends AbstractApiTest {
                 responseHeader(CONTENT_TYPE.toString(), APPLICATION_JSON.toString()),
                 responseHeader(CONTENT_ENCODING.toString(), GZIP),
                 assertArrayLengthEquals(2),
-                expectFirstArrayElement(
+                expectFirstJsonObjectArrayElement(
                     JsonObjectAsserts.assertFieldEquals("active_epoch", 247),
                     JsonObjectAsserts.assertFieldEquals("tx_hash", "bf7fddd528eb587b830fb69a81a3e87cd3eaaee808ba4623ca95a979db5c762e"),
                     JsonObjectAsserts.assertFieldEquals("pool_id", "pool1ct59zfxfvtv74k3mmukq5faq7kc48wuxrstyxtd02pxluwf6mkh")
-                ),expectNthArrayElement(
+                ), expectNthJsonObjectArrayElement(
                     1,
                     JsonObjectAsserts.assertFieldEquals("active_epoch", 249),
                     JsonObjectAsserts.assertFieldEquals("tx_hash", "b4cbd237bfb8ab18e263458975458e79a9e6137881c7050cd9b6ba156575307c"),
@@ -68,11 +67,11 @@ public final class GetAccountDelegationsTests extends AbstractApiTest {
                 responseHeader(CONTENT_TYPE.toString(), APPLICATION_JSON.toString()),
                 responseHeader(CONTENT_ENCODING.toString(), GZIP),
                 assertArrayLengthEquals(2),
-                expectFirstArrayElement(
+                expectFirstJsonObjectArrayElement(
                         JsonObjectAsserts.assertFieldEquals("active_epoch", 247),
                         JsonObjectAsserts.assertFieldEquals("tx_hash", "bf7fddd528eb587b830fb69a81a3e87cd3eaaee808ba4623ca95a979db5c762e"),
                         JsonObjectAsserts.assertFieldEquals("pool_id", "pool1ct59zfxfvtv74k3mmukq5faq7kc48wuxrstyxtd02pxluwf6mkh")
-                ),expectNthArrayElement(
+                ), expectNthJsonObjectArrayElement(
                         1,
                         JsonObjectAsserts.assertFieldEquals("active_epoch", 249),
                         JsonObjectAsserts.assertFieldEquals("tx_hash", "b4cbd237bfb8ab18e263458975458e79a9e6137881c7050cd9b6ba156575307c"),
@@ -98,18 +97,18 @@ public final class GetAccountDelegationsTests extends AbstractApiTest {
                 responseHeader(CONTENT_TYPE.toString(), APPLICATION_JSON.toString()),
                 responseHeader(CONTENT_ENCODING.toString(), GZIP),
                 assertArrayLengthEquals(3),
-                expectFirstArrayElement(
+                expectFirstJsonObjectArrayElement(
                     JsonObjectAsserts.assertFieldEquals("active_epoch", 247),
                     JsonObjectAsserts.assertFieldEquals("tx_hash", "bf7fddd528eb587b830fb69a81a3e87cd3eaaee808ba4623ca95a979db5c762e"),
                     JsonObjectAsserts.assertFieldEquals("pool_id", "pool1ct59zfxfvtv74k3mmukq5faq7kc48wuxrstyxtd02pxluwf6mkh")
                 ),
-                expectNthArrayElement(
+                expectNthJsonObjectArrayElement(
                     1,
                     JsonObjectAsserts.assertFieldEquals("active_epoch", 249),
                     JsonObjectAsserts.assertFieldEquals("tx_hash", "b4cbd237bfb8ab18e263458975458e79a9e6137881c7050cd9b6ba156575307c"),
                     JsonObjectAsserts.assertFieldEquals("pool_id", "pool1ct59zfxfvtv74k3mmukq5faq7kc48wuxrstyxtd02pxluwf6mkh")
                 ),
-                expectNthArrayElement(
+                expectNthJsonObjectArrayElement(
                     2,
                     JsonObjectAsserts.assertFieldEquals("active_epoch", 250),
                     JsonObjectAsserts.assertFieldEquals("tx_hash", "109441505254089059e6ffcbd5859654fcb5901af1b61d9e54ba803919562089"),
@@ -135,18 +134,18 @@ public final class GetAccountDelegationsTests extends AbstractApiTest {
                 responseHeader(CONTENT_TYPE.toString(), APPLICATION_JSON.toString()),
                 responseHeader(CONTENT_ENCODING.toString(), GZIP),
                 assertArrayLengthEquals(3),
-                expectFirstArrayElement(
+                expectFirstJsonObjectArrayElement(
                         JsonObjectAsserts.assertFieldEquals("active_epoch", 254),
                         JsonObjectAsserts.assertFieldEquals("tx_hash", "1defb28d328bf5c07c5d71056d0972a80d4adf94c4068ba9ddd7c5c8b950cb2b"),
                         JsonObjectAsserts.assertFieldEquals("pool_id", "pool1ct59zfxfvtv74k3mmukq5faq7kc48wuxrstyxtd02pxluwf6mkh")
                 ),
-                expectNthArrayElement(
+                expectNthJsonObjectArrayElement(
                         1,
                         JsonObjectAsserts.assertFieldEquals("active_epoch", 254),
                         JsonObjectAsserts.assertFieldEquals("tx_hash", "894c10d703dae5bc8d5e61bf2ce0d4baec338fa1b33c02811ea82eda83e18c5c"),
                         JsonObjectAsserts.assertFieldEquals("pool_id", "pool1ct59zfxfvtv74k3mmukq5faq7kc48wuxrstyxtd02pxluwf6mkh")
                 ),
-                expectNthArrayElement(
+                expectNthJsonObjectArrayElement(
                         2,
                         JsonObjectAsserts.assertFieldEquals("active_epoch", 261),
                         JsonObjectAsserts.assertFieldEquals("tx_hash", "d1f9f408f0b51b16cc73b513a65315a36126e3f05cf2441097effda20be32c4f"),
