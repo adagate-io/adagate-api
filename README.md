@@ -1,5 +1,5 @@
 <div align="center">
- <img width="100px" src="https://i.ibb.co/QCb7vCk/logo-01-small.png" align="center" />
+ <img width="100px" src="https://i.ibb.co/1nX9hC4/logo-03-small.png" align="center" />
  <h2 align="center">₳dagate<br />Cardano Blockchain API</h2>
  <h5 align="center">Get real-time blockchain data via REST and websockets!</h5>
 </div>
