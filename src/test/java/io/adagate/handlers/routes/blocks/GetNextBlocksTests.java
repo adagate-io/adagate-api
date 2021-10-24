@@ -27,22 +27,22 @@ public final class GetNextBlocksTests extends AbstractApiTest {
     @DisplayName("GET /blocks/<hash>/next?page=1&count=1")
     void testGetNextSingleBlockByHash(Vertx vertx, VertxTestContext context, WebClient client) {
         testRequest(client, HttpMethod.GET, String.format("/blocks/%s/next", TEST_BLOCK_HASH))
-                .with(
-                    queryParam("page", "1"),
-                    queryParam("count", "1")
+            .with(
+                queryParam("page", "1"),
+                queryParam("count", "1")
+            )
+            .expect(
+                statusCode(OK.code()),
+                statusMessage(OK.reasonPhrase()),
+                responseHeader(CONTENT_TYPE.toString(), APPLICATION_JSON.toString()),
+                responseHeader(CONTENT_ENCODING.toString(), GZIP),
+                BufferAsserts.assertArrayLengthEquals(1),
+                BufferAsserts.expectFirstArrayElement(
+                    JsonObjectAsserts.assertFieldEquals("height", 6055556),
+                    JsonObjectAsserts.assertFieldEquals("hash", "fca3990f09abc0c8801d74962ab251303734fda3845ebdfd769ff14abbd7e131")
                 )
-                .expect(
-                    statusCode(OK.code()),
-                    statusMessage(OK.reasonPhrase()),
-                    responseHeader(CONTENT_TYPE.toString(), APPLICATION_JSON.toString()),
-                    responseHeader(CONTENT_ENCODING.toString(), GZIP),
-                    BufferAsserts.assertArrayLengthEquals(1),
-                    BufferAsserts.expectFirstArrayElement(
-                        JsonObjectAsserts.assertFieldEquals("height", 6055556),
-                        JsonObjectAsserts.assertFieldEquals("hash", "fca3990f09abc0c8801d74962ab251303734fda3845ebdfd769ff14abbd7e131")
-                    )
-                )
-                .send(context);
+            )
+            .send(context);
     }
 
     @Test
@@ -146,119 +146,111 @@ public final class GetNextBlocksTests extends AbstractApiTest {
     @DisplayName("GET /blocks/<hash>/next?page=1")
     void testGetNextParameterized_003(Vertx vertx, VertxTestContext context, WebClient client) {
         testRequest(client, HttpMethod.GET, String.format("/blocks/%s/next", TEST_BLOCK_NO))
-                .with(
-                        queryParam("page", "1")
+            .with(
+                queryParam("page", "1")
+            )
+            .expect(
+                statusCode(OK.code()),
+                statusMessage(OK.reasonPhrase()),
+                responseHeader(CONTENT_TYPE.toString(), APPLICATION_JSON.toString()),
+                responseHeader(CONTENT_ENCODING.toString(), GZIP),
+                BufferAsserts.assertArrayLengthEquals(MAX_QUERY_LIMIT),
+                BufferAsserts.expectFirstArrayElement(
+                    JsonObjectAsserts.assertFieldEquals("height", 6055556),
+                    JsonObjectAsserts.assertFieldEquals("hash", "fca3990f09abc0c8801d74962ab251303734fda3845ebdfd769ff14abbd7e131")
+                ),
+                BufferAsserts.expectNthArrayElement(
+                MAX_QUERY_LIMIT - 1,
+                    JsonObjectAsserts.assertFieldEquals("height", 6055655),
+                    JsonObjectAsserts.assertFieldEquals("hash", "78c5595ab8c6e7f44c7b975935ed44c396f8bf3906bff2c44d54fe5af9aeb071")
                 )
-                .expect(
-                        statusCode(OK.code()),
-                        statusMessage(OK.reasonPhrase()),
-                        responseHeader(CONTENT_TYPE.toString(), APPLICATION_JSON.toString()),
-                        responseHeader(CONTENT_ENCODING.toString(), GZIP),
-                        BufferAsserts.assertArrayLengthEquals(MAX_QUERY_LIMIT),
-                        BufferAsserts.expectFirstArrayElement(
-                                JsonObjectAsserts.assertFieldEquals("height", 6055556),
-                                JsonObjectAsserts.assertFieldEquals("hash", "fca3990f09abc0c8801d74962ab251303734fda3845ebdfd769ff14abbd7e131")
-                        ),
-                        BufferAsserts.expectNthArrayElement(
-                            MAX_QUERY_LIMIT - 1,
-                                JsonObjectAsserts.assertFieldEquals("height", 6055655),
-                                JsonObjectAsserts.assertFieldEquals("hash", "78c5595ab8c6e7f44c7b975935ed44c396f8bf3906bff2c44d54fe5af9aeb071")
-                        )
-                )
-                .send(context);
+            )
+            .send(context);
     }
 
     @Test
     @DisplayName("GET /blocks/<hash>/next?page=1&count=35")
     void testGetNextParameterized_004(Vertx vertx, VertxTestContext context, WebClient client) {
         testRequest(client, HttpMethod.GET, String.format("/blocks/%s/next", TEST_BLOCK_NO))
-                .with(
-                        queryParam("page", "1"),
-                        queryParam("count", "35")
+            .with(
+                queryParam("page", "1"),
+                queryParam("count", "35")
+            )
+            .expect(
+                statusCode(OK.code()),
+                statusMessage(OK.reasonPhrase()),
+                responseHeader(CONTENT_TYPE.toString(), APPLICATION_JSON.toString()),
+                responseHeader(CONTENT_ENCODING.toString(), GZIP),
+                BufferAsserts.assertArrayLengthEquals(35),
+                BufferAsserts.expectFirstArrayElement(
+                    JsonObjectAsserts.assertFieldEquals("height", 6055556),
+                    JsonObjectAsserts.assertFieldEquals("hash", "fca3990f09abc0c8801d74962ab251303734fda3845ebdfd769ff14abbd7e131")
+                ),
+                BufferAsserts.expectNthArrayElement(
+                35 - 1,
+                    JsonObjectAsserts.assertFieldEquals("height", 6055590),
+                    JsonObjectAsserts.assertFieldEquals("hash", "341dc378331b3ac9417baaa457c1366662783d645e38a02c7b5130c1b6a8627e")
                 )
-                .expect(
-                        statusCode(OK.code()),
-                        statusMessage(OK.reasonPhrase()),
-                        responseHeader(CONTENT_TYPE.toString(), APPLICATION_JSON.toString()),
-                        responseHeader(CONTENT_ENCODING.toString(), GZIP),
-                        BufferAsserts.assertArrayLengthEquals(35),
-                        BufferAsserts.expectFirstArrayElement(
-                                JsonObjectAsserts.assertFieldEquals("height", 6055556),
-                                JsonObjectAsserts.assertFieldEquals("hash", "fca3990f09abc0c8801d74962ab251303734fda3845ebdfd769ff14abbd7e131")
-                        ),
-                        BufferAsserts.expectNthArrayElement(
-                            35 - 1,
-                                JsonObjectAsserts.assertFieldEquals("height", 6055590),
-                                JsonObjectAsserts.assertFieldEquals("hash", "341dc378331b3ac9417baaa457c1366662783d645e38a02c7b5130c1b6a8627e")
-                        )
-                )
-                .send(context);
+            )
+            .send(context);
     }
 
     @Test
     @DisplayName("GET /blocks/<hash>/next?page=2&count=35")
     void testGetNextParameterized_005(Vertx vertx, VertxTestContext context, WebClient client) {
         testRequest(client, HttpMethod.GET, String.format("/blocks/%s/next", TEST_BLOCK_NO))
-                .with(
-                        queryParam("page", "2"),
-                        queryParam("count", "35")
+            .with(
+                queryParam("page", "2"),
+                queryParam("count", "35")
+            )
+            .expect(
+                statusCode(OK.code()),
+                statusMessage(OK.reasonPhrase()),
+                responseHeader(CONTENT_TYPE.toString(), APPLICATION_JSON.toString()),
+                responseHeader(CONTENT_ENCODING.toString(), GZIP),
+                BufferAsserts.assertArrayLengthEquals(35),
+                BufferAsserts.expectFirstArrayElement(
+                    JsonObjectAsserts.assertFieldEquals("height", 6055591)
+                ),
+                BufferAsserts.expectNthArrayElement(
+                35 - 1,
+                    JsonObjectAsserts.assertFieldEquals("height", 6055625)
                 )
-                .expect(
-                        statusCode(OK.code()),
-                        statusMessage(OK.reasonPhrase()),
-                        responseHeader(CONTENT_TYPE.toString(), APPLICATION_JSON.toString()),
-                        responseHeader(CONTENT_ENCODING.toString(), GZIP),
-                        BufferAsserts.assertArrayLengthEquals(35),
-                        BufferAsserts.expectFirstArrayElement(
-                                JsonObjectAsserts.assertFieldEquals("height", 6055591)
-                        ),
-                        BufferAsserts.expectNthArrayElement(
-                            35 - 1,
-                                JsonObjectAsserts.assertFieldEquals("height", 6055625)
-                        )
-                )
-                .send(context);
+            )
+            .send(context);
     }
 
     @Test
     @DisplayName("GET /blocks/<hash>/next?page=-2&count=-30")
     void testGetNextParameterized_006(Vertx vertx, VertxTestContext context, WebClient client) {
         testRequest(client, HttpMethod.GET, String.format("/blocks/%s/next", TEST_BLOCK_NO))
-                .with(
-                        queryParam("page", "-2"),
-                        queryParam("count", "-30")
-                )
-                .expect(
-                        statusCode(OK.code()),
-                        statusMessage(OK.reasonPhrase()),
-                        responseHeader(CONTENT_TYPE.toString(), APPLICATION_JSON.toString()),
-                        responseHeader(CONTENT_ENCODING.toString(), GZIP),
-                        BufferAsserts.assertArrayLengthEquals(MAX_QUERY_LIMIT),
-                        BufferAsserts.expectFirstArrayElement(
-                                JsonObjectAsserts.assertFieldEquals("height", 6055556)
-                        ),
-                        BufferAsserts.expectNthArrayElement(
-                                MAX_QUERY_LIMIT - 1,
-                                JsonObjectAsserts.assertFieldEquals("height", 6055655)
-                        )
-                )
-                .send(context);
+            .with(
+                queryParam("page", "-2"),
+                queryParam("count", "-30")
+            )
+            .expect(
+                statusCode(BAD_REQUEST.code()),
+                statusMessage(BAD_REQUEST.reasonPhrase()),
+                responseHeader(CONTENT_TYPE.toString(), APPLICATION_JSON.toString()),
+                BufferAsserts.assertFieldEquals("message", "querystring.count should be >= 1")
+            )
+            .send(context);
     }
 
     @Test
     @DisplayName("GET /blocks/<hash>/next?page=a")
     void testGetNextParameterized_007(Vertx vertx, VertxTestContext context, WebClient client) {
         testRequest(client, HttpMethod.GET, String.format("/blocks/%s/next", TEST_BLOCK_NO))
-                .with(
-                        queryParam("page", "a")
-                )
-                .expect(
-                        statusCode(BAD_REQUEST.code()),
-                        statusMessage(BAD_REQUEST.reasonPhrase()),
-                        responseHeader(CONTENT_TYPE.toString(), APPLICATION_JSON.toString()),
-                        BufferAsserts.assertFieldEquals("message", "querystring.page should be integer")
-                )
-                .send(context);
+            .with(
+                queryParam("page", "a")
+            )
+            .expect(
+                statusCode(BAD_REQUEST.code()),
+                statusMessage(BAD_REQUEST.reasonPhrase()),
+                responseHeader(CONTENT_TYPE.toString(), APPLICATION_JSON.toString()),
+                BufferAsserts.assertFieldEquals("message", "querystring.page should be integer")
+            )
+            .send(context);
     }
 
 
@@ -266,15 +258,15 @@ public final class GetNextBlocksTests extends AbstractApiTest {
     @DisplayName("GET /blocks/<hash>/next?count=a")
     void testGetNextParameterized_008(Vertx vertx, VertxTestContext context, WebClient client) {
         testRequest(client, HttpMethod.GET, String.format("/blocks/%s/next", TEST_BLOCK_NO))
-                .with(
-                        queryParam("count", "a")
-                )
-                .expect(
-                        statusCode(BAD_REQUEST.code()),
-                        statusMessage(BAD_REQUEST.reasonPhrase()),
-                        responseHeader(CONTENT_TYPE.toString(), APPLICATION_JSON.toString()),
-                        BufferAsserts.assertFieldEquals("message", "querystring.count should be integer")
-                )
-                .send(context);
+            .with(
+                queryParam("count", "a")
+            )
+            .expect(
+                statusCode(BAD_REQUEST.code()),
+                statusMessage(BAD_REQUEST.reasonPhrase()),
+                responseHeader(CONTENT_TYPE.toString(), APPLICATION_JSON.toString()),
+                BufferAsserts.assertFieldEquals("message", "querystring.count should be integer")
+            )
+            .send(context);
     }
 }

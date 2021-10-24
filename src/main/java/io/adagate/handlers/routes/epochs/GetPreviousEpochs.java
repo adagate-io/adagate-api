@@ -18,7 +18,7 @@ public final class GetPreviousEpochs extends AbstractEpochHandler {
         super.handle(context);
 
         if ( ! context.response().ended()) {
-            final int max = epochNumber - max(0, (page - 1)) * count;
+            final int max = epochNumber - page;
             vertx
                 .eventBus()
                 .request(

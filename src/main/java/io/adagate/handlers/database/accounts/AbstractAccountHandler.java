@@ -8,7 +8,6 @@ import io.vertx.core.json.JsonObject;
 import io.vertx.pgclient.PgPool;
 
 import static io.adagate.ApiConstants.*;
-import static java.lang.Math.max;
 
 abstract class AbstractAccountHandler extends AbstractDatabaseHandler<Message<Object>> {
     protected final static Logger LOGGER = LoggerFactory.getLogger(AbstractAccountHandler.class);
@@ -27,8 +26,7 @@ abstract class AbstractAccountHandler extends AbstractDatabaseHandler<Message<Ob
         final JsonObject parameters = (JsonObject) message.body();
         stakeAddress = parameters.getString("stakeAddress");
         count = parameters.getInteger("count", count);
-        page = max(0, parameters.getInteger("page", page) - 1) * count;
-        if (count <= 0) { count = MAX_QUERY_LIMIT; }
+        page = parameters.getInteger("page", page);
         order = parameters.getString("order").toUpperCase();
     }
 }

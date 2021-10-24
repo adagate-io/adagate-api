@@ -55,8 +55,6 @@ public final class GetAccountAssets extends AbstractAccountHandler {
                 put("stakeAddress", stakeAddress);
                 put("count", count);
                 put("page", page);
-                LOGGER.info(keySet());
-                LOGGER.info(values());
             }})
             .compose(this::mapToJsonArray)
             .onSuccess(message::reply)

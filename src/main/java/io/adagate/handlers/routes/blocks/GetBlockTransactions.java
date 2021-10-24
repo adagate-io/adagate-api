@@ -14,6 +14,7 @@ import static io.adagate.exceptions.AdaGateModuleException.BAD_REQUEST_400_ERROR
 import static io.adagate.handlers.database.blocks.GetBlockTransactions.ADDRESS;
 import static io.netty.handler.codec.http.HttpResponseStatus.OK;
 import static io.vertx.core.buffer.Buffer.buffer;
+import static java.lang.Math.max;
 import static java.util.Objects.isNull;
 
 public final class GetBlockTransactions extends AbstractRouteHandler {
@@ -40,18 +41,13 @@ public final class GetBlockTransactions extends AbstractRouteHandler {
             return;
         }
 
-        int page;
-        try {
-            page = getParameter(req.getParam("page"), Integer.class, DEFAULT_QUERY_OFFSET);
-        } catch (AdaGateModuleException e) {
-            handleError(BAD_REQUEST_400_ERROR, "querystring.page should be integer", context);
-            return;
-        }
-
         int count;
         try {
             count = getParameter(req.getParam("count"), Integer.class, MAX_QUERY_LIMIT);
-            if (count <= 0) { count = MAX_QUERY_LIMIT; }
+            if (count <= 0) {
+                handleError(BAD_REQUEST_400_ERROR, "querystring.count should be >= 1", context);
+                return;
+            }
             if (count > MAX_QUERY_LIMIT) {
                 handleError(BAD_REQUEST_400_ERROR, "querystring.count should be <= 100", context);
                 return;
@@ -61,15 +57,28 @@ public final class GetBlockTransactions extends AbstractRouteHandler {
             return;
         }
 
+        int page;
+        try {
+            page = getParameter(req.getParam("page"), Integer.class, DEFAULT_QUERY_OFFSET);
+            if (page <= 0) {
+                handleError(BAD_REQUEST_400_ERROR, "querystring.page should be >= 1", context);
+                return;
+            }
+            page = max(0, page - 1) * count;
+        } catch (AdaGateModuleException e) {
+            handleError(BAD_REQUEST_400_ERROR, "querystring.page should be integer", context);
+            return;
+        }
+
         vertx
             .eventBus()
             .request(
                 ADDRESS,
                 new JsonObject()
-                        .put("id", id)
-                        .put("order", order)
-                        .put("page", page)
-                        .put("count", count)
+                    .put("id", id)
+                    .put("order", order)
+                    .put("page", page)
+                    .put("count", count)
             )
             .onSuccess(msg -> addResponseHeaders(OK, context)
                                 .end(buffer(compress(encode(msg.body()), context))))

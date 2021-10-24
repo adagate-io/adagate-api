@@ -1,6 +1,7 @@
 package io.adagate.handlers.routes.epochs;
 
 import io.adagate.AbstractApiTest;
+import io.adagate.assertions.BufferAsserts;
 import io.adagate.assertions.JsonObjectAsserts;
 import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpMethod;
@@ -36,15 +37,15 @@ public final class GetEpochStakesTests extends AbstractApiTest {
                 responseHeader(CONTENT_ENCODING.toString(), GZIP),
                 assertArrayLengthEquals(2),
                 expectFirstArrayElement(
-                    JsonObjectAsserts.assertFieldEquals("pool_id", "pool13annzt9hjfc822f0ejvxjf7fsmxd6cc28whpk5kagec6ggfmm7u"),
-                    JsonObjectAsserts.assertFieldEquals("stake_address", "stake1uyqqqnrq54k9an6ume6ry9w0ztwwmv3cjcc4dnqrfpk2gaggc4gww"),
-                    JsonObjectAsserts.assertFieldEquals("amount", "189224")
+                    JsonObjectAsserts.assertFieldEquals("pool_id", "pool14enw2643rn9nn6yzv60jyz3hj4kxs0jvap87lkgsqykh508jxm6"),
+                    JsonObjectAsserts.assertFieldEquals("stake_address", "stake1uyqqqqs35ewmrv2tcclwlj0w7gfv7jv22asjn60upcdgnscd3l6v0"),
+                    JsonObjectAsserts.assertFieldEquals("amount", "1019992638")
                 ),
                 expectNthArrayElement(
                     1,
-                    JsonObjectAsserts.assertFieldEquals("pool_id", "pool1ea568m9q882n0tx5d4vxff2dmz2n7rq5h62hx5ystq625m4tcfu"),
-                    JsonObjectAsserts.assertFieldEquals("stake_address", "stake1uyqqql83v6pqce0qgg99257tj9dspc9emlmsam64c3l4dqsz3mvlq"),
-                    JsonObjectAsserts.assertFieldEquals("amount", "2559850590")
+                    JsonObjectAsserts.assertFieldEquals("pool_id", "pool1qqqqqdk4zhsjuxxd8jyvwncf5eucfskz0xjjj64fdmlgj735lr9"),
+                    JsonObjectAsserts.assertFieldEquals("stake_address", "stake1uyqqqj9kvqnnc4t6qt39nj5sdr5tpae906cejuyjvrhpuvssqn32g"),
+                    JsonObjectAsserts.assertFieldEquals("amount", "1122758096")
                 )
             )
             .send(context)
@@ -97,11 +98,10 @@ public final class GetEpochStakesTests extends AbstractApiTest {
                 queryParam("count", "-1")
             )
             .expect(
-                statusCode(OK.code()),
-                statusMessage(OK.reasonPhrase()),
+                statusCode(BAD_REQUEST.code()),
+                statusMessage(BAD_REQUEST.reasonPhrase()),
                 responseHeader(CONTENT_TYPE.toString(), APPLICATION_JSON.toString()),
-                responseHeader(CONTENT_ENCODING.toString(), GZIP),
-                assertArrayLengthEquals(100)
+                BufferAsserts.assertFieldEquals("message", "querystring.count should be >= 1")
             )
             .send(context)
             .onSuccess(response -> context.completeNow())

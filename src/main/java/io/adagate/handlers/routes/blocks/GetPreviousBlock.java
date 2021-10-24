@@ -1,18 +1,15 @@
 package io.adagate.handlers.routes.blocks;
 
-import io.adagate.exceptions.AdaGateModuleException;
 import io.adagate.handlers.database.blocks.GetBlocks;
 import io.vertx.core.Vertx;
-import io.vertx.core.http.HttpServerRequest;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.RoutingContext;
 
-import static io.adagate.ApiConstants.*;
+import static io.adagate.ApiConstants.DEFAULT_HASH_LENGTH;
 import static io.adagate.exceptions.AdaGateModuleException.BAD_REQUEST_400_ERROR;
 import static io.netty.handler.codec.http.HttpResponseStatus.OK;
 import static io.vertx.core.buffer.Buffer.buffer;
 import static java.lang.Integer.parseInt;
-import static java.lang.Math.max;
 
 public final class GetPreviousBlock extends AbstractBlockRouteHandler {
 
@@ -20,15 +17,16 @@ public final class GetPreviousBlock extends AbstractBlockRouteHandler {
 
     @Override
     public void handle(RoutingContext context) {
-        final String id = context.request().getParam("id");
+        super.handle(context);
 
+        final String id = context.request().getParam("id");
         if (id.length() == DEFAULT_HASH_LENGTH) {
             getBlockNumber(id)
-                .onSuccess(blockNumber -> getNextBlocks(blockNumber, context))
+                .onSuccess(blockNumber -> getPreviousBlocks(blockNumber, context))
                 .onFailure(err -> handleError(err, context));
         } else {
             try {
-                getNextBlocks(parseInt(id), context);
+                getPreviousBlocks(parseInt(id), context);
             } catch (NumberFormatException e) {
                 handleError(BAD_REQUEST_400_ERROR, "querystring.block_number should be integer or block hash", context);
                 return;
@@ -36,32 +34,8 @@ public final class GetPreviousBlock extends AbstractBlockRouteHandler {
         }
     }
 
-    private void getNextBlocks(int blockNumber, RoutingContext context) {
-        final HttpServerRequest req = context.request();
-
-        int page;
-        try {
-            page = getParameter(req.getParam("page"), Integer.class, DEFAULT_QUERY_OFFSET);
-            if (page <= 0) { page = DEFAULT_QUERY_OFFSET; }
-        } catch (AdaGateModuleException e) {
-            handleError(BAD_REQUEST_400_ERROR, "querystring.page should be integer", context);
-            return;
-        }
-
-        int count;
-        try {
-            count = getParameter(req.getParam("count"), Integer.class, MAX_QUERY_LIMIT);
-            if (count <= 0) { count = MAX_QUERY_LIMIT; }
-            if (count > MAX_QUERY_LIMIT) {
-                handleError(BAD_REQUEST_400_ERROR, "querystring.count should be <= 100", context);
-                return;
-            }
-        } catch (AdaGateModuleException e) {
-            handleError(BAD_REQUEST_400_ERROR, "querystring.count should be integer", context);
-            return;
-        }
-
-        final int max = blockNumber - max(0, (page - 1)) * count;
+    private void getPreviousBlocks(int blockNumber, RoutingContext context) {
+        final int max = blockNumber - page;
         vertx
             .eventBus()
             .request(

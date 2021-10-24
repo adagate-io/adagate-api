@@ -53,10 +53,9 @@ public final class GetBlockTransactions extends AbstractBlockHandler {
         final JsonObject parameters = (JsonObject) message.body();
         try {
             initBlockProperties(parameters.getValue("id"));
-            page = max(0, parameters.getInteger("page", page));
+            page = parameters.getInteger("page", page);
             count = parameters.getInteger("count", count);
-            if (count <= 0) { count = MAX_QUERY_LIMIT; }
-            order = parameters.getString("order").toUpperCase();
+            order = parameters.getString("order", order).toUpperCase();
         } catch (AdaGateModuleException e) {
             message.fail(BAD_REQUEST_400_ERROR.getStatusCode(), BAD_REQUEST_400_ERROR.getMessage());
             return;
@@ -66,7 +65,7 @@ public final class GetBlockTransactions extends AbstractBlockHandler {
             .forQuery(client, query())
             .execute(new HashMap<String, Object>() {{
                 put("size", count);
-                put("page", max(0, page - 1) * count);
+                put("page", page);
             }})
             .compose(rs -> mapToJsonArray(rs, row -> row.toJson().getString("hash")))
             .onSuccess(message::reply)

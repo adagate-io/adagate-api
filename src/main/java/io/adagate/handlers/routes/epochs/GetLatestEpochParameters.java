@@ -14,7 +14,6 @@ public final class GetLatestEpochParameters extends AbstractRouteHandler {
 
     @Override
     public void handle(RoutingContext context) {
-        LOGGER.info("Called");
         vertx
             .eventBus()
             .request(ADDRESS, "")

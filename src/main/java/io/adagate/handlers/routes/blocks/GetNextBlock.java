@@ -20,8 +20,9 @@ public final class GetNextBlock extends AbstractBlockRouteHandler {
 
     @Override
     public void handle(RoutingContext context) {
-        final String id = context.request().getParam("id");
+        super.handle(context);
 
+        final String id = context.request().getParam("id");
         if (id.length() == DEFAULT_HASH_LENGTH) {
             getBlockNumber(id)
                 .onSuccess(blockNumber -> getNextBlocks(blockNumber, context))
@@ -36,31 +37,7 @@ public final class GetNextBlock extends AbstractBlockRouteHandler {
     }
 
     private void getNextBlocks(int blockNumber, RoutingContext context) {
-        final HttpServerRequest req = context.request();
-
-        int page;
-        try {
-            page = max(0, getParameter(req.getParam("page"), Integer.class, DEFAULT_QUERY_OFFSET));
-            if (page <= 0) { page = DEFAULT_QUERY_OFFSET; }
-        } catch (AdaGateModuleException e) {
-            handleError(BAD_REQUEST_400_ERROR, "querystring.page should be integer", context);
-            return;
-        }
-
-        int count;
-        try {
-            count = getParameter(req.getParam("count"), Integer.class, MAX_QUERY_LIMIT);
-            if (count <= 0) { count = MAX_QUERY_LIMIT; }
-            if (count > MAX_QUERY_LIMIT) {
-                handleError(BAD_REQUEST_400_ERROR, "querystring.count should be <= 100", context);
-                return;
-            }
-        } catch (AdaGateModuleException e) {
-            handleError(BAD_REQUEST_400_ERROR, "querystring.count should be integer", context);
-            return;
-        }
-
-        final int min = blockNumber + 1 + max(0, (page - 1)) * count;
+        final int min = blockNumber + 1 + page;
         vertx
             .eventBus()
             .request(

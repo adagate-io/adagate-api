@@ -208,6 +208,22 @@ public final class BufferAsserts {
 
     /**
      * Expects a given buffer encoding a {@link JsonArray}, will otherwise fail.
+     * @param expectedLength Defines the expected array length.
+     * @return {@link Consumer} for response buffer.
+     */
+    public static Consumer<HttpResponse<Buffer>> assertArrayLengthLessThanOrEquals(int expectedLength) {
+        return (res) -> {
+            try {
+                final JsonArray actual = toJsonArray(decompress(res.body()));
+                Assertions.assertTrue(actual.size() <= expectedLength, format("Array length (%d) is not <= %d", actual.size(), expectedLength));
+            } catch (IOException e) {
+                fail(e);
+            }
+        };
+    }
+
+    /**
+     * Expects a given buffer encoding a {@link JsonArray}, will otherwise fail.
      * @param expected Defines the expected {@link JsonArray}.
      * @return {@link Consumer} for response buffer.
      */

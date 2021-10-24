@@ -18,7 +18,6 @@ public final class GetEpochStakes extends AbstractEpochHandler {
         super.handle(context);
 
         if ( ! context.response().ended()) {
-            final int min = epochNumber + 1 + max(0, (page - 1)) * count;
             vertx
                 .eventBus()
                 .request(
@@ -26,7 +25,7 @@ public final class GetEpochStakes extends AbstractEpochHandler {
                     new JsonObject()
                         .put("epochNumber", epochNumber)
                         .put("count", count)
-                        .put("offset", page * count)
+                        .put("offset", page)
                 )
                 .onSuccess(msg -> addResponseHeaders(OK, context)
                         .end(buffer(compress(encode(msg.body()), context))))
