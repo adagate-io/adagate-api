@@ -175,6 +175,9 @@ GET Epochs Stakes
 GET Epochs Stakes for specific Pool
 ```/epochs/:epochNumber/stakes/:poolId```
 
+GET Epochs Blocks
+```/epochs/:epochNumber/blocks```
+
 ## Genesis
 
 GET Genesis of network:
