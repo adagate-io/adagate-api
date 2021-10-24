@@ -7,6 +7,7 @@ import io.vertx.core.*;
 import io.vertx.core.impl.logging.Logger;
 import io.vertx.core.impl.logging.LoggerFactory;
 
+import static io.adagate.ApiConstants.*;
 import static java.lang.String.format;
 
 public class AdaGateModule extends AbstractVerticle {
@@ -18,7 +19,9 @@ public class AdaGateModule extends AbstractVerticle {
         final DeploymentOptions workerOpts = new DeploymentOptions()
                 .setConfig(config())
                 .setWorker(true)
-                .setInstances(2);
+                .setWorkerPoolName(WORKER_POOL_NAME)
+                .setInstances(config().getInteger("workers", DEFAULT_WORKER_INSTANCES))
+                .setWorkerPoolSize(config().getInteger("workerPoolSize", DEFAULT_WORKER_POOL_SIZE));
 
         deploy(DatabaseWorkerVerticle.class, workerOpts)
             .compose(r -> deploy(DatabaseSubscriberVerticle.class, defaultOps))
