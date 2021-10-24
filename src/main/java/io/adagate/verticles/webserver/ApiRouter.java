@@ -130,7 +130,7 @@ public class ApiRouter extends RouterImpl {
                 .setName("GET Previous Epochs");
         get("/epochs/:epochNumber/stakes").handler(new GetEpochStakes(vertx))
                 .setName("GET Epoch Stakes");
-// TODO: get("/epochs/:epochNumber/stakes/:poolId").handler();
+        get("/epochs/:epochNumber/stakes/:poolId").handler(new GetEpochStakesByPool(vertx));
 // TODO: get("/epochs/:epochNumber/blocks").handler();
 // TODO: get("/epochs/:epochNumber/blocks/:poolId").handler();
 // TODO: get("/epochs/:epochNumber/parameters").handler();

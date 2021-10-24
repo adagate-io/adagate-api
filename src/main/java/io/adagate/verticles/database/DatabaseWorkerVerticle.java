@@ -63,13 +63,13 @@ public final class DatabaseWorkerVerticle extends AbstractDatabaseVerticle {
         final EventBus evBus = vertx.eventBus();
 
         /* Accounts */
-        register(GetAccountByStakeAddress.ADDRESS, new GetAccountByStakeAddress(pool));
+        register(GetAccountAssets.ADDRESS, new GetAccountAssets(pool));
         register(GetAccountHistory.ADDRESS, new GetAccountHistory(pool));
         register(GetAccountRewards.ADDRESS, new GetAccountRewards(pool));
         register(GetAccountAddresses.ADDRESS, new GetAccountAddresses(pool));
         register(GetAccountDelegations.ADDRESS, new GetAccountDelegations(pool));
         register(GetAccountWithdrawals.ADDRESS, new GetAccountWithdrawals(pool));
-        register(GetAccountAssets.ADDRESS, new GetAccountAssets(pool));
+        register(GetAccountByStakeAddress.ADDRESS, new GetAccountByStakeAddress(pool));
 
         /* Assets */
         register(GetAssets.ADDRESS, new GetAssets(pool));
@@ -87,23 +87,24 @@ public final class DatabaseWorkerVerticle extends AbstractDatabaseVerticle {
 
         /* Blocks */
         register(GetBlocks.ADDRESS, new GetBlocks(pool));
-        register(GetBlockByNumberOrHash.ADDRESS, new GetBlockByNumberOrHash(pool));
         register(GetBlockBySlotNumber.ADDRESS, new GetBlockBySlotNumber(pool));
-        register(GetBlockByEpochSlotNumber.ADDRESS, new GetBlockByEpochSlotNumber(pool));
         register(GetLatestBlockNumber.ADDRESS, new GetLatestBlockNumber(pool));
         register(GetBlockNumberByHash.ADDRESS, new GetBlockNumberByHash(pool));
         register(GetBlockTransactions.ADDRESS, new GetBlockTransactions(pool));
+        register(GetBlockByNumberOrHash.ADDRESS, new GetBlockByNumberOrHash(pool));
+        register(GetBlockByEpochSlotNumber.ADDRESS, new GetBlockByEpochSlotNumber(pool));
 
         /* Epochs */
-        register(GetEpochById.ADDRESS, new GetEpochById(pool));
-        register(GetLatestEpochNumber.ADDRESS, new GetLatestEpochNumber(pool));
         register(GetEpochs.ADDRESS, new GetEpochs(pool));
+        register(GetEpochById.ADDRESS, new GetEpochById(pool));
         register(GetEpochStakes.ADDRESS, new GetEpochStakes(pool));
+        register(GetLatestEpochNumber.ADDRESS, new GetLatestEpochNumber(pool));
+        register(GetEpochStakesByPool.ADDRESS, new GetEpochStakesByPool(pool));
         register(GetLatestEpochParameters.ADDRESS, new GetLatestEpochParameters(pool));
 
         /* Pools */
-        register(GetPoolByIdOrHash.ADDRESS, new GetPoolByIdOrHash(pool));
         register(GetPoolMetadata.ADDRESS, new GetPoolMetadata(pool));
+        register(GetPoolByIdOrHash.ADDRESS, new GetPoolByIdOrHash(pool));
 
         return succeededFuture();
     }
