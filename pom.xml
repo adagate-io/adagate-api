@@ -107,6 +107,7 @@
                 </executions>
                 <configuration>
                     <redeploy>true</redeploy>
+                    <config>src/main/resources/config.json</config>
                 </configuration>
             </plugin>
             <plugin>
