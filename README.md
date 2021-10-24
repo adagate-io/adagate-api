@@ -89,6 +89,9 @@ GET Account Withdrawals:
 GET Account Addresses:
 ```/accounts/:stakeAddress/addresses```
 
+GET Assets by Account Addresses:
+```/accounts/:stakeAddress/addresses/assets```
+
 ## Addresses
 
 GET Address Information:
@@ -110,6 +113,9 @@ GET Asset Information:
 
 GET Specific Asset by id:
 ```/assets/:assetId```
+
+GET Specific Asset History by id:
+```/assets/:assetId/history```
 
 GET Specific Asset Transactions by id:
 ```/assets/:assetId/transactions```
@@ -162,6 +168,9 @@ GET Previous Epochs
 
 GET Epochs Stakes
 ```/epochs/:epochNumber/stakes```
+
+GET Epochs Stakes for specific Pool
+```/epochs/:epochNumber/stakes/:poolId```
 
 ## Genesis
 
