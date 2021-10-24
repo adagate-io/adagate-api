@@ -38,7 +38,7 @@ live from the blockchain. If you do not want to set up or maintain your own infr
 # Configuration
 You must provide a configuration file in the following format in order to define the database connection parameters.
 It will also allow you to define how many worker verticles will be deployed interacting with the database (for parallel execution).
-The default location is defined in the <a href="https://github.com/adagate-io/adagate-api/blob/main/pom.xml#L110"><code>pom.xml</code> file</a>.
+The default location is defined in the <a href="https://github.com/adagate-io/adagate-api/blob/main/pom.xml#L110" target="_blank"><code>pom.xml</code></a> file.
 
 ```
 {
