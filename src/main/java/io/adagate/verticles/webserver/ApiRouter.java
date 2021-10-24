@@ -52,7 +52,6 @@ public class ApiRouter extends RouterImpl {
 //                    .allowedMethod(HttpMethod.GET)
 //                    .allowedMethod(HttpMethod.POST)
 //                    .allowedMethod(HttpMethod.HEAD)
-//                    .allowedHeader(APIKEY_HEADER)
 //                    .allowCredentials(false)
 //                    .addOrigin(config.getString("origin", "*"))
 //            )
@@ -72,7 +71,8 @@ public class ApiRouter extends RouterImpl {
 // TODO: get("/accounts/:stakeAddress/mirs").handler();
         get("/accounts/:stakeAddress/addresses").handler(new GetAccountAddresses(vertx))
                 .setName("GET Account Addresses");
-        get("/accounts/:stakeAddress/addresses/assets").handler(new GetAccountAssets(vertx));
+        get("/accounts/:stakeAddress/addresses/assets").handler(new GetAccountAssets(vertx))
+                .setName("GET Assets by Account Addresses");
 
         /* Addresses */
         get("/addresses/:address").handler(new GetAddress(vertx))
@@ -89,7 +89,8 @@ public class ApiRouter extends RouterImpl {
                 .setName("GET Asset Information");
         get("/assets/:assetId").handler(new GetAssetById(vertx))
                 .setName("GET Specific Asset by id");
-        get("/assets/:assetId/history").handler(new GetAssetHistory(vertx));
+        get("/assets/:assetId/history").handler(new GetAssetHistory(vertx))
+                .setName("GET Specific Asset History by id");
         get("/assets/:assetId/transactions").handler(new GetAssetTransactions(vertx))
                 .setName("GET Specific Asset Transactions by id");
         get("/assets/:assetId/addresses").handler(new GetAssetAddresses(vertx))
@@ -130,8 +131,9 @@ public class ApiRouter extends RouterImpl {
                 .setName("GET Previous Epochs");
         get("/epochs/:epochNumber/stakes").handler(new GetEpochStakes(vertx))
                 .setName("GET Epoch Stakes");
-        get("/epochs/:epochNumber/stakes/:poolId").handler(new GetEpochStakesByPool(vertx));
-// TODO: get("/epochs/:epochNumber/blocks").handler();
+        get("/epochs/:epochNumber/stakes/:poolId").handler(new GetEpochStakesByPool(vertx))
+                .setName("GET Epoch Stakes for specific Pool");
+        get("/epochs/:epochNumber/blocks").handler(new GetEpochBlocks(vertx));
 // TODO: get("/epochs/:epochNumber/blocks/:poolId").handler();
 // TODO: get("/epochs/:epochNumber/parameters").handler();
 
@@ -149,10 +151,10 @@ public class ApiRouter extends RouterImpl {
 // TODO: get("/pools/retired").handler();
 // TODO: get("/pools/retiring").handler();
         get("/pools/:poolId").handler(new GetPoolByIdOrHash(vertx))
-                .setName("GET Pool by id"); // TODO: Periodically update total_live_stake
+            .setName("GET Pool by id"); // TODO: Periodically update total_live_stake
 // TODO: get("/pools/:poolId/history").handler();
         get("/pools/:poolId/metadata").handler(new GetPoolMetadata(vertx))
-                .setName("GET Pool Metadata");
+            .setName("GET Pool Metadata");
 // TODO: get("/pools/:poolId/relays").handler();
 // TODO: get("/pools/:poolId/delegators").handler();
 // TODO: get("/pools/:poolId/blocks").handler();
