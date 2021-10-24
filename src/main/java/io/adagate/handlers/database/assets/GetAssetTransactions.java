@@ -9,6 +9,7 @@ import java.util.HashMap;
 
 import static io.adagate.exceptions.AdaGateModuleException.BAD_REQUEST_400_ERROR;
 import static io.adagate.utils.ExceptionHandler.handleError;
+import static java.util.Objects.isNull;
 
 public final class GetAssetTransactions extends AbstractAssetHandler {
 
@@ -31,8 +32,6 @@ public final class GetAssetTransactions extends AbstractAssetHandler {
             .append("OFFSET #{page} ")
         .toString();
 
-    private String order;
-
     public GetAssetTransactions(PgPool pool) { super(pool); }
 
     @Override
@@ -47,11 +46,11 @@ public final class GetAssetTransactions extends AbstractAssetHandler {
             return;
         }
 
-        final JsonObject params = (JsonObject) message.body();
-        initialize(params.getString("assetId"));
-        final int page = params.getInteger("page");
-        final int count = params.getInteger("count");
-        order = params.getString("order");
+        handle((JsonObject) message.body());
+        if (isNull(policyId) || isNull(assetName)) {
+            message.fail(BAD_REQUEST_400_ERROR.getStatusCode(), BAD_REQUEST_400_ERROR.getMessage());
+            return;
+        }
 
         SqlTemplate
             .forQuery(client, query())

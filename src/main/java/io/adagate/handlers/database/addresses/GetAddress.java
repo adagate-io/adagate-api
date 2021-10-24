@@ -107,6 +107,7 @@ public final class GetAddress extends AbstractDatabaseHandler<Message<Object>> {
             return;
         }
 
+
         this.address = (String) message.body();
         SqlTemplate
             .forQuery(client, query())

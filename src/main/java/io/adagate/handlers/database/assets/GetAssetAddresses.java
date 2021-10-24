@@ -42,7 +42,8 @@ public final class GetAssetAddresses extends AbstractAssetHandler {
         }
 
         final JsonObject params = (JsonObject) message.body();
-        initialize(params.getString("assetId"));
+        handle(params);
+
         SqlTemplate
             .forQuery(client, query())
             .execute(emptyMap())

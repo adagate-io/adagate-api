@@ -1,6 +1,5 @@
 package io.adagate.handlers.database.assets;
 
-import io.adagate.handlers.database.AbstractDatabaseHandler;
 import io.vertx.core.eventbus.Message;
 import io.vertx.core.json.JsonObject;
 import io.vertx.pgclient.PgPool;
@@ -8,14 +7,11 @@ import io.vertx.sqlclient.templates.SqlTemplate;
 
 import java.util.HashMap;
 
-import static io.adagate.ApiConstants.*;
 import static io.adagate.exceptions.AdaGateModuleException.BAD_REQUEST_400_ERROR;
 import static io.adagate.utils.ExceptionHandler.handleError;
-import static io.vertx.core.Future.succeededFuture;
-import static java.lang.Math.max;
 import static java.lang.String.format;
 
-public final class GetAssets extends AbstractDatabaseHandler<Message<Object>> {
+public final class GetAssets extends AbstractAssetHandler {
 
     public static final String ADDRESS = "io.adagate.assets.list";
     public static final String QUERY = new StringBuilder()
@@ -26,14 +22,10 @@ public final class GetAssets extends AbstractDatabaseHandler<Message<Object>> {
             .append("FROM ma_tx_mint mtm ")
             .append("LEFT JOIN tx_metadata txm ")
                 .append("ON txm.tx_id = mtm.tx_id ")
-            .append("ORDER BY mtm.id %s ")
-            .append("LIMIT #{count} ")
+            .append("ORDER BY mtm.tx_id %s ")
             .append("OFFSET #{page} ")
+            .append("LIMIT #{count} ")
             .toString();
-
-    private int count = MAX_QUERY_LIMIT;
-    private int page = DEFAULT_QUERY_OFFSET;
-    private String order = DEFAULT_QUERY_ORDER;
 
     public GetAssets(PgPool client) { super(client); }
 
@@ -49,15 +41,11 @@ public final class GetAssets extends AbstractDatabaseHandler<Message<Object>> {
             return;
         }
 
-        final JsonObject parameters = (JsonObject) message.body();
-        page = max(0, parameters.getInteger("page", page));
-        count = parameters.getInteger("count", count);
-        order = parameters.getString("order").toUpperCase();
-
+        handle((JsonObject) message.body());
         SqlTemplate
             .forQuery(client, query())
             .execute(new HashMap<String, Object>() {{
-                put("page", max(0, page - 1) * count);
+                put("page", page);
                 put("count", count);
             }})
             .compose(this::mapToJsonArray)

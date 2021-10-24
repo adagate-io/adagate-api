@@ -15,11 +15,13 @@ public final class GetAssetById extends AbstractGetAssets {
     public void handle(RoutingContext context) {
         super.handle(context);
 
-        vertx
-            .eventBus()
-            .request(ADDRESS, assetId)
-            .onSuccess(msg -> addResponseHeaders(OK, context)
-                                .end(buffer(compress(encode(msg.body()), context))))
-            .onFailure(err -> handleError(err, context));
+        if ( ! context.response().ended()) {
+            vertx
+                .eventBus()
+                .request(ADDRESS, assetId)
+                .onSuccess(msg -> addResponseHeaders(OK, context)
+                                    .end(buffer(compress(encode(msg.body()), context))))
+                .onFailure(err -> handleError(err, context));
+        }
     }
 }

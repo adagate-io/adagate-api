@@ -4,7 +4,6 @@ import io.vertx.core.eventbus.Message;
 import io.vertx.pgclient.PgPool;
 import io.vertx.sqlclient.templates.SqlTemplate;
 
-import static io.adagate.ApiConstants.DEFAULT_POLICY_LENGTH;
 import static io.adagate.exceptions.AdaGateModuleException.BAD_REQUEST_400_ERROR;
 import static io.adagate.utils.ExceptionHandler.handleError;
 import static java.lang.String.format;
@@ -34,12 +33,7 @@ public final class GetAssetByPolicyId extends AbstractAssetHandler {
             return;
         }
 
-        policyId = (String) message.body();
-        if (policyId.length() != DEFAULT_POLICY_LENGTH) {
-            message.fail(BAD_REQUEST_400_ERROR.getStatusCode(), BAD_REQUEST_400_ERROR.getMessage());
-            return;
-        }
-
+        handle((String) message.body());
         SqlTemplate
             .forQuery(client, query())
             .execute(singletonMap("policy", format("\\x%s", policyId)))

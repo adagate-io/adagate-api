@@ -26,25 +26,26 @@ abstract class AbstractGetAssets extends AbstractRouteHandler {
     protected final String normalizeAssetId(final RoutingContext context) {
         final String rawAssetId = context.request().getParam("assetId");
 
-        if ( ! rawAssetId.contains(".")) {
-            return new StringBuilder()
-                .append(rawAssetId, 0, ApiConstants.DEFAULT_POLICY_LENGTH)
-                .append(".")
-                .append(rawAssetId.substring(ApiConstants.DEFAULT_POLICY_LENGTH))
-                .toString();
+        if
+            (isNull(rawAssetId)
+                || rawAssetId.trim().isEmpty()
+                || ! rawAssetId.trim().contains(".")
+            )
+        {
+            return rawAssetId;
         }
-        return rawAssetId;
+
+        return new StringBuilder()
+            .append(rawAssetId, 0, ApiConstants.DEFAULT_POLICY_LENGTH)
+            .append(".")
+            .append(rawAssetId.substring(ApiConstants.DEFAULT_POLICY_LENGTH))
+            .toString();
     }
 
     @Override
     public void handle(RoutingContext context) {
         final HttpServerRequest req = context.request();
         assetId = normalizeAssetId(context);
-
-        if (isNull(assetId) || assetId.trim().isEmpty()) {
-            handleError(BAD_REQUEST_400_ERROR, "param.assetId is invalid", context);
-            return;
-        }
 
         try {
             order = getParameter(req.getParam("order"), QueryOrder.class, QueryOrder.ASC).toString();

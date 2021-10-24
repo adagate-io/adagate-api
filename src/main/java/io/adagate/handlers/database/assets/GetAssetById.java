@@ -6,7 +6,6 @@ import io.vertx.core.json.JsonObject;
 import io.vertx.pgclient.PgPool;
 import io.vertx.sqlclient.templates.SqlTemplate;
 
-import static io.adagate.ApiConstants.DEFAULT_POLICY_LENGTH;
 import static io.adagate.exceptions.AdaGateModuleException.BAD_REQUEST_400_ERROR;
 import static io.adagate.utils.ExceptionHandler.handleError;
 import static io.vertx.core.Future.succeededFuture;
@@ -53,13 +52,7 @@ public final class GetAssetById extends AbstractAssetHandler {
             return;
         }
 
-        final String assetId = (String) message.body();
-        if (assetId.length() <= DEFAULT_POLICY_LENGTH) {
-            message.fail(BAD_REQUEST_400_ERROR.getStatusCode(), BAD_REQUEST_400_ERROR.getMessage());
-            return;
-        }
-
-        initialize(assetId);
+        handle((String) message.body());
         SqlTemplate
             .forQuery(client, query())
             .execute(emptyMap())
