@@ -93,6 +93,7 @@ public final class DatabaseWorkerVerticle extends AbstractDatabaseVerticle {
         register(GetBlockTransactions.ADDRESS, new GetBlockTransactions(pool));
         register(GetBlockByNumberOrHash.ADDRESS, new GetBlockByNumberOrHash(pool));
         register(GetBlockByEpochSlotNumber.ADDRESS, new GetBlockByEpochSlotNumber(pool));
+        register(GetAccountsByBlockTransactions.ADDRESS, new GetAccountsByBlockTransactions(pool));
 
         /* Epochs */
         register(GetEpochs.ADDRESS, new GetEpochs(pool));

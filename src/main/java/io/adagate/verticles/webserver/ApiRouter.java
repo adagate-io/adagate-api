@@ -117,6 +117,8 @@ public class ApiRouter extends RouterImpl {
                 .setName("Get previous Block");
         get("/blocks/:id/transactions").handler(new GetBlockTransactions(vertx))
                 .setName("Get Block Transactions");
+        get("/blocks/:id/transactions/accounts").handler(new GetAccountsByBlockTransactions(vertx))
+                .setName("Get Block Transaction Accounts by Block Hash/ Number");
 
         /* Epochs */
         get("/epochs/latest").handler(new GetLatestEpoch(vertx))
