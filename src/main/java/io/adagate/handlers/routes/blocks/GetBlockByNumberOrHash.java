@@ -19,7 +19,7 @@ public final class GetBlockByNumberOrHash extends AbstractRouteHandler {
             .eventBus()
             .request(ADDRESS, id)
             .onSuccess(msg -> addResponseHeaders(OK, context)
-                    .end(buffer(compress(encode(msg.body()), context))))
+                                .end(buffer(compress(encode(msg.body()), context))))
             .onFailure(err -> handleError(err, context));
     }
 }
