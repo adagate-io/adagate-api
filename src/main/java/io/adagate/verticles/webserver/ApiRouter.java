@@ -133,9 +133,9 @@ public class ApiRouter extends RouterImpl {
                 .setName("GET Epoch Stakes");
         get("/epochs/:epochNumber/stakes/:poolId").handler(new GetEpochStakesByPool(vertx))
                 .setName("GET Epoch Stakes for specific Pool");
-        get("/epochs/:epochNumber/blocks").handler(new GetEpochBlocks(vertx));
-// TODO: get("/epochs/:epochNumber/blocks/:poolId").handler();
-// TODO: get("/epochs/:epochNumber/parameters").handler();
+        get("/epochs/:epochNumber/blocks").handler(new GetEpochBlocks(vertx))
+                .setName("GET Epoch Blocks");
+        get("/epochs/:epochNumber/parameters").handler(new GetEpochParametersByEpochNo(vertx));
 
         /* Ledger */
         get("/genesis").handler(new GetGenesis(config.getString("network", "mainnet"), vertx))
