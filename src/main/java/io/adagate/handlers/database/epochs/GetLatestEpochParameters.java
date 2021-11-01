@@ -59,6 +59,6 @@ public final class GetLatestEpochParameters extends AbstractEpochHandler {
             .execute(emptyMap())
             .compose(this::mapToFirstJsonResult)
             .onSuccess(message::reply)
-            .onFailure(err -> handleError(err, message));;
+            .onFailure(err -> handleError(err, message));
     }
 }
