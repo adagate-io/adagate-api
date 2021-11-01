@@ -66,7 +66,6 @@ abstract class AbstractEpochHandler extends AbstractRouteHandler {
             page = max(0, page - 1) * count;
         } catch (AdaGateModuleException e) {
             handleError(BAD_REQUEST_400_ERROR, "querystring.page should be integer", context);
-            return;
         }
     }
 }
