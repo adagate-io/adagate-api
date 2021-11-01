@@ -160,7 +160,7 @@ GET Block Transactions:
 GET latest Epoch:
 ```/epochs/latest```
 
-GET Epoch by id:
+GET Epoch by Epoch Number:
 ```/epochs/:epochNumber```
 
 GET Next Epochs
@@ -177,6 +177,12 @@ GET Epochs Stakes for specific Pool
 
 GET Epochs Blocks
 ```/epochs/:epochNumber/blocks```
+
+GET Epochs Blocks for specific Pool
+```/epochs/:epochNumber/blocks/:poolId```
+
+GET Epochs Parameters by Epoch Number
+```/epochs/:epochNumber/parameters```
 
 ## Genesis
 
