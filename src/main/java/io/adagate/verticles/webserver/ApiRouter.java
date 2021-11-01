@@ -137,7 +137,8 @@ public class ApiRouter extends RouterImpl {
                 .setName("GET Epoch Blocks for specific Pool");
         get("/epochs/:epochNumber/blocks").handler(new GetEpochBlocks(vertx))
                 .setName("GET Epoch Blocks");
-        get("/epochs/:epochNumber/parameters").handler(new GetEpochParametersByEpochNo(vertx));
+        get("/epochs/:epochNumber/parameters").handler(new GetEpochParametersByEpochNo(vertx))
+                .setName("GET Epoch Parameters by Epoch Number");
 
         /* Ledger */
         get("/genesis").handler(new GetGenesis(config.getString("network", "mainnet"), vertx))
