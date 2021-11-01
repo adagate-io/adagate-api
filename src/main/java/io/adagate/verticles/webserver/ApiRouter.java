@@ -13,7 +13,7 @@ import io.adagate.handlers.routes.epochs.*;
 import io.adagate.handlers.routes.genesis.GetGenesis;
 import io.adagate.handlers.routes.pools.GetPoolByIdOrHash;
 import io.adagate.handlers.routes.pools.GetPoolMetadata;
-import io.adagate.verticles.database.DatabaseEventbusAddress;
+import io.adagate.websockets.DatabaseEventbusAddress;
 import io.vertx.core.Vertx;
 import io.vertx.core.impl.logging.Logger;
 import io.vertx.core.impl.logging.LoggerFactory;
@@ -24,6 +24,8 @@ import io.vertx.ext.web.handler.LoggerHandler;
 import io.vertx.ext.web.handler.sockjs.SockJSBridgeOptions;
 import io.vertx.ext.web.handler.sockjs.SockJSHandler;
 import io.vertx.ext.web.impl.RouterImpl;
+
+import static java.lang.String.format;
 
 public class ApiRouter extends RouterImpl {
     final static Logger LOGGER = LoggerFactory.getLogger(AdaGateModule.class);
@@ -191,8 +193,7 @@ public class ApiRouter extends RouterImpl {
         final SockJSBridgeOptions options = new SockJSBridgeOptions();
         for(DatabaseEventbusAddress address : DatabaseEventbusAddress.values()) {
             options.addOutboundPermitted(
-                new PermittedOptions()
-                    .setAddressRegex(String.format("^%s$", address.getAddress()))
+                new PermittedOptions().setAddressRegex(format("^%s$", address.getAddress()))
             );
         }
         mountSubRouter("/eventbus", SockJSHandler.create(vertx).bridge(options));
