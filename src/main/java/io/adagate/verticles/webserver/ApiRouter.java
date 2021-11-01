@@ -13,7 +13,6 @@ import io.adagate.handlers.routes.epochs.*;
 import io.adagate.handlers.routes.genesis.GetGenesis;
 import io.adagate.handlers.routes.pools.GetPoolByIdOrHash;
 import io.adagate.handlers.routes.pools.GetPoolMetadata;
-import io.adagate.websockets.DatabaseEventbusAddress;
 import io.vertx.core.Vertx;
 import io.vertx.core.impl.logging.Logger;
 import io.vertx.core.impl.logging.LoggerFactory;
