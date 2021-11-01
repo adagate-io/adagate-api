@@ -145,15 +145,15 @@ public final class GetBlockTransactionsTests extends AbstractApiTest {
                         responseHeader(CONTENT_ENCODING.toString(), GZIP),
                         assertArrayLengthEquals(8),
                         assertEquals(
-                                new JsonArray()
-                                        .add("1ea6417ad1998c6ab545eb2c753f3849d62e25b01e5ca464a2b835b07a55afe8")
-                                        .add("4740777534c37ae6668fa7ce02b73bbd17fd94f3f4816b81f522d3d1d3c64cbe")
-                                        .add("8f5274063f974744de23425bbb1f7ed0241cc86025a27570b36d287f46e85c3f")
-                                        .add("18051f966d3b872bc3beda1d224219064d524234e95e89ed1cfc406f4da763f5")
-                                        .add("06e523762dca1097b2d818fd5ba8542decc3a3b0b32496f282d3e1ae9ab69815")
-                                        .add("47cd4ad65f1fc50cffdd8e3a8f1da574e1ae63f904198e5c1f259dddc7660d97")
-                                        .add("b2ed3cec2da2f7e83f39bf8deb746535d735c5e3b9a9df161fc89ef124b2068d")
-                                        .add("b82da687100f026741bc827eda4da7f93c3be9717bb9f17530bc001a3c885a53")
+                            new JsonArray()
+                                .add("1ea6417ad1998c6ab545eb2c753f3849d62e25b01e5ca464a2b835b07a55afe8")
+                                .add("4740777534c37ae6668fa7ce02b73bbd17fd94f3f4816b81f522d3d1d3c64cbe")
+                                .add("8f5274063f974744de23425bbb1f7ed0241cc86025a27570b36d287f46e85c3f")
+                                .add("18051f966d3b872bc3beda1d224219064d524234e95e89ed1cfc406f4da763f5")
+                                .add("06e523762dca1097b2d818fd5ba8542decc3a3b0b32496f282d3e1ae9ab69815")
+                                .add("47cd4ad65f1fc50cffdd8e3a8f1da574e1ae63f904198e5c1f259dddc7660d97")
+                                .add("b2ed3cec2da2f7e83f39bf8deb746535d735c5e3b9a9df161fc89ef124b2068d")
+                                .add("b82da687100f026741bc827eda4da7f93c3be9717bb9f17530bc001a3c885a53")
                         )
                 )
                 .send(context);
