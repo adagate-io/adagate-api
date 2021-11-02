@@ -155,6 +155,9 @@ GET previous Block:
 GET Block Transactions:
 ```/blocks/:id/transactions```
 
+GET Block Transaction Accounts by Block Hash/ Number:
+```/blocks/:id/transactions/accounts```
+
 ## Epochs
 
 GET latest Epoch:
