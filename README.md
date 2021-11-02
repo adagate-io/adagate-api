@@ -206,6 +206,9 @@ GET List of Pool Ids:
 GET List of retiring Pools:
 ```/pools/retiring```
 
+GET List of retired Pools:
+```/pools/retired```
+
 # Donate
 
 If you like to support the idea with a donation, the address is:

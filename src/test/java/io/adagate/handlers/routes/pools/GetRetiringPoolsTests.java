@@ -20,7 +20,7 @@ public final class GetRetiringPoolsTests extends AbstractApiTest {
 
     @Test
     @DisplayName("GET /pools/retiring")
-    void testGetPoolByPoolId(Vertx vertx, VertxTestContext context, WebClient client) {
+    void testGetRetiringPools(Vertx vertx, VertxTestContext context, WebClient client) {
         testRequest(client, HttpMethod.GET, "/pools/retiring")
             .expect(
                 statusCode(OK.code()),

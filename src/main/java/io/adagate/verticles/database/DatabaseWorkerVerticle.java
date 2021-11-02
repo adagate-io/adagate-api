@@ -8,10 +8,7 @@ import io.adagate.handlers.database.addresses.GetAddressUTXOs;
 import io.adagate.handlers.database.assets.*;
 import io.adagate.handlers.database.blocks.*;
 import io.adagate.handlers.database.epochs.*;
-import io.adagate.handlers.database.pools.GetPoolByIdOrHash;
-import io.adagate.handlers.database.pools.GetPoolMetadata;
-import io.adagate.handlers.database.pools.GetPools;
-import io.adagate.handlers.database.pools.GetRetiringPools;
+import io.adagate.handlers.database.pools.*;
 import io.vertx.core.CompositeFuture;
 import io.vertx.core.Future;
 import io.vertx.core.Handler;
@@ -113,6 +110,7 @@ public final class DatabaseWorkerVerticle extends AbstractDatabaseVerticle {
         register(GetPoolByIdOrHash.ADDRESS, new GetPoolByIdOrHash(pool));
         register(GetPools.ADDRESS, new GetPools(pool));
         register(GetRetiringPools.ADDRESS, new GetRetiringPools(pool));
+        register(GetRetiredPools.ADDRESS, new GetRetiredPools(pool));
 
         return succeededFuture();
     }

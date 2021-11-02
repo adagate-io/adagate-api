@@ -24,7 +24,7 @@ public final class GetPoolsTests extends AbstractApiTest {
 
     @Test
     @DisplayName("GET /pools")
-    void testGetPoolByPoolId(Vertx vertx, VertxTestContext context, WebClient client) {
+    void testGetPools(Vertx vertx, VertxTestContext context, WebClient client) {
         testRequest(client, HttpMethod.GET, "/pools")
             .expect(
                 statusCode(OK.code()),
@@ -41,7 +41,7 @@ public final class GetPoolsTests extends AbstractApiTest {
 
     @Test
     @DisplayName("GET /pools?count=3&order=desc&page=2")
-    void testGetPoolByPoolIdParameterized_01(Vertx vertx, VertxTestContext context, WebClient client) {
+    void testGetPoolsParameterized_01(Vertx vertx, VertxTestContext context, WebClient client) {
         testRequest(client, HttpMethod.GET, "/pools")
             .with(
                 queryParam("order", "desc"),
@@ -68,7 +68,7 @@ public final class GetPoolsTests extends AbstractApiTest {
 
     @Test
     @DisplayName("GET /pools?count=-3")
-    void testGetPoolByPoolIdParameterized_02(Vertx vertx, VertxTestContext context, WebClient client) {
+    void testGetPoolsParameterized_02(Vertx vertx, VertxTestContext context, WebClient client) {
         testRequest(client, HttpMethod.GET, "/pools")
             .with(
                 queryParam("count", "-3")
@@ -86,7 +86,7 @@ public final class GetPoolsTests extends AbstractApiTest {
 
     @Test
     @DisplayName("GET /pools?count=abc")
-    void testGetPoolByPoolIdParameterized_03(Vertx vertx, VertxTestContext context, WebClient client) {
+    void testGetPoolsParameterized_03(Vertx vertx, VertxTestContext context, WebClient client) {
         testRequest(client, HttpMethod.GET, "/pools")
             .with(
                 queryParam("count", "abc")
@@ -104,7 +104,7 @@ public final class GetPoolsTests extends AbstractApiTest {
 
     @Test
     @DisplayName("GET /pools?page=abc")
-    void testGetPoolByPoolIdParameterized_04(Vertx vertx, VertxTestContext context, WebClient client) {
+    void testGetPoolsParameterized_04(Vertx vertx, VertxTestContext context, WebClient client) {
         testRequest(client, HttpMethod.GET, "/pools")
             .with(
                 queryParam("page", "abc")
@@ -122,7 +122,7 @@ public final class GetPoolsTests extends AbstractApiTest {
 
     @Test
     @DisplayName("GET /pools?page=-1")
-    void testGetPoolByPoolIdParameterized_05(Vertx vertx, VertxTestContext context, WebClient client) {
+    void testGetPoolsParameterized_05(Vertx vertx, VertxTestContext context, WebClient client) {
         testRequest(client, HttpMethod.GET, "/pools")
             .with(
                 queryParam("page", "-1")
