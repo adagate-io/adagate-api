@@ -4,7 +4,10 @@ import io.adagate.handlers.database.AbstractDatabaseHandler;
 import io.vertx.core.eventbus.Message;
 import io.vertx.core.impl.logging.Logger;
 import io.vertx.core.impl.logging.LoggerFactory;
+import io.vertx.core.json.JsonObject;
 import io.vertx.pgclient.PgPool;
+
+import static io.adagate.ApiConstants.*;
 
 abstract class AbstractPoolsHandler extends AbstractDatabaseHandler<Message<Object>> {
     protected final static Logger LOGGER = LoggerFactory.getLogger(AbstractPoolsHandler.class);
@@ -14,6 +17,10 @@ abstract class AbstractPoolsHandler extends AbstractDatabaseHandler<Message<Obje
 
     protected String id;
     protected String column;
+
+    protected int count = MAX_QUERY_LIMIT;
+    protected int page = DEFAULT_QUERY_OFFSET;
+    protected String order = DEFAULT_QUERY_ORDER;
 
     AbstractPoolsHandler(PgPool client) {
         super(client);
@@ -26,5 +33,13 @@ abstract class AbstractPoolsHandler extends AbstractDatabaseHandler<Message<Obje
         } else {
             column = POOL_HASH_COLUMN;
         }
+    }
+
+    @Override
+    public void handle(Message<Object> message) {
+        final JsonObject parameters = (JsonObject) message.body();
+        count = parameters.getInteger("count", count);
+        page = parameters.getInteger("page", page);
+        order = parameters.getString("order").toUpperCase();
     }
 }

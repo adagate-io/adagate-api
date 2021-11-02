@@ -13,6 +13,7 @@ import io.adagate.handlers.routes.epochs.*;
 import io.adagate.handlers.routes.genesis.GetGenesis;
 import io.adagate.handlers.routes.pools.GetPoolByIdOrHash;
 import io.adagate.handlers.routes.pools.GetPoolMetadata;
+import io.adagate.handlers.routes.pools.GetPools;
 import io.vertx.core.Vertx;
 import io.vertx.core.impl.logging.Logger;
 import io.vertx.core.impl.logging.LoggerFactory;
@@ -153,7 +154,8 @@ public class ApiRouter extends RouterImpl {
 // TODO: get("/network").handler();
 
         /* Pools */
-// TODO: get("/pools").handler();
+        get("/pools").handler(new GetPools(vertx))
+                .setName("GET List of Pool Ids");
 // TODO: get("/pools/retired").handler();
 // TODO: get("/pools/retiring").handler();
         get("/pools/:poolId").handler(new GetPoolByIdOrHash(vertx))
