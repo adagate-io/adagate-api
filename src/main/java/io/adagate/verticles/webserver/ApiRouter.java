@@ -14,6 +14,7 @@ import io.adagate.handlers.routes.genesis.GetGenesis;
 import io.adagate.handlers.routes.pools.GetPoolByIdOrHash;
 import io.adagate.handlers.routes.pools.GetPoolMetadata;
 import io.adagate.handlers.routes.pools.GetPools;
+import io.adagate.handlers.routes.pools.GetRetiringPools;
 import io.vertx.core.Vertx;
 import io.vertx.core.impl.logging.Logger;
 import io.vertx.core.impl.logging.LoggerFactory;
@@ -157,7 +158,8 @@ public class ApiRouter extends RouterImpl {
         get("/pools").handler(new GetPools(vertx))
             .setName("GET List of Pool Ids");
 // TODO: get("/pools/retired").handler();
-// TODO: get("/pools/retiring").handler();
+        get("/pools/retiring").handler(new GetRetiringPools(vertx))
+            .setName("GET List of retiring Pools");
         get("/pools/:poolId").handler(new GetPoolByIdOrHash(vertx))
             .setName("GET Pool by id"); // TODO: Periodically update total_live_stake
 // TODO: get("/pools/:poolId/history").handler();

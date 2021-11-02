@@ -203,6 +203,9 @@ GET Pool Metadata:
 GET List of Pool Ids:
 ```/pools```
 
+GET List of retiring Pools:
+```/pools/retiring```
+
 # Donate
 
 If you like to support the idea with a donation, the address is:
