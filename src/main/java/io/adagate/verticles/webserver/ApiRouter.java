@@ -61,92 +61,92 @@ public class ApiRouter extends RouterImpl {
 
         /* Accounts */
         get("/accounts/:stakeAddress").handler(new GetAccountByStakeAddress(vertx))
-                .setName("GET Account by Stake Address");
+            .setName("GET Account by Stake Address");
         get("/accounts/:stakeAddress/rewards").handler(new GetAccountRewards(vertx))
-                .setName("GET Account Rewards");
+            .setName("GET Account Rewards");
         get("/accounts/:stakeAddress/history").handler(new GetAccountHistory(vertx))
-                .setName("GET Account History");
+            .setName("GET Account History");
         get("/accounts/:stakeAddress/delegations").handler(new GetAccountDelegations(vertx))
-                .setName("GET Account Delegations"); // TODO: Add amount column
+            .setName("GET Account Delegations"); // TODO: Add amount column
         get("/accounts/:stakeAddress/withdrawals").handler(new GetAccountWithdrawals(vertx))
-                .setName("GET Account Withdrawals");
+            .setName("GET Account Withdrawals");
 // TODO: get("/accounts/:stakeAddress/mirs").handler();
         get("/accounts/:stakeAddress/addresses").handler(new GetAccountAddresses(vertx))
-                .setName("GET Account Addresses");
+            .setName("GET Account Addresses");
         get("/accounts/:stakeAddress/addresses/assets").handler(new GetAccountAssets(vertx))
-                .setName("GET Assets by Account Addresses");
+            .setName("GET Assets by Account Addresses");
 
         /* Addresses */
         get("/addresses/:address").handler(new GetAddress(vertx))
-                .setName("GET Address Information");
+            .setName("GET Address Information");
         get("/addresses/:address/total").handler(new GetAddressTotal(vertx))
-                .setName("GET Address Total");
+            .setName("GET Address Total");
         get("/addresses/:address/utxos").handler(new GetAddressUTXOs(vertx))
-                .setName("GET Address UTxOs");
+            .setName("GET Address UTxOs");
         get("/addresses/:address/transactions").handler(new GetAddressTransactions(vertx))
-                .setName("GET Address Transactions");
+            .setName("GET Address Transactions");
 
         /* Assets */
         get("/assets").handler(new GetAssets(vertx))
-                .setName("GET Asset Information");
+            .setName("GET Asset Information");
         get("/assets/:assetId").handler(new GetAssetById(vertx))
-                .setName("GET Specific Asset by id");
+            .setName("GET Specific Asset by id");
         get("/assets/:assetId/history").handler(new GetAssetHistory(vertx))
-                .setName("GET Specific Asset History by id");
+            .setName("GET Specific Asset History by id");
         get("/assets/:assetId/transactions").handler(new GetAssetTransactions(vertx))
-                .setName("GET Specific Asset Transactions by id");
+            .setName("GET Specific Asset Transactions by id");
         get("/assets/:assetId/addresses").handler(new GetAssetAddresses(vertx))
-                .setName("GET Specific Asset Addresses by id");
+            .setName("GET Specific Asset Addresses by id");
         get("/assets/policy/:policyId").handler(new GetAssetByPolicyId(vertx))
-                .setName("GET Specific Asset by policyId");
+            .setName("GET Specific Asset by policyId");
 
         /* Blocks */
         get("/blocks/latest").handler(new GetLatestBlock(vertx))
-                .setName("GET latest Block");
+            .setName("GET latest Block");
         get("/blocks/latest/transactions")
             .handler(new GetLatestBlockTransactions(vertx))
             .handler(new GetBlockTransactions(vertx))
             .setName("GET latest Block's Transactions");
         get("/blocks/:id").handler(new GetBlockByNumberOrHash(vertx))
-                .setName("GET Block by id");
+            .setName("GET Block by id");
         get("/blocks/slot/:slotNumber").handler(new GetBlockBySlotNumber(vertx))
-                .setName("GET Block by Slot Number");
+            .setName("GET Block by Slot Number");
         get("/blocks/epoch/:epochNumber/slot/:slotNumber").handler(new GetBlockByEpochSlotNumber(vertx))
-                .setName("GET Block by Epoch and Epoch Slot Number");
+            .setName("GET Block by Epoch and Epoch Slot Number");
         get("/blocks/:id/next").handler(new GetNextBlock(vertx))
-                .setName("GET next Block");
+            .setName("GET next Block");
         get("/blocks/:id/previous").handler(new GetPreviousBlock(vertx))
-                .setName("Get previous Block");
+            .setName("GET previous Block");
         get("/blocks/:id/transactions").handler(new GetBlockTransactions(vertx))
-                .setName("Get Block Transactions");
+            .setName("GET Block Transactions");
         get("/blocks/:id/transactions/accounts").handler(new GetAccountsByBlockTransactions(vertx))
-                .setName("Get Block Transaction Accounts by Block Hash/ Number");
+            .setName("GET Block Transaction Accounts by Block Hash/ Number");
 
         /* Epochs */
         get("/epochs/latest").handler(new GetLatestEpoch(vertx))
-                .setName("GET Latest Epoch");
+            .setName("GET Latest Epoch");
         get("/epochs/latest/parameters").handler(new GetLatestEpochParameters(vertx))
-                .setName("GET Latest Epoch Parameters");
+            .setName("GET Latest Epoch Parameters");
         get("/epochs/:epochNumber").handler(new GetEpochById(vertx))
-                .setName("GET Epoch by id");
+            .setName("GET Epoch by id");
         get("/epochs/:epochNumber/next").handler(new GetNextEpochs(vertx))
-                .setName("GET Next Epochs");
+            .setName("GET Next Epochs");
         get("/epochs/:epochNumber/previous").handler(new GetPreviousEpochs(vertx))
-                .setName("GET Previous Epochs");
+            .setName("GET Previous Epochs");
         get("/epochs/:epochNumber/stakes").handler(new GetEpochStakes(vertx))
-                .setName("GET Epoch Stakes");
+            .setName("GET Epoch Stakes");
         get("/epochs/:epochNumber/stakes/:poolId").handler(new GetEpochStakesByPool(vertx))
-                .setName("GET Epoch Stakes for specific Pool");
+            .setName("GET Epoch Stakes for specific Pool");
         get("/epochs/:epochNumber/blocks/:poolId").handler(new GetEpochBlocksByPool(vertx))
-                .setName("GET Epoch Blocks for specific Pool");
+            .setName("GET Epoch Blocks for specific Pool");
         get("/epochs/:epochNumber/blocks").handler(new GetEpochBlocks(vertx))
-                .setName("GET Epoch Blocks");
+            .setName("GET Epoch Blocks");
         get("/epochs/:epochNumber/parameters").handler(new GetEpochParametersByEpochNo(vertx))
-                .setName("GET Epoch Parameters by Epoch Number");
+            .setName("GET Epoch Parameters by Epoch Number");
 
         /* Ledger */
         get("/genesis").handler(new GetGenesis(config.getString("network", "mainnet"), vertx))
-                .setName("GET Genesis of network");
+            .setName("GET Genesis of network");
 // TODO: get("/metadata/transactions/labels").handler();
 // TODO: get("/metadata/transactions/labels/:label").handler();
 
@@ -155,7 +155,7 @@ public class ApiRouter extends RouterImpl {
 
         /* Pools */
         get("/pools").handler(new GetPools(vertx))
-                .setName("GET List of Pool Ids");
+            .setName("GET List of Pool Ids");
 // TODO: get("/pools/retired").handler();
 // TODO: get("/pools/retiring").handler();
         get("/pools/:poolId").handler(new GetPoolByIdOrHash(vertx))
