@@ -43,7 +43,7 @@ public final class GetAddressTests extends AbstractApiTest {
                         .add(
                             new JsonObject()
                                 .put("unit", "lovelace")
-                                .put("quantity", "120872705863")
+                                .put("quantity", "120874205863")
                         )
                         .add(
                             new JsonObject()
@@ -54,6 +54,11 @@ public final class GetAddressTests extends AbstractApiTest {
                             new JsonObject()
                                 .put("unit", "b8279b989ae1d36a815bdcc53baa1e9153d8475b9870161ded21bfd8.425054")
                                 .put("quantity", "2")
+                        )
+                        .add(
+                            new JsonObject()
+                                .put("unit", "a9996462a84e34fec50db0407e48b8e5df78533314a705b850020012.306750696e75707331343339")
+                                .put("quantity", "1")
                         )
                         .add(
                             new JsonObject()

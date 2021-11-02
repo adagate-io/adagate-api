@@ -36,7 +36,7 @@ public final class GetAddressUTXOsTests extends AbstractApiTest {
             statusMessage(OK.reasonPhrase()),
             responseHeader(CONTENT_TYPE.toString(), APPLICATION_JSON.toString()),
             responseHeader(CONTENT_ENCODING.toString(), GZIP),
-            assertArrayLengthEquals(4),
+            assertArrayLengthEquals(5),
             expectFirstJsonObjectArrayElement(
                 assertFieldEquals("tx_hash", "020cc614de2b5c6dc6a7708ed72bed824171424f138971a982786d7f3b86406d"),
                 assertFieldEquals("tx_index", 1),

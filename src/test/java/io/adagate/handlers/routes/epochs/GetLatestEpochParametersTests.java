@@ -65,7 +65,7 @@ public final class GetLatestEpochParametersTests extends AbstractApiTest {
                         assertFieldEquals("protocol_minor_ver", 0),
                         assertFieldEquals("min_utxo", "0"),
                         assertFieldEquals("min_pool_cost", "340000000"),
-                        assertFieldEquals("nonce", "cb4cf3c0c67676b6c2a6b5929ca141f4e19950fc56f66289e343cfd06b535c7e"),
+                        assertFieldEquals("nonce", "6f014e3a3dbc5087f3381da9b5f0f539a2ab6e9437cde95e1478d7139413456b"),
                         assertFieldEquals("price_mem", 1.0),
                         assertFieldEquals("price_step", 1.0),
                         assertFieldEquals("max_tx_ex_mem", "1"),
