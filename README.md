@@ -197,6 +197,9 @@ GET Pool by id:
 GET Pool Metadata:
 ```/pools/:poolId/metadata```
 
+GET List of Pool Ids:
+```/pools```
+
 # Donate
 
 If you like to support the idea with a donation, the address is:
