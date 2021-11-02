@@ -15,6 +15,12 @@ public class GetPoolByIdOrHash extends AbstractPoolsHandler {
     private static final String QUERY = new StringBuilder()
             .append("WITH ")
                 .append("latest_epoch AS (SELECT MAX(epoch_no) AS e_max FROM epoch_stake), ")
+                .append("max_pool_epoch AS ( ")
+                    .append("SELECT MAX(epoch_no) AS e_max FROM epoch_stake ")
+                    .append("JOIN pool_hash ph ")
+                        .append("ON ph.id = pool_id ")
+                    .append("WHERE ph.%s = '%s' ")
+                .append("), ")
                 .append("latest_pool_update AS (")
                     .append("SELECT ")
                         .append("ph.id AS pool_id, ")
@@ -33,7 +39,7 @@ public class GetPoolByIdOrHash extends AbstractPoolsHandler {
                         .append("sa.view AS stake_address, ")
                         .append("es.amount ")
                     .append("FROM epoch_stake es ")
-                    .append("JOIN latest_epoch le ")
+                    .append("JOIN max_pool_epoch le ")
                         .append("ON es.epoch_no = le.e_max ")
                     .append("JOIN latest_pool_update lpu ")
                         .append("ON es.pool_id = lpu.pool_id ")
@@ -190,9 +196,10 @@ public class GetPoolByIdOrHash extends AbstractPoolsHandler {
     @Override
     protected String query() {
         if (column.equals(POOL_VIEW_COLUMN)) {
-            return format(QUERY, column, id, column, id);
+            return format(QUERY, column, id, column, id, column, id);
         }
-        return format(QUERY, column, format("\\x%s", id), column, format("\\x%s", id));
+        final String id = format("\\x%s", this.id);
+        return format(QUERY, column, id, column, id, column, id);
     }
 
     @Override
