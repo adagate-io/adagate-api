@@ -5,7 +5,7 @@ import io.adagate.database.subscribers.BlockInsertSubscriber;
 import io.adagate.database.subscribers.Subscriber;
 import io.adagate.database.triggers.AssetInsertedTrigger;
 import io.adagate.database.triggers.BlockInsertedTrigger;
-import io.adagate.exceptions.CardanoApiModuleException;
+import io.adagate.exceptions.AdaGateModuleException;
 import io.vertx.core.Future;
 import io.vertx.core.Promise;
 import io.vertx.core.impl.logging.Logger;
@@ -13,7 +13,6 @@ import io.vertx.core.impl.logging.LoggerFactory;
 import io.vertx.pgclient.pubsub.PgSubscriber;
 import io.vertx.sqlclient.SqlConnection;
 
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -49,7 +48,7 @@ public class DatabaseSubscriberVerticle extends AbstractDatabaseVerticle {
                         startPromise.fail((Throwable) error);
                     } else {
                         LOGGER.error("Unknown Error - failed setting up trigger/ subscribers: " + error.toString());
-                        startPromise.fail(CardanoApiModuleException.INTERNAL_SERVER_500_ERROR);
+                        startPromise.fail(AdaGateModuleException.INTERNAL_SERVER_500_ERROR);
                     }
                 });
         } catch (Exception e) {
