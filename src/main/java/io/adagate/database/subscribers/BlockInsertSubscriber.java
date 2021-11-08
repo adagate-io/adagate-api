@@ -36,7 +36,7 @@ public final class BlockInsertSubscriber extends AbstractSubscriber {
     public void handle(String message) {
         JsonObject jsonMessage = new JsonObject(message);
 
-        final Integer blockNumber = jsonMessage.getInteger("id");
+        final Integer blockNumber = jsonMessage.getInteger("block_no");
         vertx
             .eventBus()
             .request(GetBlockByNumberOrHash.ADDRESS, blockNumber)
@@ -59,16 +59,18 @@ public final class BlockInsertSubscriber extends AbstractSubscriber {
         final EventBus evBus = vertx.eventBus();
         final String stakeAddress = object.getString("stake_address");
         if ( ! isNull(stakeAddress)) {
-            final String address = format("%s.%s", ACCOUNT_UPDATE.getAddress(), stakeAddress.toLowerCase());
-            evBus.publish(address, object);
-            LOGGER.info(format("Published %s - %s", address, object.encode()));
+            evBus.publish(
+                format("%s.%s", ACCOUNT_UPDATE.getAddress(), stakeAddress.toLowerCase()),
+                object
+            );
         }
 
         final String utxoAddress = object.getString("address");
         if ( ! isNull(utxoAddress)) {
-            final String address = format("%s.%s", ADDRESS_UPDATE.getAddress(), utxoAddress.toLowerCase());
-            evBus.publish(address, object);
-            LOGGER.info(format("Published %s - %s", address, object.encode()));
+            evBus.publish(
+                format("%s.%s", ADDRESS_UPDATE.getAddress(), utxoAddress.toLowerCase()),
+                object
+            );
         }
     }
 }

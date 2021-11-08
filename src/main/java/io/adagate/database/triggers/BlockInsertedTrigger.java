@@ -32,4 +32,9 @@ public final class BlockInsertedTrigger extends AbstractTrigger {
     String getTableName() {
         return TABLE_INSERT;
     }
+
+    @Override
+    protected String mapTriggerPayload() {
+        return "json_build_object('block_no', NEW.block_no)::text";
+    }
 }
