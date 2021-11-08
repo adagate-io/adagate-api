@@ -159,7 +159,7 @@ public class ApiRouter extends RouterImpl {
         get("/pools/retiring").handler(new GetRetiringPools(vertx))
             .setName("GET List of retiring Pools");
         get("/pools/:poolId").handler(new GetPoolByIdOrHash(vertx))
-            .setName("GET Pool by id"); // TODO: Periodically update total_live_stake
+            .setName("GET Pool by id");
 // TODO: get("/pools/:poolId/history").handler();
         get("/pools/:poolId/metadata").handler(new GetPoolMetadata(vertx))
             .setName("GET Pool Metadata");
